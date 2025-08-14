@@ -17,6 +17,9 @@ import UseCases from "./pages/UseCases";
 import Finance from "./pages/use-cases/Finance";
 import HealthcareUseCase from "./pages/use-cases/HealthcareUseCase";
 import Retail from "./pages/use-cases/Retail";
+import SLED from "./pages/use-cases/SLED";
+import Accounting from "./pages/use-cases/Accounting";
+import Enterprise from "./pages/use-cases/Enterprise";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +41,9 @@ const App = () => (
             <Route path="/use-cases/finance" element={<Finance />} />
             <Route path="/use-cases/healthcare" element={<HealthcareUseCase />} />
             <Route path="/use-cases/retail" element={<Retail />} />
+            <Route path="/use-cases/sled" element={<SLED />} />
+            <Route path="/use-cases/accounting" element={<Accounting />} />
+            <Route path="/use-cases/enterprise" element={<Enterprise />} />
             <Route path="/products/surroundai" element={<SurroundAI />} />
             <Route path="/products/data-coffee" element={<DataCoffee />} />
             <Route path="/products/seismic" element={<Seismic />} />
