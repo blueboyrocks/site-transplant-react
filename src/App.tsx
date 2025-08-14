@@ -20,6 +20,11 @@ import Retail from "./pages/use-cases/Retail";
 import SLED from "./pages/use-cases/SLED";
 import Accounting from "./pages/use-cases/Accounting";
 import Enterprise from "./pages/use-cases/Enterprise";
+import SmallMediumBusiness from "./pages/use-cases/SmallMediumBusiness";
+import CustomerSuccess from "./pages/CustomerSuccess";
+import HealthcareSalesTransformation from "./pages/customer-success/HealthcareSalesTransformation";
+import GovernmentDataModernization from "./pages/customer-success/GovernmentDataModernization";
+import MedicalDocumentationRevolution from "./pages/customer-success/MedicalDocumentationRevolution";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -44,6 +49,11 @@ const App = () => (
             <Route path="/use-cases/sled" element={<SLED />} />
             <Route path="/use-cases/accounting" element={<Accounting />} />
             <Route path="/use-cases/enterprise" element={<Enterprise />} />
+            <Route path="/use-cases/small-medium-business" element={<SmallMediumBusiness />} />
+            <Route path="/customer-success" element={<CustomerSuccess />} />
+            <Route path="/customer-success/healthcare-sales-transformation" element={<HealthcareSalesTransformation />} />
+            <Route path="/customer-success/government-data-modernization" element={<GovernmentDataModernization />} />
+            <Route path="/customer-success/medical-documentation-revolution" element={<MedicalDocumentationRevolution />} />
             <Route path="/products/surroundai" element={<SurroundAI />} />
             <Route path="/products/data-coffee" element={<DataCoffee />} />
             <Route path="/products/seismic" element={<Seismic />} />
