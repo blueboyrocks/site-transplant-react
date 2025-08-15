@@ -46,7 +46,7 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({
           {Array.from({ length: 50 }).map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-1 h-1 bg-primary rounded-full opacity-30"
+              className="absolute w-1 h-1 bg-primary rounded-full opacity-30 pointer-events-none"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
@@ -75,7 +75,7 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({
             return (
               <motion.div
                 key={i}
-                className="absolute border border-primary/10"
+                className="absolute border border-primary/10 pointer-events-none"
                 style={{
                   width: size,
                   height: size,

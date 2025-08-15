@@ -53,7 +53,7 @@ const FloatingElements: React.FC<FloatingElementsProps> = ({
           <motion.div
             key={index}
             className={cn(
-              "absolute opacity-20",
+              "absolute opacity-20 pointer-events-none",
               getShape(index)
             )}
             style={{
