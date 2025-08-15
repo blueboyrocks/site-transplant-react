@@ -44,34 +44,40 @@ const FloatingElements: React.FC<FloatingElementsProps> = ({
 
   return (
     <div className={cn("absolute inset-0 overflow-hidden pointer-events-none", className)}>
-      {elements.map((index) => (
-        <motion.div
-          key={index}
-          className={cn(
-            "absolute opacity-20",
-            getShape(index)
-          )}
-          style={{
-            width: Math.random() * 100 + 20,
-            height: Math.random() * 100 + 20,
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            background: `linear-gradient(135deg, ${colors[0]}, ${colors[1]})`,
-          }}
-          animate={{
-            y: [0, -30, 0],
-            x: [0, Math.random() * 20 - 10, 0],
-            rotate: [0, 360],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: Math.random() * 10 + 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: Math.random() * 5,
-          }}
-        />
-      ))}
+      {elements.map((index) => {
+        const size = Math.random() * 60 + 30;
+        const startX = Math.random() * 80 + 10; // Keep within 10-90% to avoid edges
+        const startY = Math.random() * 80 + 10; // Keep within 10-90% to avoid edges
+        
+        return (
+          <motion.div
+            key={index}
+            className={cn(
+              "absolute opacity-20",
+              getShape(index)
+            )}
+            style={{
+              width: size,
+              height: size,
+              left: `${startX}%`,
+              top: `${startY}%`,
+              background: `linear-gradient(135deg, ${colors[0]}, ${colors[1]})`,
+            }}
+            animate={{
+              y: [-10, 10, -10],
+              x: [-5, 5, -5],
+              rotate: [0, 180, 360],
+              scale: [0.8, 1, 0.8],
+            }}
+            transition={{
+              duration: Math.random() * 8 + 12,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: index * 0.2,
+            }}
+          />
+        );
+      })}
     </div>
   )
 }

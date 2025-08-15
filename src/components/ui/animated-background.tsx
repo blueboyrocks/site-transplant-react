@@ -67,28 +67,36 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({
 
       {variant === 'geometric' && (
         <div className="absolute inset-0">
-          {Array.from({ length: 20 }).map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute border border-primary/20"
-              style={{
-                width: Math.random() * 200 + 50,
-                height: Math.random() * 200 + 50,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                borderRadius: Math.random() > 0.5 ? '50%' : '8px',
-              }}
-              animate={{
-                rotate: [0, 360],
-                scale: [1, 1.2, 1],
-              }}
-              transition={{
-                duration: Math.random() * 20 + 10,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-            />
-          ))}
+          {Array.from({ length: 15 }).map((_, i) => {
+            const size = Math.random() * 120 + 60;
+            const startX = Math.random() * 80 + 10; // Keep within bounds
+            const startY = Math.random() * 80 + 10; // Keep within bounds
+            
+            return (
+              <motion.div
+                key={i}
+                className="absolute border border-primary/10"
+                style={{
+                  width: size,
+                  height: size,
+                  left: `${startX}%`,
+                  top: `${startY}%`,
+                  borderRadius: Math.random() > 0.5 ? '50%' : '12px',
+                }}
+                animate={{
+                  rotate: [0, 360],
+                  scale: [0.8, 1.1, 0.8],
+                  opacity: [0.1, 0.3, 0.1],
+                }}
+                transition={{
+                  duration: Math.random() * 15 + 20,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.5,
+                }}
+              />
+            );
+          })}
         </div>
       )}
 
