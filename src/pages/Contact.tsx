@@ -26,12 +26,37 @@ const Contact = () => {
 
   const onSubmit = async (data: ContactForm) => {
     setIsSubmitting(true)
+    
+    // Prepare webhook payload
+    const webhookPayload = {
+      ...data,
+      timestamp: new Date().toISOString(),
+      source: 'Contact Form',
+      url: window.location.href,
+      userAgent: navigator.userAgent,
+      honeypot: '' // Anti-spam field
+    }
+    
+    console.log('Sending webhook payload:', webhookPayload)
+    
     try {
-      // Simulate form submission
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      // Send to webhook
+      const response = await fetch(CONTACT_INFO.webhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        mode: 'no-cors', // Handle CORS
+        body: JSON.stringify(webhookPayload),
+      })
+      
+      // Since we're using no-cors, we won't get a proper response status
+      // The request is sent but we can't read the response
+      console.log('Webhook request sent successfully')
       toast.success('Thank you! We\'ll be in touch within 24 hours.')
       reset()
     } catch (error) {
+      console.error('Webhook error:', error)
       toast.error('Something went wrong. Please try again.')
     }
     setIsSubmitting(false)

@@ -3,6 +3,7 @@ export const CONTACT_INFO = {
   phoneFormatted: '+1 (609) 722-6768',
   phoneLink: 'tel:+16097226768',
   email: 'contact@leapgen.ai',
+  webhookUrl: 'https://hook.us2.make.com/esonrv674fe7exxmtxrjy9unqx8ifut5',
   address: {
     street: '44790 Maynard Square Suite 350',
     city: 'Ashburn',
