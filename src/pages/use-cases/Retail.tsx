@@ -23,7 +23,7 @@ const Retail = () => {
         "35% less cart abandonment",
         "20% enhanced customer lifetime value"
       ],
-      href: "/products/surroundai",
+      href: "/use-cases/retail/surround-ai",
       icon: TrendingUp
     },
     {
@@ -34,7 +34,7 @@ const Retail = () => {
         "95% analytics accuracy improvement",
         "Complete data leakage elimination"
       ],
-      href: "/products/data-coffee",
+      href: "/use-cases/retail/data-coffee",
       icon: Shield
     },
     {
@@ -45,7 +45,7 @@ const Retail = () => {
         "35% cart abandonment reduction",
         "20% inventory optimization"
       ],
-      href: "/contact?type=demo&industry=retail",
+      href: "/use-cases/retail/complete-solution",
       icon: Zap
     }
   ];

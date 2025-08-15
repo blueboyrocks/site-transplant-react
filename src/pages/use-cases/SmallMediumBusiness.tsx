@@ -238,7 +238,7 @@ const SmallMediumBusiness = () => {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Solutions Section */}
       <section className="py-16 px-4 bg-muted/30">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -249,26 +249,124 @@ const SmallMediumBusiness = () => {
           >
             <h2 className="text-4xl font-bold mb-4">SMB-Focused AI Solutions</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Purpose-built for small and medium businesses with limited resources but big ambitions
+              Choose the solution that fits your business size and growth ambitions
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                className="bg-card rounded-xl p-8 border border-border"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.2 + index * 0.1 }}
-              >
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                  <feature.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
-              </motion.div>
-            ))}
+          <div className="grid lg:grid-cols-3 gap-8">
+            <motion.div
+              className="bg-card rounded-xl p-8 border border-border hover:border-primary/30 transition-all duration-300 group"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.2 }}
+            >
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+                <TrendingUp className="w-8 h-8 text-primary" />
+              </div>
+              
+              <h3 className="text-2xl font-bold mb-4">Surround AI for SMB</h3>
+              <p className="text-muted-foreground mb-6">Enterprise AI power designed for small business budgets</p>
+              
+              <div className="mb-8">
+                <h4 className="font-semibold mb-4 text-primary">Key Benefits:</h4>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">40% customer retention increase</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">25% sales conversion improvement</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">60% manual task reduction</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <Button asChild className="w-full group-hover:bg-primary/90 transition-colors">
+                <Link to="/use-cases/small-medium-business/surround-ai" className="flex items-center justify-center gap-2">
+                  Learn More <ArrowRight className="w-4 h-4" />
+                </Link>
+              </Button>
+            </motion.div>
+
+            <motion.div
+              className="bg-card rounded-xl p-8 border border-border hover:border-primary/30 transition-all duration-300 group"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.3 }}
+            >
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+                <Shield className="w-8 h-8 text-primary" />
+              </div>
+              
+              <h3 className="text-2xl font-bold mb-4">Data Coffee for SMB</h3>
+              <p className="text-muted-foreground mb-6">Simple data unification for small business operations</p>
+              
+              <div className="mb-8">
+                <h4 className="font-semibold mb-4 text-primary">Key Benefits:</h4>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">80% manual data entry reduction</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">90% data accuracy improvement</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">50% faster business reporting</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <Button asChild className="w-full group-hover:bg-primary/90 transition-colors">
+                <Link to="/use-cases/small-medium-business/data-coffee" className="flex items-center justify-center gap-2">
+                  Learn More <ArrowRight className="w-4 h-4" />
+                </Link>
+              </Button>
+            </motion.div>
+
+            <motion.div
+              className="bg-card rounded-xl p-8 border border-border hover:border-primary/30 transition-all duration-300 group"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.4 }}
+            >
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+                <Zap className="w-8 h-8 text-primary" />
+              </div>
+              
+              <h3 className="text-2xl font-bold mb-4">Complete SMB Intelligence</h3>
+              <p className="text-muted-foreground mb-6">Everything your small business needs to compete and win</p>
+              
+              <div className="mb-8">
+                <h4 className="font-semibold mb-4 text-primary">Key Benefits:</h4>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">3x faster business insights</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">50% manual task reduction</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">25% sales conversion increase</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <Button asChild className="w-full group-hover:bg-primary/90 transition-colors">
+                <Link to="/use-cases/small-medium-business/complete-solution" className="flex items-center justify-center gap-2">
+                  Learn More <ArrowRight className="w-4 h-4" />
+                </Link>
+              </Button>
+            </motion.div>
           </div>
         </div>
       </section>
