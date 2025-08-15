@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import ScrollManager from "./components/ScrollManager";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Resources from "./pages/Resources";
@@ -62,8 +63,9 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollManager />
           <Header />
-        <main className="min-h-screen">
+        <main className="min-h-screen" tabIndex={-1}>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<About />} />
