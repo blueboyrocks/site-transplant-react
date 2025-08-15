@@ -90,7 +90,7 @@ const HeroSection = () => {
                   <div className="flex items-center justify-center lg:justify-start space-x-2 mb-2">
                     <ArrowRight className="w-5 h-5 text-green-400" />
                     <div className="text-3xl font-bold gradient-text">
-                      <AnimatedCounter value={30} suffix="-Day" />
+                      30 Day
                     </div>
                   </div>
                   <div className="text-sm text-gray-400">Implementation</div>
