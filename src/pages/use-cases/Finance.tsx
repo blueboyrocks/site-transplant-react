@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
+import { GradientButton } from '@/components/ui/gradient-button';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { FloatingElements } from '@/components/ui/floating-elements';
 import { Link } from 'react-router-dom';
 import { Building2, TrendingUp, Shield, Zap, ArrowRight, CheckCircle } from 'lucide-react';
 
@@ -51,9 +53,11 @@ const Finance = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+    <div className="min-h-screen relative overflow-hidden">
+      <AnimatedBackground variant="gradient" theme="finance" className="absolute inset-0 opacity-20" />
+      <FloatingElements count={10} variant="squares" theme="finance" className="absolute inset-0 opacity-15" />
       {/* Hero Section */}
-      <section className="pt-32 pb-16 px-4">
+      <section className="pt-32 pb-16 px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -66,7 +70,7 @@ const Finance = () => {
                 <span className="text-lg font-medium text-primary">Finance & Banking</span>
               </div>
               
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+              <h1 className="text-hero mb-6 gradient-text-finance">
                 Transform Financial Services with AI Intelligence
               </h1>
               
@@ -75,12 +79,12 @@ const Finance = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button asChild size="lg" className="text-lg px-8">
+                <GradientButton variant="finance" size="lg" asChild>
                   <Link to="/contact?type=demo&industry=finance">See Solutions in Action</Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="text-lg px-8">
+                </GradientButton>
+                <GradientButton variant="secondary" size="lg" asChild>
                   <Link to="/resources/finance-case-study">View Case Study</Link>
-                </Button>
+                </GradientButton>
               </div>
             </motion.div>
             
@@ -177,11 +181,11 @@ const Finance = () => {
                   </ul>
                 </div>
                 
-                <Button asChild className="w-full group-hover:bg-primary/90 transition-colors">
+                <GradientButton variant="finance" asChild className="w-full">
                   <Link to={solution.href} className="flex items-center justify-center gap-2">
                     Learn More <ArrowRight className="w-4 h-4" />
                   </Link>
-                </Button>
+                </GradientButton>
               </motion.div>
             ))}
           </div>
@@ -201,12 +205,12 @@ const Finance = () => {
             Schedule a consultation to see how our AI solutions can help you reduce fraud, improve customer retention, and enhance regulatory compliance.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8">
+            <GradientButton variant="finance" size="lg" asChild>
               <Link to="/contact?type=consultation&industry=finance">Schedule Consultation</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8">
+            </GradientButton>
+            <GradientButton variant="secondary" size="lg" asChild>
               <Link to="/resources/roi-calculator">Calculate ROI</Link>
-            </Button>
+            </GradientButton>
           </div>
         </motion.div>
       </section>

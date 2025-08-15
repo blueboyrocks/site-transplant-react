@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
+import { GradientButton } from '@/components/ui/gradient-button';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { FloatingElements } from '@/components/ui/floating-elements';
 import { Link } from 'react-router-dom';
 import { 
   GraduationCap, 
@@ -84,9 +86,11 @@ const SLED = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+    <div className="min-h-screen relative overflow-hidden">
+      <AnimatedBackground variant="geometric" theme="government" className="absolute inset-0 opacity-20" />
+      <FloatingElements count={8} variant="circles" theme="government" className="absolute inset-0 opacity-15" />
       {/* Hero Section */}
-      <section className="pt-32 pb-16 px-4">
+      <section className="pt-32 pb-16 px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -98,7 +102,7 @@ const SLED = () => {
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
                 <GraduationCap className="w-8 h-8 text-primary" />
               </div>
-              <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+              <h1 className="text-hero gradient-text-government">
                 Government & Education
               </h1>
             </div>
@@ -106,12 +110,12 @@ const SLED = () => {
               Optimize public services and educational outcomes with data-driven insights that improve citizen experiences and institutional effectiveness.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="text-lg px-8">
+              <GradientButton variant="government" size="lg" asChild>
                 <Link to="/contact?type=demo&industry=sled">Request Demo</Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="text-lg px-8">
+              </GradientButton>
+              <GradientButton variant="secondary" size="lg" asChild>
                 <Link to="/contact?type=consultation">Schedule Consultation</Link>
-              </Button>
+              </GradientButton>
             </div>
           </motion.div>
         </div>
@@ -214,11 +218,11 @@ const SLED = () => {
                 </ul>
               </div>
               
-              <Button asChild className="w-full group-hover:bg-primary/90 transition-colors">
+              <GradientButton variant="surroundai" asChild className="w-full">
                 <Link to="/use-cases/sled/surround-ai" className="flex items-center justify-center gap-2">
                   Learn More <ArrowRight className="w-4 h-4" />
                 </Link>
-              </Button>
+              </GradientButton>
             </motion.div>
 
             <motion.div
@@ -252,11 +256,11 @@ const SLED = () => {
                 </ul>
               </div>
               
-              <Button asChild className="w-full group-hover:bg-primary/90 transition-colors">
+              <GradientButton variant="datacoffee" asChild className="w-full">
                 <Link to="/use-cases/sled/data-coffee" className="flex items-center justify-center gap-2">
                   Learn More <ArrowRight className="w-4 h-4" />
                 </Link>
-              </Button>
+              </GradientButton>
             </motion.div>
 
             <motion.div
@@ -290,11 +294,11 @@ const SLED = () => {
                 </ul>
               </div>
               
-              <Button asChild className="w-full group-hover:bg-primary/90 transition-colors">
+              <GradientButton variant="government" asChild className="w-full">
                 <Link to="/use-cases/sled/complete-solution" className="flex items-center justify-center gap-2">
                   Learn More <ArrowRight className="w-4 h-4" />
                 </Link>
-              </Button>
+              </GradientButton>
             </motion.div>
           </div>
         </div>
@@ -344,14 +348,14 @@ const SLED = () => {
             Join forward-thinking government agencies and educational institutions using AI to better serve their communities.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8">
+            <GradientButton variant="government" size="lg" asChild>
               <Link to="/contact?type=demo&industry=sled" className="flex items-center gap-2">
                 Schedule Demo <ArrowRight className="w-4 h-4" />
               </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8">
+            </GradientButton>
+            <GradientButton variant="secondary" size="lg" asChild>
               <Link to="/resources/case-studies?industry=sled">View Case Studies</Link>
-            </Button>
+            </GradientButton>
           </div>
         </motion.div>
       </section>

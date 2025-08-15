@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
+import { GradientButton } from '@/components/ui/gradient-button';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { FloatingElements } from '@/components/ui/floating-elements';
 import { Link } from 'react-router-dom';
 import { 
   Building, 
@@ -119,9 +121,11 @@ const SmallMediumBusiness = () => {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+    <div className="min-h-screen relative overflow-hidden">
+      <AnimatedBackground variant="gradient" theme="primary" className="absolute inset-0 opacity-15" />
+      <FloatingElements count={8} variant="circles" theme="primary" className="absolute inset-0 opacity-20" />
       {/* Hero Section */}
-      <section className="pt-32 pb-16 px-4">
+      <section className="pt-32 pb-16 px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -133,7 +137,7 @@ const SmallMediumBusiness = () => {
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
                 <Building className="w-8 h-8 text-primary" />
               </div>
-              <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+              <h1 className="text-hero gradient-text-primary">
                 Small & Medium Business
               </h1>
             </div>
@@ -141,12 +145,12 @@ const SmallMediumBusiness = () => {
               Enterprise-level AI insights and automation designed specifically for small and medium businesses. Get the power of AI without the enterprise complexity or cost.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="text-lg px-8">
+              <GradientButton variant="primary" size="lg" asChild>
                 <Link to="/contact?type=demo&industry=smb">Request Demo</Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="text-lg px-8">
+              </GradientButton>
+              <GradientButton variant="secondary" size="lg" asChild>
                 <Link to="/contact?type=consultation">Schedule Consultation</Link>
-              </Button>
+              </GradientButton>
             </div>
           </motion.div>
         </div>
@@ -249,11 +253,11 @@ const SmallMediumBusiness = () => {
                 </ul>
               </div>
               
-              <Button asChild className="w-full group-hover:bg-primary/90 transition-colors">
-                <Link to="/use-cases/small-medium-business/surround-ai" className="flex items-center justify-center gap-2">
+              <GradientButton variant="surroundai" asChild className="w-full">
+                <Link to="/use-cases/smb/surround-ai" className="flex items-center justify-center gap-2">
                   Learn More <ArrowRight className="w-4 h-4" />
                 </Link>
-              </Button>
+              </GradientButton>
             </motion.div>
 
             <motion.div
@@ -287,11 +291,11 @@ const SmallMediumBusiness = () => {
                 </ul>
               </div>
               
-              <Button asChild className="w-full group-hover:bg-primary/90 transition-colors">
-                <Link to="/use-cases/small-medium-business/data-coffee" className="flex items-center justify-center gap-2">
+              <GradientButton variant="datacoffee" asChild className="w-full">
+                <Link to="/use-cases/smb/data-coffee" className="flex items-center justify-center gap-2">
                   Learn More <ArrowRight className="w-4 h-4" />
                 </Link>
-              </Button>
+              </GradientButton>
             </motion.div>
 
             <motion.div
@@ -325,11 +329,11 @@ const SmallMediumBusiness = () => {
                 </ul>
               </div>
               
-              <Button asChild className="w-full group-hover:bg-primary/90 transition-colors">
-                <Link to="/use-cases/small-medium-business/complete-solution" className="flex items-center justify-center gap-2">
+              <GradientButton variant="primary" asChild className="w-full">
+                <Link to="/use-cases/smb/complete-solution" className="flex items-center justify-center gap-2">
                   Learn More <ArrowRight className="w-4 h-4" />
                 </Link>
-              </Button>
+              </GradientButton>
             </motion.div>
           </div>
         </div>
@@ -389,14 +393,14 @@ const SmallMediumBusiness = () => {
             Join thousands of SMBs using AI to compete with larger companies and accelerate growth.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8">
+            <GradientButton variant="primary" size="lg" asChild>
               <Link to="/contact?type=demo&industry=smb" className="flex items-center gap-2">
                 Start Free Trial <ArrowRight className="w-4 h-4" />
               </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8">
+            </GradientButton>
+            <GradientButton variant="secondary" size="lg" asChild>
               <Link to="/customer-success">View Success Stories</Link>
-            </Button>
+            </GradientButton>
           </div>
         </motion.div>
       </section>
