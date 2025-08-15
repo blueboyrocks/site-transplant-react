@@ -27,6 +27,21 @@ import AccountingCompleteSolution from "./pages/use-cases/accounting/CompleteSol
 import FinanceSurroundAI from "./pages/use-cases/finance/SurroundAI";
 import FinanceDataCoffee from "./pages/use-cases/finance/DataCoffee";
 import FinanceCompleteSolution from "./pages/use-cases/finance/CompleteSolution";
+import HealthcareSurroundAI from "./pages/use-cases/healthcare/SurroundAI";
+import HealthcareDataCoffee from "./pages/use-cases/healthcare/DataCoffee";
+import HealthcareCompleteSolution from "./pages/use-cases/healthcare/CompleteSolution";
+import RetailSurroundAI from "./pages/use-cases/retail/SurroundAI";
+import RetailDataCoffee from "./pages/use-cases/retail/DataCoffee";
+import RetailCompleteSolution from "./pages/use-cases/retail/CompleteSolution";
+import SLEDSurroundAI from "./pages/use-cases/sled/SurroundAI";
+import SLEDDataCoffee from "./pages/use-cases/sled/DataCoffee";
+import SLEDCompleteSolution from "./pages/use-cases/sled/CompleteSolution";
+import EnterpriseSurroundAI from "./pages/use-cases/enterprise/SurroundAI";
+import EnterpriseDataCoffee from "./pages/use-cases/enterprise/DataCoffee";
+import EnterpriseCompleteSolution from "./pages/use-cases/enterprise/CompleteSolution";
+import SMBSurroundAI from "./pages/use-cases/smb/SurroundAI";
+import SMBDataCoffee from "./pages/use-cases/smb/DataCoffee";
+import SMBCompleteSolution from "./pages/use-cases/smb/CompleteSolution";
 import CustomerSuccess from "./pages/CustomerSuccess";
 import HealthcareSalesTransformation from "./pages/customer-success/HealthcareSalesTransformation";
 import GovernmentDataModernization from "./pages/customer-success/GovernmentDataModernization";
@@ -63,6 +78,21 @@ const App = () => (
             <Route path="/use-cases/finance/surround-ai" element={<FinanceSurroundAI />} />
             <Route path="/use-cases/finance/data-coffee" element={<FinanceDataCoffee />} />
             <Route path="/use-cases/finance/complete-solution" element={<FinanceCompleteSolution />} />
+            <Route path="/use-cases/healthcare/surround-ai" element={<HealthcareSurroundAI />} />
+            <Route path="/use-cases/healthcare/data-coffee" element={<HealthcareDataCoffee />} />
+            <Route path="/use-cases/healthcare/complete-solution" element={<HealthcareCompleteSolution />} />
+            <Route path="/use-cases/retail/surround-ai" element={<RetailSurroundAI />} />
+            <Route path="/use-cases/retail/data-coffee" element={<RetailDataCoffee />} />
+            <Route path="/use-cases/retail/complete-solution" element={<RetailCompleteSolution />} />
+            <Route path="/use-cases/sled/surround-ai" element={<SLEDSurroundAI />} />
+            <Route path="/use-cases/sled/data-coffee" element={<SLEDDataCoffee />} />
+            <Route path="/use-cases/sled/complete-solution" element={<SLEDCompleteSolution />} />
+            <Route path="/use-cases/enterprise/surround-ai" element={<EnterpriseSurroundAI />} />
+            <Route path="/use-cases/enterprise/data-coffee" element={<EnterpriseDataCoffee />} />
+            <Route path="/use-cases/enterprise/complete-solution" element={<EnterpriseCompleteSolution />} />
+            <Route path="/use-cases/small-medium-business/surround-ai" element={<SMBSurroundAI />} />
+            <Route path="/use-cases/small-medium-business/data-coffee" element={<SMBDataCoffee />} />
+            <Route path="/use-cases/small-medium-business/complete-solution" element={<SMBCompleteSolution />} />
             <Route path="/use-cases/enterprise" element={<Enterprise />} />
             <Route path="/use-cases/small-medium-business" element={<SmallMediumBusiness />} />
             <Route path="/customer-success" element={<CustomerSuccess />} />
