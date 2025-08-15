@@ -102,17 +102,6 @@ const CompleteSolutionSMB = () => {
     }
   ];
 
-  const pricing = {
-    starter: "$750/month",
-    description: "Complete solution including Data Coffee + Surround AI",
-    features: [
-      "Unlimited data source connections",
-      "Real-time AI insights and recommendations", 
-      "Custom dashboards and reporting",
-      "24/7 support and onboarding assistance",
-      "30-day money-back guarantee"
-    ]
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
@@ -304,51 +293,6 @@ const CompleteSolutionSMB = () => {
         </div>
       </section>
 
-      {/* Pricing */}
-      <section className="py-16 px-4">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 2.8 }}
-          >
-            <h2 className="text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
-            <p className="text-xl text-muted-foreground">
-              Everything you need at one affordable price - no hidden fees or complex tiers
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="bg-card rounded-xl p-8 border border-primary shadow-lg relative"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 3.0 }}
-          >
-            <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-              <span className="bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-medium">
-                Complete Solution
-              </span>
-            </div>
-            <div className="text-center mb-6">
-              <h3 className="text-2xl font-bold mb-2">Complete SMB Intelligence</h3>
-              <div className="text-4xl font-bold text-primary mb-2">{pricing.starter}</div>
-              <p className="text-muted-foreground text-sm">{pricing.description}</p>
-            </div>
-            <ul className="space-y-3 mb-8">
-              {pricing.features.map((feature, idx) => (
-                <li key={idx} className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
-            <Button asChild className="w-full" size="lg">
-              <Link to="/contact?solution=complete&industry=smb">Start Free Trial</Link>
-            </Button>
-          </motion.div>
-        </div>
-      </section>
 
       {/* CTA Section */}
       <section className="py-16 px-4">
@@ -356,7 +300,7 @@ const CompleteSolutionSMB = () => {
           className="max-w-4xl mx-auto text-center bg-gradient-to-r from-primary/10 to-primary/5 rounded-2xl p-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 3.2 }}
+          transition={{ duration: 0.8, delay: 2.8 }}
         >
           <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Small Business?</h2>
           <p className="text-xl text-muted-foreground mb-8">

@@ -117,42 +117,6 @@ const SmallMediumBusiness = () => {
     }
   ];
 
-  const pricing = [
-    {
-      tier: "Starter",
-      price: "$500/month",
-      description: "Perfect for businesses just starting with AI",
-      features: [
-        "1-2 AI workflows",
-        "Basic analytics dashboard",
-        "Email support",
-        "30-day free trial"
-      ]
-    },
-    {
-      tier: "Growth", 
-      price: "$1,500/month",
-      description: "Ideal for growing businesses expanding AI usage",
-      features: [
-        "5-10 AI workflows",
-        "Advanced analytics & reporting",
-        "Priority support",
-        "Custom integrations"
-      ],
-      popular: true
-    },
-    {
-      tier: "Scale",
-      price: "$3,000/month", 
-      description: "For established SMBs ready for enterprise features",
-      features: [
-        "Unlimited AI workflows",
-        "Advanced customization",
-        "Dedicated account manager",
-        "24/7 phone support"
-      ]
-    }
-  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
@@ -411,58 +375,6 @@ const SmallMediumBusiness = () => {
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section className="py-16 px-4 bg-muted/30">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 2.2 }}
-          >
-            <h2 className="text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Choose the plan that fits your business size and AI needs
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {pricing.map((plan, index) => (
-              <motion.div
-                key={index}
-                className={`bg-card rounded-xl p-8 border ${plan.popular ? 'border-primary shadow-lg' : 'border-border'} relative`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 2.4 + index * 0.1 }}
-              >
-                {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-medium">
-                      Most Popular
-                    </span>
-                  </div>
-                )}
-                <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold mb-2">{plan.tier}</h3>
-                  <div className="text-3xl font-bold text-primary mb-2">{plan.price}</div>
-                  <p className="text-muted-foreground text-sm">{plan.description}</p>
-                </div>
-                <ul className="space-y-3 mb-8">
-                  {plan.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-2">
-                      <CheckCircle className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
-                      <span className="text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Button asChild className="w-full" variant={plan.popular ? "default" : "outline"}>
-                  <Link to="/contact?type=demo&plan=starter">Get Started</Link>
-                </Button>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* CTA Section */}
       <section className="py-16 px-4">
@@ -470,7 +382,7 @@ const SmallMediumBusiness = () => {
           className="max-w-4xl mx-auto text-center bg-gradient-to-r from-primary/10 to-primary/5 rounded-2xl p-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 2.8 }}
+          transition={{ duration: 0.8, delay: 2.2 }}
         >
           <h2 className="text-3xl font-bold mb-4">Ready to Supercharge Your Small Business?</h2>
           <p className="text-xl text-muted-foreground mb-8">
