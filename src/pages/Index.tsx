@@ -1,10 +1,22 @@
+import React from 'react';
 import HeroSection from '../components/HeroSection'
 import ProductsSection from '../components/ProductsSection'
 import TestimonialsSection from '../components/TestimonialsSection'
 import CTASection from '../components/CTASection'
 import SEO from '../components/SEO'
+import { ConversionHero } from '@/components/ui/conversion-hero';
+import { ConversionMonitor } from '@/components/ui/conversion-monitor';
+import { useAnalytics } from '@/utils/analytics';
 
 const Index = () => {
+  const analytics = useAnalytics();
+
+  // Track A/B test exposure
+  React.useEffect(() => {
+    const heroVariant = Math.random() > 0.5 ? 'original' : 'conversion-optimized';
+    analytics.trackABTest('hero-optimization', heroVariant, 'demo_request');
+  }, []);
+
   return (
     <>
       <SEO 
@@ -14,11 +26,23 @@ const Index = () => {
         url="https://leapgen.ai"
       />
       <div className="min-h-screen">
-        <HeroSection />
+        {/* A/B Test: Use ConversionHero 50% of the time */}
+        {Math.random() > 0.5 ? (
+          <ConversionHero 
+            variant="value-focused"
+            industry="enterprise"
+            className="relative z-10"
+          />
+        ) : (
+          <HeroSection />
+        )}
         <ProductsSection />
         <TestimonialsSection />
-        <CTASection />
-      </div>
+      <CTASection />
+      
+      {/* Real-time conversion monitoring */}
+      <ConversionMonitor position="bottom-right" />
+    </div>
     </>
   );
 };

@@ -17,7 +17,8 @@ import {
   X
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { toast } from 'sonner';
+import { toast } from '@/hooks/use-toast';
+import { useAnalytics } from '@/utils/analytics';
 
 interface LeadMagnetProps {
   type: 'roi-calculator' | 'whitepaper' | 'case-study' | 'demo-booking' | 'assessment';
@@ -41,6 +42,7 @@ const LeadMagnet: React.FC<LeadMagnetProps> = ({
   const [isOpen, setIsOpen] = useState(inline);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const analytics = useAnalytics();
   const [formData, setFormData] = useState({
     email: '',
     name: '',
@@ -52,11 +54,18 @@ const LeadMagnet: React.FC<LeadMagnetProps> = ({
     e.preventDefault();
     setIsSubmitting(true);
 
+    analytics.trackLeadMagnet(type, title, 'form_submit');
+
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500));
       setIsSubmitted(true);
-      toast.success('Success! Check your email for the download link.');
+      analytics.trackFunnelStep('lead_magnet_completed', 1, { type, title, industry });
+      
+      toast({
+        title: "Success!",
+        description: "Check your email for the download link.",
+      });
       
       // Auto-close after success
       setTimeout(() => {
@@ -64,7 +73,12 @@ const LeadMagnet: React.FC<LeadMagnetProps> = ({
         setIsSubmitted(false);
       }, 3000);
     } catch (error) {
-      toast.error('Something went wrong. Please try again.');
+      analytics.trackError('lead_magnet_error', (error as Error).message, { type, title });
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
     }
     
     setIsSubmitting(false);

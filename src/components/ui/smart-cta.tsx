@@ -4,6 +4,7 @@ import { GradientButton } from './gradient-button';
 import { EnhancedCard } from './enhanced-card';
 import { Clock, Users, Star, TrendingUp, ArrowRight, Calendar, Gift } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useAnalytics } from '@/utils/analytics';
 
 interface SmartCTAProps {
   variant?: 'primary' | 'urgency' | 'social-proof' | 'value-driven' | 'personalized';
@@ -36,6 +37,7 @@ const SmartCTA: React.FC<SmartCTAProps> = ({
 }) => {
   const [timeLeft, setTimeLeft] = useState('');
   const [recentSignups, setRecentSignups] = useState(0);
+  const analytics = useAnalytics();
 
   // Dynamic urgency timer
   useEffect(() => {
@@ -117,6 +119,7 @@ const SmartCTA: React.FC<SmartCTAProps> = ({
             size={size} 
             className="w-full animate-pulse"
             asChild
+            onClick={() => analytics.trackCTA('urgency', primaryText, 'hero', 'urgency')}
           >
             <a href={href}>
               {primaryText} <ArrowRight className="w-4 h-4 ml-2" />
@@ -166,6 +169,7 @@ const SmartCTA: React.FC<SmartCTAProps> = ({
             size={size} 
             className="w-full"
             asChild
+            onClick={() => analytics.trackCTA('social-proof', primaryText, 'hero', 'social-proof')}
           >
             <a href={href}>
               {primaryText} <ArrowRight className="w-4 h-4 ml-2" />
@@ -222,6 +226,7 @@ const SmartCTA: React.FC<SmartCTAProps> = ({
             size={size} 
             className="w-full"
             asChild
+            onClick={() => analytics.trackCTA('value-driven', primaryText, 'hero', 'value-driven')}
           >
             <a href={href}>
               {primaryText} <ArrowRight className="w-4 h-4 ml-2" />
@@ -269,6 +274,7 @@ const SmartCTA: React.FC<SmartCTAProps> = ({
           variant="primary" 
           size={size}
           asChild
+          onClick={() => analytics.trackCTA('primary', primaryText, 'hero', 'primary')}
         >
           <a href={href}>
             {primaryText} <ArrowRight className="w-4 h-4 ml-2" />

@@ -18,7 +18,8 @@ import {
   Building
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { toast } from 'sonner';
+import { toast } from '@/hooks/use-toast';
+import { useAnalytics } from '@/utils/analytics';
 
 interface ConversionFormProps {
   title: string;
@@ -58,6 +59,7 @@ const ConversionForm: React.FC<ConversionFormProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [recentSignups, setRecentSignups] = useState(0);
+  const analytics = useAnalytics();
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -73,6 +75,7 @@ const ConversionForm: React.FC<ConversionFormProps> = ({
 
   useEffect(() => {
     setRecentSignups(Math.floor(Math.random() * 12) + 8); // 8-20 recent signups
+    analytics.trackFormStart(formType, inline ? 'inline' : 'popup');
   }, []);
 
   const updateFormData = (field: keyof FormData, value: string) => {
@@ -81,6 +84,7 @@ const ConversionForm: React.FC<ConversionFormProps> = ({
 
   const nextStep = () => {
     if (currentStep < totalSteps) {
+      analytics.trackFormStep(formType, currentStep, totalSteps);
       setCurrentStep(prev => prev + 1);
     }
   };
@@ -100,10 +104,21 @@ const ConversionForm: React.FC<ConversionFormProps> = ({
       await new Promise(resolve => setTimeout(resolve, 2000));
       setIsSubmitted(true);
       
+      analytics.trackFormSubmit(formType, true);
+      analytics.trackFunnelStep('form_completed', 1, { formType, industry });
+      
       const successMessage = getSuccessMessage();
-      toast.success(successMessage);
+      toast({
+        title: "Success!",
+        description: successMessage,
+      });
     } catch (error) {
-      toast.error('Something went wrong. Please try again.');
+      analytics.trackFormSubmit(formType, false, (error as Error).message);
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
     }
     
     setIsSubmitting(false);
