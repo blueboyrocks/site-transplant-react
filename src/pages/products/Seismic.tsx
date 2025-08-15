@@ -33,7 +33,7 @@ const Seismic = () => {
 
   const benefits = [
     '79% less documentation time',
-    '89% billing accuracy improvement',
+    '99% billing accuracy improvement',
     '100% HIPAA compliant',
     'Real-time clinical insights',
     'Automated coding suggestions',
@@ -42,7 +42,7 @@ const Seismic = () => {
 
   const stats = [
     { value: 79, suffix: '%', label: 'Time Saved' },
-    { value: 89, suffix: '%', label: 'Billing Accuracy' },
+    { value: 99, suffix: '%', label: 'Billing Accuracy' },
     { value: 100, suffix: '%', label: 'HIPAA Compliant' },
     { value: 2, suffix: ' hrs', label: 'Saved Per Doctor Daily' }
   ]
@@ -67,7 +67,7 @@ const Seismic = () => {
               Clinical Documentation AI
             </h2>
             <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
-              Reduce Documentation Time by 79% with 89% Billing Accuracy
+              Reduce Documentation Time by 79% with 99% Billing Accuracy
             </h3>
             <p className="text-xl text-gray-300 mb-8 leading-relaxed">
               AI-powered clinical notes with emotional intelligence, automated billing codes, and HIPAA compliance. 
