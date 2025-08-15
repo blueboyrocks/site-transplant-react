@@ -159,9 +159,7 @@ All colors MUST be HSL.
   body {
     max-width: 100vw;
     overflow-x: hidden;
-    @apply bg-background text-foreground;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    @apply bg-background text-foreground font-sans;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -195,12 +193,71 @@ All colors MUST be HSL.
     background: hsl(var(--accent-blue));
   }
 
-  /* Gradient text */
+  /* Enhanced Typography Classes */
+  .text-hero {
+    @apply font-display text-hero font-bold tracking-tight;
+  }
+
+  .text-display {
+    @apply font-display text-display font-bold tracking-tight;
+  }
+
+  .text-section-header {
+    @apply font-serif text-5xl font-bold tracking-tight;
+  }
+
+  .text-subsection-header {
+    @apply font-serif text-3xl font-semibold tracking-tight;
+  }
+
+  .text-card-title {
+    @apply font-sans text-2xl font-semibold tracking-tight;
+  }
+
+  .text-body-large {
+    @apply font-sans text-lg font-normal leading-relaxed;
+  }
+
+  .text-code {
+    @apply font-mono text-sm font-medium;
+  }
+
+  /* Enhanced Gradient Text Styles */
   .gradient-text {
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  .gradient-text-surroundai {
+    background: var(--gradient-surroundai);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-datacoffee {
+    background: var(--gradient-datacoffee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-seismic {
+    background: var(--gradient-seismic);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-animated {
+    background: var(--gradient-animated);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 8s ease infinite;
   }
 
   /* Enhanced Button Styles */
@@ -489,6 +546,86 @@ All colors MUST be HSL.
     display: none;
   }
 
+  /* Interactive Element Enhancements */
+  .interactive-card {
+    @apply transition-all duration-300 cursor-pointer;
+  }
+
+  .interactive-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .micro-interaction {
+    @apply transition-all duration-200 ease-out;
+  }
+
+  .micro-interaction:hover {
+    transform: scale(1.05);
+  }
+
+  .micro-interaction:active {
+    transform: scale(0.98);
+  }
+
+  /* Icon Enhancement Classes */
+  .icon-container {
+    @apply relative inline-flex items-center justify-center;
+  }
+
+  .icon-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .icon-surroundai {
+    background: var(--gradient-surroundai);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .icon-datacoffee {
+    background: var(--gradient-datacoffee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .icon-seismic {
+    background: var(--gradient-seismic);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Enhanced Focus States */
+  .focus-gradient:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px hsl(var(--accent-purple) / 0.3);
+    border-color: hsl(var(--accent-purple));
+  }
+
+  .focus-surroundai:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px hsl(var(--surroundai-primary) / 0.3);
+    border-color: hsl(var(--surroundai-primary));
+  }
+
+  .focus-datacoffee:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px hsl(var(--datacoffee-primary) / 0.3);
+    border-color: hsl(var(--datacoffee-primary));
+  }
+
+  .focus-seismic:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px hsl(var(--seismic-primary) / 0.3);
+    border-color: hsl(var(--seismic-primary));
+  }
+
   /* Responsive typography */
   @media (max-width: 768px) {
     .section-padding {
@@ -497,6 +634,40 @@ All colors MUST be HSL.
 
     .container {
       @apply px-4;
+    }
+
+    .text-hero {
+      @apply text-4xl;
+    }
+
+    .text-display {
+      @apply text-3xl;
+    }
+
+    .text-section-header {
+      @apply text-3xl;
+    }
+
+    .text-subsection-header {
+      @apply text-2xl;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .text-hero {
+      @apply text-3xl;
+    }
+
+    .text-display {
+      @apply text-2xl;
+    }
+
+    .text-section-header {
+      @apply text-2xl;
+    }
+
+    .text-subsection-header {
+      @apply text-xl;
     }
   }
 }
