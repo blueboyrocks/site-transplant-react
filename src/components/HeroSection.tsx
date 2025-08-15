@@ -22,15 +22,15 @@ const HeroSection = () => {
       </div>
 
       <div className="relative z-10 container mx-auto px-4 py-20">
-        {/* Main Content Layout - Better Balanced */}
+        {/* Main Content Layout - Better Separated */}
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-start">
             {/* Left Column - Content */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="space-y-8 text-center lg:text-left"
+              className="space-y-8 text-center lg:text-left order-2 lg:order-1"
             >
               {/* Trust Badge */}
               <motion.div
@@ -97,12 +97,12 @@ const HeroSection = () => {
                 </div>
               </motion.div>
 
-              {/* CTA Buttons */}
+              {/* CTA Buttons - With More Spacing */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.7 }}
-                className="flex flex-col sm:flex-row gap-4 pt-4 justify-center lg:justify-start"
+                className="flex flex-col sm:flex-row gap-4 pt-8 justify-center lg:justify-start"
               >
                 <Link to="/contact?type=demo">
                   <Button className="btn-primary text-lg px-8 py-4 w-full sm:w-auto">
@@ -123,7 +123,7 @@ const HeroSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.9 }}
-                className="flex items-center justify-center lg:justify-start space-x-4 pt-4"
+                className="flex items-center justify-center lg:justify-start space-x-4 pt-6"
               >
                 <span className="text-sm text-gray-400">Join 50+ demos scheduled this month</span>
                 <div className="flex space-x-1">
@@ -140,35 +140,35 @@ const HeroSection = () => {
               </motion.div>
             </motion.div>
 
-            {/* Right Column - Dashboard Preview - Better Contained */}
+            {/* Right Column - Dashboard Preview - Completely Separate */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="flex justify-center lg:justify-end mt-12 lg:mt-0"
+              className="flex justify-center order-1 lg:order-2 mb-8 lg:mb-0"
             >
-              <div className="relative max-w-md lg:max-w-lg w-full">
-                {/* Dashboard Image - Better Contained */}
+              <div className="relative w-full max-w-sm lg:max-w-md xl:max-w-lg">
+                {/* Dashboard Image - Contained and Smaller */}
                 <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl border border-gray-700 overflow-hidden shadow-2xl">
                   <img
                     src="https://cdn.abacus.ai/images/007859da-9f38-4031-bf4d-1aaf8d834962.png"
                     alt="AI Dashboard Interface"
-                    className="w-full h-auto max-w-full"
+                    className="w-full h-auto block"
                   />
                   
-                  {/* Floating Stats - Better Positioned */}
-                  <div className="absolute top-2 right-2 lg:top-4 lg:right-4 bg-black/90 backdrop-blur-sm rounded-lg border border-gray-700 p-2 lg:p-4">
+                  {/* Floating Stats - Smaller and More Contained */}
+                  <div className="absolute top-2 right-2 bg-black/95 backdrop-blur-sm rounded-md border border-gray-700 p-2">
                     <div className="text-center">
-                      <div className="text-lg lg:text-2xl font-bold gradient-text">
+                      <div className="text-sm lg:text-lg font-bold gradient-text">
                         <AnimatedCounter value={60} suffix="%" />
                       </div>
                       <div className="text-xs text-gray-400">Cost Reduction</div>
                     </div>
                   </div>
                   
-                  <div className="absolute bottom-2 left-2 lg:bottom-4 lg:left-4 bg-black/90 backdrop-blur-sm rounded-lg border border-gray-700 p-2 lg:p-4">
+                  <div className="absolute bottom-2 left-2 bg-black/95 backdrop-blur-sm rounded-md border border-gray-700 p-2">
                     <div className="text-center">
-                      <div className="text-lg lg:text-2xl font-bold gradient-text">
+                      <div className="text-sm lg:text-lg font-bold gradient-text">
                         <AnimatedCounter value={500} suffix="+" />
                       </div>
                       <div className="text-xs text-gray-400">Happy Clients</div>
