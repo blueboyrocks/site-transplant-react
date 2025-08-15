@@ -49,72 +49,37 @@ const Header = () => {
     { 
       name: 'Finance & Banking', 
       href: '/use-cases/finance', 
-      description: 'Predictive intelligence for financial services',
-      subItems: [
-        { name: 'Surround AI', href: '/use-cases/finance/surround-ai' },
-        { name: 'Data Coffee', href: '/use-cases/finance/data-coffee' },
-        { name: 'Complete Solution', href: '/use-cases/finance/complete-solution' }
-      ]
+      description: 'Predictive intelligence for financial services'
     },
     { 
       name: 'Healthcare', 
       href: '/use-cases/healthcare', 
-      description: 'Proactive patient care and unified records',
-      subItems: [
-        { name: 'Surround AI', href: '/use-cases/healthcare/surround-ai' },
-        { name: 'Data Coffee', href: '/use-cases/healthcare/data-coffee' },
-        { name: 'Complete Solution', href: '/use-cases/healthcare/complete-solution' }
-      ]
+      description: 'Proactive patient care and unified records'
     },
     { 
       name: 'Government & Education', 
       href: '/use-cases/sled', 
-      description: 'Data-driven public service optimization',
-      subItems: [
-        { name: 'Surround AI', href: '/use-cases/sled/surround-ai' },
-        { name: 'Data Coffee', href: '/use-cases/sled/data-coffee' },
-        { name: 'Complete Solution', href: '/use-cases/sled/complete-solution' }
-      ]
+      description: 'Data-driven public service optimization'
     },
     { 
       name: 'E-commerce & Retail', 
       href: '/use-cases/retail', 
-      description: 'Personalized customer experiences',
-      subItems: [
-        { name: 'Surround AI', href: '/use-cases/retail/surround-ai' },
-        { name: 'Data Coffee', href: '/use-cases/retail/data-coffee' },
-        { name: 'Complete Solution', href: '/use-cases/retail/complete-solution' }
-      ]
+      description: 'Personalized customer experiences'
     },
     { 
       name: 'Accounting & Audit', 
       href: '/use-cases/accounting', 
-      description: 'Automated financial analysis',
-      subItems: [
-        { name: 'Surround AI', href: '/use-cases/accounting/surround-ai' },
-        { name: 'Data Coffee', href: '/use-cases/accounting/data-coffee' },
-        { name: 'Complete Solution', href: '/use-cases/accounting/complete-solution' }
-      ]
+      description: 'Automated financial analysis'
     },
     { 
       name: 'Enterprise', 
       href: '/use-cases/enterprise', 
-      description: 'Enterprise-wide intelligence systems',
-      subItems: [
-        { name: 'Surround AI', href: '/use-cases/enterprise/surround-ai' },
-        { name: 'Data Coffee', href: '/use-cases/enterprise/data-coffee' },
-        { name: 'Complete Solution', href: '/use-cases/enterprise/complete-solution' }
-      ]
+      description: 'Enterprise-wide intelligence systems'
     },
     { 
       name: 'Small & Medium Business', 
       href: '/use-cases/small-medium-business', 
-      description: 'Enterprise-level insights for SMBs',
-      subItems: [
-        { name: 'Surround AI', href: '/use-cases/smb/surround-ai' },
-        { name: 'Data Coffee', href: '/use-cases/smb/data-coffee' },
-        { name: 'Complete Solution', href: '/use-cases/smb/complete-solution' }
-      ]
+      description: 'Enterprise-level insights for SMBs'
     }
   ]
 
@@ -188,40 +153,26 @@ const Header = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute top-full left-0 mt-2 w-96 bg-gray-900 border border-gray-700 rounded-lg shadow-xl z-50 max-h-96 overflow-y-auto"
+                    className="absolute top-full left-0 mt-2 w-96 bg-gray-800 border border-gray-600 rounded-lg shadow-xl z-50"
                   >
-                    <div className="p-4 space-y-2">
+                    <div className="p-4 space-y-1">
                       {useCases.map((useCase, index) => (
                         <div key={useCase.name}>
                           <Link
                             to={useCase.href}
-                            className={`block p-3 rounded-lg transition-colors ${
+                            className={`block p-3 rounded-lg transition-colors hover:bg-gray-700 ${
                               useCase.isSpecial 
-                                ? 'hover:bg-gray-800 border-b border-gray-700 pb-3 mb-2' 
-                                : 'hover:bg-gray-800'
+                                ? 'border-b border-gray-600 mb-2' 
+                                : ''
                             }`}
                             onClick={closeMenu}
                           >
                             <div className="font-semibold text-white">{useCase.name}</div>
-                            <div className="text-sm text-gray-400">{useCase.description}</div>
+                            <div className="text-sm text-gray-300">{useCase.description}</div>
                           </Link>
-                          {useCase.subItems && (
-                            <div className="ml-4 space-y-1 mb-2">
-                              {useCase.subItems.map((subItem) => (
-                                <Link
-                                  key={subItem.name}
-                                  to={subItem.href}
-                                  className="block px-3 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-800 rounded transition-colors"
-                                  onClick={closeMenu}
-                                >
-                                  {subItem.name}
-                                </Link>
-                              ))}
-                            </div>
-                          )}
                           {/* Add separator after special items */}
                           {useCase.isSpecial && index === 1 && (
-                            <div className="border-b border-gray-700 my-2"></div>
+                            <div className="border-b border-gray-600 my-2"></div>
                           )}
                         </div>
                       ))}
@@ -322,29 +273,14 @@ const Header = () => {
                 <div className="space-y-2">
                   <div className="font-semibold text-gray-300">Use Cases</div>
                   {useCases.map((useCase) => (
-                    <div key={useCase.name} className="space-y-1">
-                      <Link
-                        to={useCase.href}
-                        className="block pl-4 py-2 text-white hover:text-purple-400 transition-colors"
-                        onClick={closeMenu}
-                      >
-                        {useCase.name}
-                      </Link>
-                      {useCase.subItems && (
-                        <div className="pl-8 space-y-1">
-                          {useCase.subItems.map((subItem) => (
-                            <Link
-                              key={subItem.name}
-                              to={subItem.href}
-                              className="block py-1 text-sm text-gray-300 hover:text-purple-400 transition-colors"
-                              onClick={closeMenu}
-                            >
-                              {subItem.name}
-                            </Link>
-                          ))}
-                        </div>
-                      )}
-                    </div>
+                    <Link
+                      key={useCase.name}
+                      to={useCase.href}
+                      className="block pl-4 py-2 text-white hover:text-purple-400 transition-colors"
+                      onClick={closeMenu}
+                    >
+                      {useCase.name}
+                    </Link>
                   ))}
                 </div>
 
