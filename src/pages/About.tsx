@@ -8,10 +8,10 @@ import AnimatedCounter from '../components/AnimatedCounter'
 
 const About = () => {
   const stats = [
-    { value: 387, suffix: '+', label: 'Organizations Trust Us', description: 'From startups to Fortune 500 companies' },
-    { value: 77, suffix: '%', label: 'Uptime Guarantee', description: 'Enterprise-grade reliability' },
-    { value: 31, suffix: '%', label: 'Average Cost Reduction', description: 'Measurable ROI for our clients' },
-    { value: 23, suffix: '-Day', label: 'Implementation', description: 'Rapid deployment process' }
+    { value: 500, suffix: '+', label: 'Organizations Trust Us', description: 'From startups to Fortune 500 companies' },
+    { value: 99, suffix: '%', label: 'Uptime Guarantee', description: 'Enterprise-grade reliability' },
+    { value: 40, suffix: '%', label: 'Average Cost Reduction', description: 'Measurable ROI for our clients' },
+    { value: 30, suffix: '-Day', label: 'Implementation', description: 'Rapid deployment process' }
   ]
 
   const values = [
@@ -82,11 +82,15 @@ const About = () => {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
-          <div className="relative w-full h-full">
+          <div className="relative w-full h-full bg-gradient-to-br from-black via-gray-900 to-black">
             <img
               src="https://img.freepik.com/premium-photo/teamwork-laptop-team-working-project-together-with-research-modern-corporate-office-diversity-technology-business-people-collaboration-company-strategy-planning-workplace_590464-101822.jpg?w=2000"
               alt="LeapGen.AI Team"
-              className="w-full h-full object-cover opacity-30"
+              className="absolute inset-0 w-full h-full object-cover opacity-30"
+              onError={(e) => {
+                console.log('Image failed to load:', e.currentTarget.src);
+                e.currentTarget.style.display = 'none';
+              }}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/90" />
             <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900/80 to-black" />
