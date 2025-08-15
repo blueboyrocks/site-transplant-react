@@ -1,6 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
+import { GradientButton } from '@/components/ui/gradient-button';
+import { EnhancedCard } from '@/components/ui/enhanced-card';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { FloatingElements } from '@/components/ui/floating-elements';
 import { Link } from 'react-router-dom';
 import { Database, AlertTriangle, Target, Zap, CheckCircle, ArrowLeft, Coffee, Shield, FileSearch } from 'lucide-react';
 
@@ -76,7 +79,9 @@ const DataCoffeeFinance = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+    <div className="min-h-screen relative overflow-hidden">
+      <AnimatedBackground variant="mesh" theme="datacoffee" className="absolute inset-0 opacity-20" />
+      <FloatingElements count={6} variant="mixed" theme="datacoffee" className="absolute inset-0 opacity-15" />
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-7xl mx-auto">
@@ -96,7 +101,7 @@ const DataCoffeeFinance = () => {
               <span className="text-lg font-medium text-primary">Data Coffee for Finance</span>
             </div>
             
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+            <h1 className="text-hero gradient-text-datacoffee">
               Unify Financial Data with Intelligent Integration
             </h1>
             
@@ -105,12 +110,12 @@ const DataCoffeeFinance = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="text-lg px-8">
-                See Data Integration Demo
-              </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8">
-                Calculate Time Savings
-              </Button>
+              <GradientButton variant="datacoffee" size="lg" asChild>
+                <Link to="/contact?product=data-coffee&industry=finance">See Data Integration Demo</Link>
+              </GradientButton>
+              <GradientButton variant="secondary" size="lg" asChild>
+                <Link to="/resources/roi-calculator">Calculate Time Savings</Link>
+              </GradientButton>
             </div>
           </motion.div>
         </div>
@@ -138,12 +143,13 @@ const DataCoffeeFinance = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 + index * 0.1 }}
-                className="bg-card rounded-lg p-6 border border-border"
               >
-                <div className="flex items-start gap-3">
-                  <AlertTriangle className="w-5 h-5 text-destructive mt-1 flex-shrink-0" />
-                  <p className="text-muted-foreground">{challenge}</p>
-                </div>
+                <EnhancedCard variant="default" className="p-6 h-full">
+                  <div className="flex items-start gap-3">
+                    <AlertTriangle className="w-5 h-5 text-destructive mt-1 flex-shrink-0" />
+                    <p className="text-muted-foreground">{challenge}</p>
+                  </div>
+                </EnhancedCard>
               </motion.div>
             ))}
           </div>
@@ -400,12 +406,12 @@ const DataCoffeeFinance = () => {
             Join leading financial institutions using Data Coffee to eliminate manual data reconciliation and ensure regulatory compliance.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="text-lg px-8">
-              Schedule Data Integration Demo
-            </Button>
-            <Button variant="outline" size="lg" className="text-lg px-8">
-              Calculate Time Savings
-            </Button>
+              <GradientButton variant="datacoffee" size="lg" asChild>
+                <Link to="/contact?product=data-coffee&industry=finance">Schedule Data Integration Demo</Link>
+              </GradientButton>
+            <GradientButton variant="secondary" size="lg" asChild>
+              <Link to="/resources/roi-calculator">Calculate Time Savings</Link>
+            </GradientButton>
           </div>
         </motion.div>
       </section>

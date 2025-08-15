@@ -1,6 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
+import { GradientButton } from '@/components/ui/gradient-button';
+import { EnhancedCard } from '@/components/ui/enhanced-card';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { FloatingElements } from '@/components/ui/floating-elements';
 import { Link } from 'react-router-dom';
 import { Zap, ArrowLeft, Database, TrendingUp, Shield, CheckCircle, Users, Clock, FileCheck } from 'lucide-react';
 
@@ -85,7 +88,9 @@ const CompleteSolutionFinance = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+    <div className="min-h-screen relative overflow-hidden">
+      <AnimatedBackground variant="mesh" theme="finance" className="absolute inset-0 opacity-20" />
+      <FloatingElements count={8} variant="mixed" theme="finance" className="absolute inset-0 opacity-15" />
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-7xl mx-auto">
@@ -105,7 +110,7 @@ const CompleteSolutionFinance = () => {
               <span className="text-lg font-medium text-primary">Complete Financial Intelligence</span>
             </div>
             
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+            <h1 className="text-hero gradient-text-finance">
               The Ultimate Financial AI Platform
             </h1>
             
@@ -174,12 +179,13 @@ const CompleteSolutionFinance = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.8 + index * 0.1 }}
-                  className="bg-card rounded-lg p-6 border border-border text-left"
                 >
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                    <p className="text-muted-foreground">{benefit}</p>
-                  </div>
+                  <EnhancedCard variant="default" className="p-6 text-left h-full">
+                    <div className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                      <p className="text-muted-foreground">{benefit}</p>
+                    </div>
+                  </EnhancedCard>
                 </motion.div>
               ))}
             </div>
@@ -326,12 +332,12 @@ const CompleteSolutionFinance = () => {
             Experience the power of unified data and predictive intelligence working together to revolutionize your financial operations.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8">
+            <GradientButton variant="finance" size="lg" asChild>
               <Link to="/contact?type=demo&product=complete-solution&industry=finance">Schedule Complete Demo</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8">
+            </GradientButton>
+            <GradientButton variant="secondary" size="lg" asChild>
               <Link to="/resources/roi-calculator">Calculate ROI</Link>
-            </Button>
+            </GradientButton>
           </div>
         </motion.div>
       </section>
