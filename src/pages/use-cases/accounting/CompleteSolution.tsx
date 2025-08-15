@@ -1,7 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { GradientButton } from '@/components/ui/gradient-button';
+import { EnhancedCard } from '@/components/ui/enhanced-card';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { FloatingElements } from '@/components/ui/floating-elements';
 import { Link } from 'react-router-dom';
 import { 
   Layers, 
@@ -187,9 +189,11 @@ const AccountingCompleteSolution = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+    <div className="min-h-screen relative overflow-hidden">
+      <AnimatedBackground variant="particles" theme="finance" className="absolute inset-0 opacity-15" />
+      <FloatingElements count={8} variant="squares" theme="finance" className="absolute inset-0 opacity-20" />
       {/* Breadcrumb */}
-      <section className="pt-24 pb-8 px-4">
+      <section className="pt-24 pb-8 px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
           <nav className="text-sm text-muted-foreground">
             <Link to="/use-cases" className="hover:text-primary">Use Cases</Link> / 
@@ -221,7 +225,7 @@ const AccountingCompleteSolution = () => {
               </span>
             </div>
             
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+            <h1 className="text-hero gradient-text-finance">
               End-to-End AI Platform
             </h1>
             
@@ -230,12 +234,12 @@ const AccountingCompleteSolution = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild size="lg" className="text-lg px-8">
+              <GradientButton variant="finance" size="lg" asChild>
                 <Link to="/contact?product=complete-solution&industry=accounting">Request Demo</Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="text-lg px-8">
+              </GradientButton>
+              <GradientButton variant="secondary" size="lg" asChild>
                 <Link to="/resources/roi-calculator">Calculate ROI</Link>
-              </Button>
+              </GradientButton>
             </div>
           </motion.div>
 
@@ -247,13 +251,13 @@ const AccountingCompleteSolution = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
           >
             {benefits.map((benefit, index) => (
-              <Card key={index}>
-                <CardContent className="p-6 text-center">
+              <EnhancedCard key={index} variant="glass">
+                <div className="p-6 text-center">
                   <div className="text-3xl font-bold text-primary mb-2">{benefit.metric}</div>
                   <h3 className="font-semibold mb-1">{benefit.label}</h3>
                   <p className="text-sm text-muted-foreground">{benefit.description}</p>
-                </CardContent>
-              </Card>
+                </div>
+              </EnhancedCard>
             ))}
           </motion.div>
         </div>
@@ -456,14 +460,14 @@ const AccountingCompleteSolution = () => {
             Join accounting firms leveraging our complete AI platform to revolutionize their operations and client service.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8">
+            <GradientButton variant="finance" size="lg" asChild>
               <Link to="/contact?product=complete-solution&industry=accounting" className="flex items-center gap-2">
                 Request Complete Solution Demo <ArrowRight className="w-4 h-4" />
               </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8">
+            </GradientButton>
+            <GradientButton variant="secondary" size="lg" asChild>
               <Link to="/use-cases/accounting">Back to Accounting Solutions</Link>
-            </Button>
+            </GradientButton>
           </div>
         </motion.div>
       </section>

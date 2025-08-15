@@ -1,7 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { GradientButton } from '@/components/ui/gradient-button';
+import { EnhancedCard } from '@/components/ui/enhanced-card';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { FloatingElements } from '@/components/ui/floating-elements';
 import { Link } from 'react-router-dom';
 import { 
   Database, 
@@ -121,7 +123,9 @@ const AccountingDataCoffee = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+    <div className="min-h-screen relative overflow-hidden">
+      <AnimatedBackground variant="gradient" theme="datacoffee" className="absolute inset-0 opacity-20" />
+      <FloatingElements count={6} variant="hexagons" theme="datacoffee" className="absolute inset-0 opacity-15" />
       {/* Breadcrumb */}
       <section className="pt-24 pb-8 px-4">
         <div className="max-w-7xl mx-auto">
@@ -155,7 +159,7 @@ const AccountingDataCoffee = () => {
               </span>
             </div>
             
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+            <h1 className="text-hero gradient-text-datacoffee">
               Automate Data Preparation
             </h1>
             
@@ -164,12 +168,12 @@ const AccountingDataCoffee = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild size="lg" className="text-lg px-8">
+              <GradientButton variant="datacoffee" size="lg" asChild>
                 <Link to="/contact?product=data-coffee&industry=accounting">Request Demo</Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="text-lg px-8">
+              </GradientButton>
+              <GradientButton variant="secondary" size="lg" asChild>
                 <Link to="/resources/roi-calculator">Calculate ROI</Link>
-              </Button>
+              </GradientButton>
             </div>
           </motion.div>
 
@@ -180,24 +184,24 @@ const AccountingDataCoffee = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <Card>
-              <CardContent className="p-6 text-center">
+            <EnhancedCard variant="glass">
+              <div className="p-6 text-center">
                 <h3 className="font-semibold mb-2">Manual Data Prep</h3>
                 <div className="text-2xl font-bold text-destructive">40+ hours</div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-6 text-center">
+              </div>
+            </EnhancedCard>
+            <EnhancedCard variant="glass">
+              <div className="p-6 text-center">
                 <h3 className="font-semibold mb-2">With Data Coffee</h3>
                 <div className="text-2xl font-bold text-primary">8 hours</div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-6 text-center">
+              </div>
+            </EnhancedCard>
+            <EnhancedCard variant="glass">
+              <div className="p-6 text-center">
                 <h3 className="font-semibold mb-2">Time Saved</h3>
                 <div className="text-2xl font-bold text-primary">32+ hours</div>
-              </CardContent>
-            </Card>
+              </div>
+            </EnhancedCard>
           </motion.div>
         </div>
       </section>
@@ -355,8 +359,8 @@ const AccountingDataCoffee = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 3.5 }}
           >
-            <Card>
-              <CardContent className="p-8">
+            <EnhancedCard variant="glass">
+              <div className="p-8">
                 <div className="text-center mb-8">
                   <h2 className="text-3xl font-bold mb-4">Success Story</h2>
                   <h3 className="text-xl font-semibold text-primary">{caseStudy.title}</h3>
@@ -397,8 +401,8 @@ const AccountingDataCoffee = () => {
                     </ul>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </EnhancedCard>
           </motion.div>
         </div>
       </section>
@@ -416,14 +420,14 @@ const AccountingDataCoffee = () => {
             Join accounting firms using Data Coffee to transform their audit efficiency and focus on high-value analysis.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8">
+            <GradientButton variant="datacoffee" size="lg" asChild>
               <Link to="/contact?product=data-coffee&industry=accounting" className="flex items-center gap-2">
                 Request Data Coffee Demo <ArrowRight className="w-4 h-4" />
               </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8">
+            </GradientButton>
+            <GradientButton variant="secondary" size="lg" asChild>
               <Link to="/use-cases/accounting">Back to Accounting Solutions</Link>
-            </Button>
+            </GradientButton>
           </div>
         </motion.div>
       </section>

@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
+import { GradientButton } from '@/components/ui/gradient-button';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { FloatingElements } from '@/components/ui/floating-elements';
 import { Link } from 'react-router-dom';
 import { 
   Building2, 
@@ -103,9 +105,11 @@ const CompleteSolutionEnterprise = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+    <div className="min-h-screen relative overflow-hidden">
+      <AnimatedBackground variant="mesh" theme="finance" className="absolute inset-0 opacity-20" />
+      <FloatingElements count={8} variant="mixed" theme="finance" className="absolute inset-0 opacity-15" />
       {/* Hero Section */}
-      <section className="pt-32 pb-16 px-4">
+      <section className="pt-32 pb-16 px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -118,7 +122,7 @@ const CompleteSolutionEnterprise = () => {
               <span className="text-2xl font-medium text-primary">Complete Enterprise Intelligence Solution</span>
             </div>
             
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+            <h1 className="text-hero gradient-text-finance">
               Transform Enterprise Strategy with Unified AI Intelligence
             </h1>
             
@@ -127,12 +131,12 @@ const CompleteSolutionEnterprise = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="text-lg px-8">
+              <GradientButton variant="finance" size="lg" asChild>
                 <Link to="/contact?solution=complete&industry=enterprise">See Complete Demo</Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="text-lg px-8">
+              </GradientButton>
+              <GradientButton variant="secondary" size="lg" asChild>
                 <Link to="/resources/roi-calculator">Calculate Total ROI</Link>
-              </Button>
+              </GradientButton>
             </div>
           </motion.div>
         </div>
@@ -305,14 +309,14 @@ const CompleteSolutionEnterprise = () => {
             Join Fortune 500 companies using our complete intelligence platform to drive competitive advantage and accelerate growth.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8">
+            <GradientButton variant="finance" size="lg" asChild>
               <Link to="/contact?solution=complete&industry=enterprise" className="flex items-center gap-2">
                 Schedule Complete Demo <ArrowRight className="w-4 h-4" />
               </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8">
+            </GradientButton>
+            <GradientButton variant="secondary" size="lg" asChild>
               <Link to="/use-cases/enterprise">Back to Enterprise</Link>
-            </Button>
+            </GradientButton>
           </div>
         </motion.div>
       </section>
