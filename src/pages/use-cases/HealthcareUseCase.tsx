@@ -23,7 +23,7 @@ const HealthcareUseCase = () => {
         "15% better diagnostic accuracy",
         "30% improved patient engagement"
       ],
-      href: "/products/surroundai",
+      href: "/use-cases/healthcare/surround-ai",
       icon: TrendingUp
     },
     {
@@ -34,7 +34,7 @@ const HealthcareUseCase = () => {
         "70% less manual data entry",
         "95% data accuracy improvement"
       ],
-      href: "/products/data-coffee", 
+      href: "/use-cases/healthcare/data-coffee", 
       icon: Shield
     },
     {
@@ -45,7 +45,7 @@ const HealthcareUseCase = () => {
         "15% better patient outcomes", 
         "30% operational efficiency gain"
       ],
-      href: "/contact?type=demo&industry=healthcare",
+      href: "/use-cases/healthcare/complete-solution",
       icon: Zap
     }
   ];
