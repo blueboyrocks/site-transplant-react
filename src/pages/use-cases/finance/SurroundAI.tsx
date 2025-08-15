@@ -1,6 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
+import { GradientButton } from '@/components/ui/gradient-button';
+import { EnhancedCard } from '@/components/ui/enhanced-card';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { FloatingElements } from '@/components/ui/floating-elements';
 import { Link } from 'react-router-dom';
 import { TrendingUp, AlertTriangle, Target, Zap, CheckCircle, ArrowLeft, BarChart3, Shield, Eye } from 'lucide-react';
 
@@ -57,7 +60,9 @@ const SurroundAIFinance = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+    <div className="min-h-screen relative overflow-hidden">
+      <AnimatedBackground variant="mesh" theme="surroundai" className="absolute inset-0 opacity-20" />
+      <FloatingElements count={6} variant="mixed" theme="surroundai" className="absolute inset-0 opacity-15" />
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-7xl mx-auto">
@@ -77,7 +82,7 @@ const SurroundAIFinance = () => {
               <span className="text-lg font-medium text-primary">Surround AI for Finance</span>
             </div>
             
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+            <h1 className="text-hero gradient-text-surroundai">
               Transform Financial Intelligence with Dynamic Prediction
             </h1>
             
@@ -86,12 +91,12 @@ const SurroundAIFinance = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="text-lg px-8">
-                See Financial Demo
-              </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8">
-                Calculate ROI
-              </Button>
+              <GradientButton variant="surroundai" size="lg" asChild>
+                <Link to="/contact?product=surround-ai&industry=finance">See Financial Demo</Link>
+              </GradientButton>
+              <GradientButton variant="secondary" size="lg" asChild>
+                <Link to="/resources/roi-calculator">Calculate ROI</Link>
+              </GradientButton>
             </div>
           </motion.div>
         </div>
@@ -119,13 +124,14 @@ const SurroundAIFinance = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 + index * 0.1 }}
-                className="bg-card rounded-lg p-6 border border-border"
-              >
-                <div className="flex items-start gap-3">
-                  <AlertTriangle className="w-5 h-5 text-destructive mt-1 flex-shrink-0" />
-                  <p className="text-muted-foreground">{challenge}</p>
-                </div>
-              </motion.div>
+                >
+                  <EnhancedCard variant="default" className="p-6 h-full">
+                    <div className="flex items-start gap-3">
+                      <AlertTriangle className="w-5 h-5 text-destructive mt-1 flex-shrink-0" />
+                      <p className="text-muted-foreground">{challenge}</p>
+                    </div>
+                  </EnhancedCard>
+                </motion.div>
             ))}
           </div>
 
@@ -365,12 +371,12 @@ const SurroundAIFinance = () => {
             Join leading financial institutions using Surround AI to predict customer behavior, prevent fraud, and optimize portfolio performance.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="text-lg px-8">
-              Schedule Financial Demo
-            </Button>
-            <Button variant="outline" size="lg" className="text-lg px-8">
-              Download ROI Calculator
-            </Button>
+            <GradientButton variant="surroundai" size="lg" asChild>
+              <Link to="/contact?product=surround-ai&industry=finance">Schedule Financial Demo</Link>
+            </GradientButton>
+            <GradientButton variant="secondary" size="lg" asChild>
+              <Link to="/resources/roi-calculator">Download ROI Calculator</Link>
+            </GradientButton>
           </div>
         </motion.div>
       </section>

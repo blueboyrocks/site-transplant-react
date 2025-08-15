@@ -1,6 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
+import { GradientButton } from '@/components/ui/gradient-button';
+import { EnhancedCard } from '@/components/ui/enhanced-card';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { FloatingElements } from '@/components/ui/floating-elements';
 import { Link } from 'react-router-dom';
 import { 
   HeartHandshake, 
@@ -80,7 +83,9 @@ const CompleteHealthcareSolution = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+    <div className="min-h-screen relative overflow-hidden">
+      <AnimatedBackground variant="mesh" theme="healthcare" className="absolute inset-0 opacity-20" />
+      <FloatingElements count={8} variant="mixed" theme="healthcare" className="absolute inset-0 opacity-15" />
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-7xl mx-auto">
@@ -95,7 +100,7 @@ const CompleteHealthcareSolution = () => {
                 <span className="text-lg font-medium text-primary">Complete Healthcare Intelligence</span>
               </div>
               
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+              <h1 className="text-hero gradient-text-healthcare">
                 The Ultimate Healthcare AI Platform
               </h1>
               
@@ -104,12 +109,12 @@ const CompleteHealthcareSolution = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button asChild size="lg" className="text-lg px-8">
+                <GradientButton variant="healthcare" size="lg" asChild>
                   <Link to="/contact?product=complete-solution&industry=healthcare">Schedule Healthcare Demo</Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="text-lg px-8">
+                </GradientButton>
+                <GradientButton variant="secondary" size="lg" asChild>
                   <Link to="/resources/healthcare-roi-calculator">Calculate Total Impact</Link>
-                </Button>
+                </GradientButton>
               </div>
             </motion.div>
             
@@ -174,12 +179,12 @@ const CompleteHealthcareSolution = () => {
             transition={{ duration: 0.8, delay: 0.8 }}
           >
             {benefits.map((benefit, index) => (
-              <div key={index} className="bg-card rounded-lg p-6 border border-border">
+              <EnhancedCard key={index} variant="default" className="p-6 h-full">
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
                   <p className="text-muted-foreground">{benefit}</p>
                 </div>
-              </div>
+              </EnhancedCard>
             ))}
           </motion.div>
         </div>
@@ -204,16 +209,17 @@ const CompleteHealthcareSolution = () => {
             {steps.map((step, index) => (
               <motion.div
                 key={index}
-                className="bg-card rounded-xl p-8 border border-border"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.2 + index * 0.1 }}
               >
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                  <step.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
-                <p className="text-muted-foreground">{step.description}</p>
+                <EnhancedCard variant="product" theme="healthcare" className="p-8 h-full">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <step.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
+                  <p className="text-muted-foreground">{step.description}</p>
+                </EnhancedCard>
               </motion.div>
             ))}
           </div>
@@ -291,14 +297,14 @@ const CompleteHealthcareSolution = () => {
             See how the complete healthcare intelligence platform can revolutionize patient care, reduce costs, and improve outcomes across your entire organization.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8">
+            <GradientButton variant="healthcare" size="lg" asChild>
               <Link to="/contact?product=complete-solution&industry=healthcare" className="flex items-center gap-2">
                 Schedule Complete Demo <ArrowRight className="w-4 h-4" />
               </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8">
+            </GradientButton>
+            <GradientButton variant="secondary" size="lg" asChild>
               <Link to="/use-cases/healthcare">Back to Healthcare</Link>
-            </Button>
+            </GradientButton>
           </div>
         </motion.div>
       </section>
