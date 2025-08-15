@@ -26,16 +26,8 @@ const Index = () => {
         url="https://leapgen.ai"
       />
       <div className="min-h-screen">
-        {/* A/B Test: Use ConversionHero 50% of the time */}
-        {Math.random() > 0.5 ? (
-          <ConversionHero 
-            variant="value-focused"
-            industry="enterprise"
-            className="relative z-10"
-          />
-        ) : (
-          <HeroSection />
-        )}
+        {/* Use the improved HeroSection instead of A/B testing for now */}
+        <HeroSection />
         <ProductsSection />
         <TestimonialsSection />
         <CTASection />
