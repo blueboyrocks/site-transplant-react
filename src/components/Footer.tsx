@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Mail, Phone, MapPin, Linkedin, Twitter, Instagram, Youtube } from 'lucide-react'
+import { CONTACT_INFO } from '@/config/contact'
 
 const Footer = () => {
   return (
@@ -16,16 +17,16 @@ const Footer = () => {
               Trusted by 500+ organizations worldwide.
             </p>
             <div className="flex space-x-4">
-              <a href="https://www.linkedin.com/company/leap-gen-solutions/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400 transition-colors">
+              <a href={CONTACT_INFO.socialMedia.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400 transition-colors">
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a href="https://x.com/LeapgenAi" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400 transition-colors">
+              <a href={CONTACT_INFO.socialMedia.twitter} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400 transition-colors">
                 <Twitter className="w-5 h-5" />
               </a>
-              <a href="https://www.instagram.com/leapgen_solutions/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400 transition-colors">
+              <a href={CONTACT_INFO.socialMedia.instagram} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400 transition-colors">
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="https://www.youtube.com/@leapgensolutions" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400 transition-colors">
+              <a href={CONTACT_INFO.socialMedia.youtube} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400 transition-colors">
                 <Youtube className="w-5 h-5" />
               </a>
             </div>
@@ -60,19 +61,19 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-center space-x-2 text-gray-400">
                 <Mail className="w-4 h-4" />
-                <a href="mailto:contact@leapgen.ai" className="hover:text-white transition-colors">
-                  contact@leapgen.ai
+                <a href={`mailto:${CONTACT_INFO.email}`} className="hover:text-white transition-colors">
+                  {CONTACT_INFO.email}
                 </a>
               </li>
               <li className="flex items-center space-x-2 text-gray-400">
                 <Phone className="w-4 h-4" />
-                <a href="tel:+15551234567" className="hover:text-white transition-colors">
-                  +1 (555) 123-4567
+                <a href={CONTACT_INFO.phoneLink} className="hover:text-white transition-colors">
+                  {CONTACT_INFO.phoneFormatted}
                 </a>
               </li>
               <li className="flex items-center space-x-2 text-gray-400">
                 <MapPin className="w-4 h-4" />
-                <span>San Francisco, CA</span>
+                <span>{CONTACT_INFO.address.city}, {CONTACT_INFO.address.state}</span>
               </li>
             </ul>
           </div>

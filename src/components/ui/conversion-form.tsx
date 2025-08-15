@@ -249,7 +249,7 @@ const ConversionForm: React.FC<ConversionFormProps> = ({
             id="phone"
             value={formData.phone}
             onChange={(e) => updateFormData('phone', e.target.value)}
-            placeholder="+1 (555) 123-4567"
+            placeholder="+1 (609) 722-6768"
             className="bg-gray-800 border-gray-600"
           />
         </div>

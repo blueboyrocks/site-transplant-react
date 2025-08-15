@@ -1,6 +1,7 @@
 import React from 'react';
 import { AdvancedSEO } from './AdvancedSEO';
 import { OrganizationSchema, ProductSchema } from './StructuredData';
+import { CONTACT_INFO } from '@/config/contact';
 
 interface PageSEOProps {
   page: 'home' | 'products' | 'about' | 'contact' | 'resources' | 'use-cases' | 'customer-success';
@@ -124,11 +125,11 @@ export const PageSEO: React.FC<PageSEOProps> = ({
           { name: 'application-name', content: 'LeapGen.AI' },
           { name: 'apple-mobile-web-app-title', content: 'LeapGen.AI' },
           { name: 'msapplication-TileColor', content: '#8B5CF6' },
-          { property: 'business:contact_data:street_address', content: 'Enterprise AI District' },
-          { property: 'business:contact_data:locality', content: 'San Francisco' },
-          { property: 'business:contact_data:region', content: 'CA' },
-          { property: 'business:contact_data:postal_code', content: '94105' },
-          { property: 'business:contact_data:country_name', content: 'United States' }
+          { property: 'business:contact_data:street_address', content: CONTACT_INFO.address.street },
+          { property: 'business:contact_data:locality', content: CONTACT_INFO.address.city },
+          { property: 'business:contact_data:region', content: CONTACT_INFO.address.state },
+          { property: 'business:contact_data:postal_code', content: CONTACT_INFO.address.zipCode },
+          { property: 'business:contact_data:country_name', content: CONTACT_INFO.address.country }
         ]}
       />
       

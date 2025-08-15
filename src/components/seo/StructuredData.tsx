@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { CONTACT_INFO } from '@/config/contact';
 
 interface StructuredDataProps {
   type: 'Organization' | 'Product' | 'Article' | 'BreadcrumbList' | 'FAQPage' | 'VideoObject';
@@ -29,8 +30,9 @@ export const StructuredData: React.FC<StructuredDataProps> = ({ type, data }) =>
           ],
           contactPoint: {
             '@type': 'ContactPoint',
-            telephone: data.telephone || '+1-555-LEAPGEN',
+            telephone: data.telephone || CONTACT_INFO.phoneFormatted,
             contactType: 'customer service',
+            email: data.email || CONTACT_INFO.email,
             availableLanguage: ['English']
           }
         };
@@ -103,9 +105,20 @@ export const OrganizationSchema: React.FC<{ data?: Partial<any> }> = ({ data = {
       numberOfEmployees: '50-100',
       address: {
         '@type': 'PostalAddress',
-        addressCountry: 'US',
-        addressRegion: 'CA'
+        streetAddress: CONTACT_INFO.address.street,
+        addressLocality: CONTACT_INFO.address.city,
+        addressRegion: CONTACT_INFO.address.state,
+        postalCode: CONTACT_INFO.address.zipCode,
+        addressCountry: CONTACT_INFO.address.country
       },
+      telephone: CONTACT_INFO.phoneFormatted,
+      email: CONTACT_INFO.email,
+      sameAs: [
+        CONTACT_INFO.socialMedia.linkedin,
+        CONTACT_INFO.socialMedia.twitter,
+        CONTACT_INFO.socialMedia.instagram,
+        CONTACT_INFO.socialMedia.youtube
+      ],
       ...data
     }}
   />

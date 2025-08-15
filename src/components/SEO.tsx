@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async'
+import { CONTACT_INFO } from '@/config/contact'
 
 interface SEOProps {
   title?: string
@@ -60,15 +61,23 @@ const SEO = ({
           "logo": "https://leapgen.ai/images/logo.png",
           "contactPoint": {
             "@type": "ContactPoint",
-            "telephone": "+1-555-123-4567",
+            "telephone": CONTACT_INFO.phoneFormatted,
             "contactType": "customer service",
-            "email": "contact@leapgen.ai"
+            "email": CONTACT_INFO.email
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": CONTACT_INFO.address.street,
+            "addressLocality": CONTACT_INFO.address.city,
+            "addressRegion": CONTACT_INFO.address.state,
+            "postalCode": CONTACT_INFO.address.zipCode,
+            "addressCountry": CONTACT_INFO.address.country
           },
           "sameAs": [
-            "https://www.linkedin.com/company/leap-gen-solutions/",
-            "https://x.com/LeapgenAi",
-            "https://www.instagram.com/leapgen_solutions/",
-            "https://www.youtube.com/@leapgensolutions"
+            CONTACT_INFO.socialMedia.linkedin,
+            CONTACT_INFO.socialMedia.twitter,
+            CONTACT_INFO.socialMedia.instagram,
+            CONTACT_INFO.socialMedia.youtube
           ]
         })}
       </script>

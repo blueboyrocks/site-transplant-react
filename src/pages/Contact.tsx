@@ -9,6 +9,7 @@ import { AnimatedBackground } from '../components/ui/animated-background'
 import { FloatingElements } from '../components/ui/floating-elements'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
+import { CONTACT_INFO } from '@/config/contact'
 
 interface ContactForm {
   name: string
@@ -49,14 +50,14 @@ const Contact = () => {
       title: 'Speak with Expert',
       description: 'Talk directly with our AI specialists',
       action: 'Call Now',
-      href: 'tel:+15551234567'
+      href: CONTACT_INFO.phoneLink
     },
     {
       icon: Mail,
       title: 'Email Support',
       description: 'Send us your questions and we\'ll respond quickly',
       action: 'Send Email',
-      href: 'mailto:contact@leapgen.ai'
+      href: `mailto:${CONTACT_INFO.email}`
     }
   ]
 
@@ -212,7 +213,7 @@ const Contact = () => {
                     <input
                       {...register('phone')}
                       className="form-input"
-                      placeholder="+1 (555) 123-4567"
+                      placeholder={CONTACT_INFO.phoneFormatted}
                     />
                   </div>
                 </div>
@@ -267,7 +268,7 @@ const Contact = () => {
                   <Mail className="w-6 h-6 text-purple-400" />
                   <div>
                     <div className="text-white font-medium">Email</div>
-                    <div className="text-gray-300">contact@leapgen.ai</div>
+                    <div className="text-gray-300">{CONTACT_INFO.email}</div>
                   </div>
                 </div>
                 
@@ -275,7 +276,7 @@ const Contact = () => {
                   <Phone className="w-6 h-6 text-purple-400" />
                   <div>
                     <div className="text-white font-medium">Phone</div>
-                    <div className="text-gray-300">+1 (555) 123-4567</div>
+                    <div className="text-gray-300">{CONTACT_INFO.phoneFormatted}</div>
                   </div>
                 </div>
                 
