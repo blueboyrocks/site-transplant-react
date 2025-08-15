@@ -1,50 +1,51 @@
-import { NextRequest, NextResponse } from 'next/server'
+export const config = { runtime: 'edge' }
 
-export const config = {
-  runtime: 'edge',
+const corsHeaders: Record<string, string> = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
 }
 
-export default async function handler(req: NextRequest) {
+const jsonCorsHeaders: Record<string, string> = {
+  ...corsHeaders,
+  'Content-Type': 'application/json',
+}
+
+// Fallback URL to ensure production works even if env var isn't set yet
+const FALLBACK_MAKE_WEBHOOK_URL = 'https://hook.us2.make.com/esonrv674fe7exxmtxrjy9unqx8ifut5'
+
+export default async function handler(req: Request): Promise<Response> {
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
-    return new NextResponse(null, {
+    return new Response(null, {
       status: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
-      },
+      headers: corsHeaders,
     })
   }
 
   // Only allow POST requests
   if (req.method !== 'POST') {
-    return NextResponse.json(
-      { error: 'Method not allowed' },
-      { status: 405 }
-    )
+    return new Response(JSON.stringify({ error: 'Method not allowed' }), {
+      status: 405,
+      headers: jsonCorsHeaders,
+    })
   }
 
   try {
-    // Get the Make.com webhook URL from environment
-    const makeWebhookUrl = process.env.MAKE_WEBHOOK_URL
-    
-    if (!makeWebhookUrl) {
-      console.error('MAKE_WEBHOOK_URL environment variable not set')
-      return NextResponse.json(
-        { error: 'Webhook not configured' },
-        { status: 500 }
-      )
-    }
+    // Prefer env var, fallback to provided webhook URL
+    const makeWebhookUrl = (process.env.MAKE_WEBHOOK_URL && process.env.MAKE_WEBHOOK_URL.trim()) || FALLBACK_MAKE_WEBHOOK_URL
 
     // Parse the incoming request body
-    const body = await req.json()
-    
+    const body = await req.json().catch(() => ({}))
+
     // Add server-side metadata
+    const requestId = crypto.randomUUID()
     const webhookPayload = {
       ...body,
       serverTimestamp: new Date().toISOString(),
-      requestId: crypto.randomUUID(),
+      requestId,
+      userAgent: req.headers.get('user-agent') || undefined,
+      referer: req.headers.get('referer') || undefined,
     }
 
     // Forward to Make.com webhook
@@ -58,32 +59,25 @@ export default async function handler(req: NextRequest) {
 
     if (!response.ok) {
       console.error('Make.com webhook failed:', response.status, response.statusText)
-      return NextResponse.json(
-        { error: 'Webhook submission failed' },
-        { status: 500 }
-      )
+      return new Response(JSON.stringify({ error: 'Webhook submission failed' }), {
+        status: 500,
+        headers: jsonCorsHeaders,
+      })
     }
 
     // Return success response
-    return NextResponse.json(
-      { 
-        ok: true, 
-        requestId: webhookPayload.requestId,
-        message: 'Form submitted successfully' 
-      },
-      { 
+    return new Response(
+      JSON.stringify({ ok: true, requestId, message: 'Form submitted successfully' }),
+      {
         status: 200,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        }
+        headers: jsonCorsHeaders,
       }
     )
-
   } catch (error) {
     console.error('Webhook proxy error:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    return new Response(JSON.stringify({ error: 'Internal server error' }), {
+      status: 500,
+      headers: jsonCorsHeaders,
+    })
   }
 }
