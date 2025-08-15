@@ -38,11 +38,14 @@ const Index = () => {
         )}
         <ProductsSection />
         <TestimonialsSection />
-      <CTASection />
+        <CTASection />
       
-      {/* Real-time conversion monitoring */}
-      <ConversionMonitor position="bottom-right" />
-    </div>
+        {/* Real-time conversion monitoring */}
+        <ConversionMonitor position="bottom-right" />
+        
+        {/* Performance monitoring */}
+        <div id="performance-monitor-root" />
+      </div>
     </>
   );
 };

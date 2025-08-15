@@ -2,15 +2,17 @@
 
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, ChevronDown } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from './ui/button'
+import { MobileNavigation } from './ui/mobile-navigation'
+import { useAnalytics } from '@/utils/analytics'
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const location = useLocation()
+  const analytics = useAnalytics()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,9 +79,14 @@ const Header = () => {
     }
   ]
 
-  const closeMenu = () => {
-    setIsMenuOpen(false)
+  const handleDropdownToggle = (dropdown: string) => {
+    setActiveDropdown(activeDropdown === dropdown ? null : dropdown)
+    analytics.track('header_dropdown_toggle', { dropdown, opened: activeDropdown !== dropdown })
+  }
+
+  const handleMenuItemClick = (label: string, href: string) => {
     setActiveDropdown(null)
+    analytics.track('header_menu_click', { label, href })
   }
 
   return (
@@ -89,7 +96,11 @@ const Header = () => {
       <nav className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2" onClick={closeMenu}>
+          <Link 
+            to="/" 
+            className="flex items-center space-x-2 hover-scale" 
+            onClick={() => handleMenuItemClick('Logo', '/')}
+          >
             <span className="text-2xl font-bold gradient-text">LeapGen.AI</span>
           </Link>
 
@@ -98,7 +109,7 @@ const Header = () => {
             {/* Products Dropdown */}
             <div 
               className="relative"
-              onMouseEnter={() => setActiveDropdown('products')}
+              onMouseEnter={() => handleDropdownToggle('products')}
               onMouseLeave={() => setActiveDropdown(null)}
             >
               <button className="flex items-center space-x-1 text-white hover:text-purple-400 transition-colors">
@@ -114,12 +125,12 @@ const Header = () => {
                     className="absolute top-full left-0 mt-2 w-80 bg-gray-900 border border-gray-700 rounded-lg shadow-xl z-50"
                   >
                     <div className="p-4 space-y-3">
-                      {products.map((product) => (
+                       {products.map((product) => (
                         <Link
                           key={product.name}
                           to={product.href}
                           className="block p-3 hover:bg-gray-800 rounded-lg transition-colors"
-                          onClick={closeMenu}
+                          onClick={() => handleMenuItemClick(product.name, product.href)}
                         >
                           <div className="font-semibold text-white">{product.name}</div>
                           <div className="text-sm text-gray-400">{product.description}</div>
@@ -134,7 +145,7 @@ const Header = () => {
             {/* Use Cases Dropdown */}
             <div 
               className="relative"
-              onMouseEnter={() => setActiveDropdown('use-cases')}
+              onMouseEnter={() => handleDropdownToggle('use-cases')}
               onMouseLeave={() => setActiveDropdown(null)}
             >
               <button className="flex items-center space-x-1 text-white hover:text-purple-400 transition-colors">
@@ -159,7 +170,7 @@ const Header = () => {
                                 ? 'border-b border-gray-600 mb-2' 
                                 : ''
                             }`}
-                            onClick={closeMenu}
+                            onClick={() => handleMenuItemClick(useCase.name, useCase.href)}
                           >
                             <div className="font-semibold text-white">{useCase.name}</div>
                             <div className="text-sm text-gray-300">{useCase.description}</div>
@@ -177,13 +188,25 @@ const Header = () => {
             </div>
 
 
-            <Link to="/about" className="text-white hover:text-purple-400 transition-colors">
+            <Link 
+              to="/about" 
+              className="text-white hover:text-purple-400 transition-colors"
+              onClick={() => handleMenuItemClick('About', '/about')}
+            >
               About Us
             </Link>
-            <Link to="/resources" className="text-white hover:text-purple-400 transition-colors">
+            <Link 
+              to="/resources" 
+              className="text-white hover:text-purple-400 transition-colors"
+              onClick={() => handleMenuItemClick('Resources', '/resources')}
+            >
               Resources
             </Link>
-            <Link to="/contact" className="text-white hover:text-purple-400 transition-colors">
+            <Link 
+              to="/contact" 
+              className="text-white hover:text-purple-400 transition-colors"
+              onClick={() => handleMenuItemClick('Contact', '/contact')}
+            >
               Contact
             </Link>
           </div>
@@ -191,93 +214,18 @@ const Header = () => {
           {/* CTA Button */}
           <div className="hidden lg:block">
             <Link to="/contact?type=demo">
-              <Button className="btn-primary">
+              <Button 
+                className="btn-primary"
+                onClick={() => handleMenuItemClick('Schedule Demo CTA', '/contact?type=demo')}
+              >
                 Schedule Free Demo
               </Button>
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden text-white"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          {/* Mobile Navigation */}
+          <MobileNavigation />
         </div>
-
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-gray-900 border-t border-gray-800"
-            >
-              <div className="px-4 py-6 space-y-4">
-                <div className="space-y-2">
-                  <div className="font-semibold text-gray-300">Products</div>
-                  {products.map((product) => (
-                    <Link
-                      key={product.name}
-                      to={product.href}
-                      className="block pl-4 py-2 text-white hover:text-purple-400 transition-colors"
-                      onClick={closeMenu}
-                    >
-                      {product.name}
-                    </Link>
-                  ))}
-                </div>
-                
-                <div className="space-y-2">
-                  <div className="font-semibold text-gray-300">Use Cases</div>
-                  {useCases.map((useCase) => (
-                    <Link
-                      key={useCase.name}
-                      to={useCase.href}
-                      className="block pl-4 py-2 text-white hover:text-purple-400 transition-colors"
-                      onClick={closeMenu}
-                    >
-                      {useCase.name}
-                    </Link>
-                  ))}
-                </div>
-
-
-                <Link
-                  to="/about"
-                  className="block py-2 text-white hover:text-purple-400 transition-colors"
-                  onClick={closeMenu}
-                >
-                  About Us
-                </Link>
-                <Link
-                  to="/resources"
-                  className="block py-2 text-white hover:text-purple-400 transition-colors"
-                  onClick={closeMenu}
-                >
-                  Resources
-                </Link>
-                <Link
-                  to="/contact"
-                  className="block py-2 text-white hover:text-purple-400 transition-colors"
-                  onClick={closeMenu}
-                >
-                  Contact
-                </Link>
-
-                <div className="pt-4">
-                  <Link to="/contact?type=demo" onClick={closeMenu}>
-                    <Button className="btn-primary w-full">
-                      Schedule Free Demo
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </nav>
     </header>
   )
