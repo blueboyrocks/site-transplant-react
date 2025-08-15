@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Slider } from '@/components/ui/slider';
+import AnimatedCounter from '@/components/AnimatedCounter';
 import { Link } from 'react-router-dom';
 import { 
   Calculator, 
@@ -20,32 +21,21 @@ import {
 } from 'lucide-react';
 
 const ROICalculator = () => {
-  const [formData, setFormData] = useState({
-    industry: '',
-    companySize: '',
-    monthlyRevenue: '',
-    employeeCount: '',
-    manualHours: '',
-    hourlyRate: '',
-    currentEfficiency: '',
-    errorRate: ''
-  });
+  const [industry, setIndustry] = useState('');
+  const [monthlyRevenue, setMonthlyRevenue] = useState([500000]);
+  const [employeeCount, setEmployeeCount] = useState([100]);
+  const [manualHours, setManualHours] = useState([40]);
+  const [hourlyRate, setHourlyRate] = useState([50]);
+  const [errorRate, setErrorRate] = useState([20]);
 
   const [results, setResults] = useState<any>(null);
 
-  const handleInputChange = (field: string, value: string) => {
-    setFormData({
-      ...formData,
-      [field]: value
-    });
-  };
-
   const calculateROI = () => {
-    const monthlyRevenue = parseInt(formData.monthlyRevenue) || 0;
-    const employeeCount = parseInt(formData.employeeCount) || 0;
-    const manualHours = parseInt(formData.manualHours) || 0;
-    const hourlyRate = parseInt(formData.hourlyRate) || 0;
-    const errorRate = parseInt(formData.errorRate) || 0;
+    const revenueValue = monthlyRevenue[0] || 0;
+    const employeeValue = employeeCount[0] || 0;
+    const hoursValue = manualHours[0] || 0;
+    const rateValue = hourlyRate[0] || 0;
+    const errorValue = errorRate[0] || 0;
 
     // AI Benefits Calculations (industry-specific multipliers)
     const industryMultipliers: { [key: string]: number } = {
@@ -57,23 +47,23 @@ const ROICalculator = () => {
       'enterprise': 1.1
     };
 
-    const multiplier = industryMultipliers[formData.industry] || 1.0;
+    const multiplier = industryMultipliers[industry] || 1.0;
 
     // Calculate savings
     const efficiencyGain = 0.45 * multiplier; // 45% average efficiency gain
     const errorReduction = 0.75; // 75% error reduction
-    const automationSavings = manualHours * hourlyRate * efficiencyGain * 4; // per month
-    const errorSavings = errorRate * 500 * errorReduction; // $500 per error
-    const productivityBoost = (monthlyRevenue * 0.15) * multiplier; // 15% revenue impact
+    const automationSavings = hoursValue * rateValue * efficiencyGain * 4; // per month
+    const errorSavings = errorValue * 500 * errorReduction; // $500 per error
+    const productivityBoost = (revenueValue * 0.15) * multiplier; // 15% revenue impact
 
     const totalMonthlySavings = automationSavings + errorSavings + productivityBoost;
     const annualSavings = totalMonthlySavings * 12;
 
     // Implementation costs
     const baseCost = 25000;
-    const employeeCost = employeeCount * 500;
+    const employeeCost = employeeValue * 500;
     const implementationCost = baseCost + employeeCost;
-    const monthlyLicenseCost = employeeCount * 50;
+    const monthlyLicenseCost = employeeValue * 50;
     const annualCost = implementationCost + (monthlyLicenseCost * 12);
 
     const netAnnualSavings = annualSavings - annualCost;
@@ -94,6 +84,13 @@ const ROICalculator = () => {
       efficiencyGain: efficiencyGain * 100
     });
   };
+
+  // Auto-calculate when values change
+  useEffect(() => {
+    if (industry && monthlyRevenue[0] > 0 && employeeCount[0] > 0) {
+      calculateROI();
+    }
+  }, [industry, monthlyRevenue, employeeCount, manualHours, hourlyRate, errorRate]);
 
   const benefits = [
     {
@@ -272,100 +269,127 @@ const ROICalculator = () => {
                 <CardHeader>
                   <CardTitle>Organization Details</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-6">
-                  <div>
-                    <Label htmlFor="industry">Industry</Label>
-                    <Select onValueChange={(value) => handleInputChange('industry', value)}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select your industry" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {industries.map((industry) => (
-                          <SelectItem key={industry.value} value={industry.value}>
-                            {industry.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
+                 <CardContent className="space-y-6">
+                   <div>
+                     <Label htmlFor="industry">Industry</Label>
+                     <Select onValueChange={setIndustry}>
+                       <SelectTrigger>
+                         <SelectValue placeholder="Select your industry" />
+                       </SelectTrigger>
+                       <SelectContent>
+                         {industries.map((industry) => (
+                           <SelectItem key={industry.value} value={industry.value}>
+                             {industry.label}
+                           </SelectItem>
+                         ))}
+                       </SelectContent>
+                     </Select>
+                   </div>
 
-                  <div>
-                    <Label htmlFor="companySize">Company Size</Label>
-                    <Select onValueChange={(value) => handleInputChange('companySize', value)}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select company size" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="small">Small (1-50 employees)</SelectItem>
-                        <SelectItem value="medium">Medium (51-500 employees)</SelectItem>
-                        <SelectItem value="large">Large (500+ employees)</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+                   <div>
+                     <div className="flex justify-between items-center mb-3">
+                       <Label>Monthly Revenue</Label>
+                       <span className="text-primary font-bold">
+                         ${monthlyRevenue[0].toLocaleString()}
+                       </span>
+                     </div>
+                     <Slider
+                       value={monthlyRevenue}
+                       onValueChange={setMonthlyRevenue}
+                       max={10000000}
+                       min={10000}
+                       step={10000}
+                       className="w-full"
+                     />
+                     <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                       <span>$10K</span>
+                       <span>$10M</span>
+                     </div>
+                   </div>
 
-                  <div>
-                    <Label htmlFor="monthlyRevenue">Monthly Revenue ($)</Label>
-                    <Input
-                      id="monthlyRevenue"
-                      type="number"
-                      value={formData.monthlyRevenue}
-                      onChange={(e) => handleInputChange('monthlyRevenue', e.target.value)}
-                      placeholder="e.g., 500000"
-                      required
-                    />
-                  </div>
+                   <div>
+                     <div className="flex justify-between items-center mb-3">
+                       <Label>Number of Employees</Label>
+                       <span className="text-primary font-bold">
+                         {employeeCount[0]}
+                       </span>
+                     </div>
+                     <Slider
+                       value={employeeCount}
+                       onValueChange={setEmployeeCount}
+                       max={1000}
+                       min={1}
+                       step={1}
+                       className="w-full"
+                     />
+                     <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                       <span>1</span>
+                       <span>1,000</span>
+                     </div>
+                   </div>
 
-                  <div>
-                    <Label htmlFor="employeeCount">Number of Employees</Label>
-                    <Input
-                      id="employeeCount"
-                      type="number"
-                      value={formData.employeeCount}
-                      onChange={(e) => handleInputChange('employeeCount', e.target.value)}
-                      placeholder="e.g., 100"
-                      required
-                    />
-                  </div>
+                   <div>
+                     <div className="flex justify-between items-center mb-3">
+                       <Label>Manual Process Hours (per week)</Label>
+                       <span className="text-primary font-bold">
+                         {manualHours[0]}
+                       </span>
+                     </div>
+                     <Slider
+                       value={manualHours}
+                       onValueChange={setManualHours}
+                       max={200}
+                       min={1}
+                       step={1}
+                       className="w-full"
+                     />
+                     <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                       <span>1</span>
+                       <span>200</span>
+                     </div>
+                   </div>
 
-                  <div>
-                    <Label htmlFor="manualHours">Manual Process Hours (per week)</Label>
-                    <Input
-                      id="manualHours"
-                      type="number"
-                      value={formData.manualHours}
-                      onChange={(e) => handleInputChange('manualHours', e.target.value)}
-                      placeholder="e.g., 40"
-                      required
-                    />
-                  </div>
+                   <div>
+                     <div className="flex justify-between items-center mb-3">
+                       <Label>Average Hourly Rate</Label>
+                       <span className="text-primary font-bold">
+                         ${hourlyRate[0]}
+                       </span>
+                     </div>
+                     <Slider
+                       value={hourlyRate}
+                       onValueChange={setHourlyRate}
+                       max={200}
+                       min={15}
+                       step={5}
+                       className="w-full"
+                     />
+                     <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                       <span>$15</span>
+                       <span>$200</span>
+                     </div>
+                   </div>
 
-                  <div>
-                    <Label htmlFor="hourlyRate">Average Hourly Rate ($)</Label>
-                    <Input
-                      id="hourlyRate"
-                      type="number"
-                      value={formData.hourlyRate}
-                      onChange={(e) => handleInputChange('hourlyRate', e.target.value)}
-                      placeholder="e.g., 50"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="errorRate">Monthly Process Errors</Label>
-                    <Input
-                      id="errorRate"
-                      type="number"
-                      value={formData.errorRate}
-                      onChange={(e) => handleInputChange('errorRate', e.target.value)}
-                      placeholder="e.g., 20"
-                    />
-                  </div>
-
-                  <Button onClick={calculateROI} className="w-full" size="lg">
-                    <Calculator className="w-4 h-4 mr-2" />
-                    Calculate ROI
-                  </Button>
+                   <div>
+                     <div className="flex justify-between items-center mb-3">
+                       <Label>Monthly Process Errors</Label>
+                       <span className="text-primary font-bold">
+                         {errorRate[0]}
+                       </span>
+                     </div>
+                     <Slider
+                       value={errorRate}
+                       onValueChange={setErrorRate}
+                       max={100}
+                       min={0}
+                       step={1}
+                       className="w-full"
+                     />
+                     <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                       <span>0</span>
+                       <span>100</span>
+                     </div>
+                   </div>
                 </CardContent>
               </Card>
             </motion.div>
@@ -382,20 +406,20 @@ const ROICalculator = () => {
                     <CardTitle>Your ROI Projection</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-6">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="text-center p-4 bg-primary/5 rounded-lg">
-                        <div className="text-2xl font-bold text-primary">
-                          ${results.netAnnualSavings.toLocaleString()}
-                        </div>
-                        <div className="text-sm text-muted-foreground">Net Annual Savings</div>
-                      </div>
-                      <div className="text-center p-4 bg-primary/5 rounded-lg">
-                        <div className="text-2xl font-bold text-primary">
-                          {results.roiPercentage.toFixed(1)}%
-                        </div>
-                        <div className="text-sm text-muted-foreground">ROI Percentage</div>
-                      </div>
-                    </div>
+                     <div className="grid grid-cols-2 gap-4">
+                       <div className="text-center p-4 bg-primary/5 rounded-lg">
+                         <div className="text-2xl font-bold text-primary">
+                           $<AnimatedCounter value={Math.round(results.netAnnualSavings)} />
+                         </div>
+                         <div className="text-sm text-muted-foreground">Net Annual Savings</div>
+                       </div>
+                       <div className="text-center p-4 bg-primary/5 rounded-lg">
+                         <div className="text-2xl font-bold text-primary">
+                           <AnimatedCounter value={Math.round(results.roiPercentage)} suffix="%" />
+                         </div>
+                         <div className="text-sm text-muted-foreground">ROI Percentage</div>
+                       </div>
+                     </div>
 
                     <div className="space-y-4">
                       <div className="flex justify-between">

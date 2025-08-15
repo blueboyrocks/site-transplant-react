@@ -49,7 +49,7 @@ import MedicalDocumentationRevolution from "./pages/customer-success/MedicalDocu
 import FinanceCaseStudy from "./pages/resources/FinanceCaseStudy";
 import HealthcareROICalculator from "./pages/resources/HealthcareROICalculator";
 import ROICalculator from "./pages/resources/ROICalculator";
-import InteractiveROICalculator from "./pages/resources/InteractiveROICalculator";
+
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -103,7 +103,7 @@ const App = () => (
             <Route path="/resources/finance-case-study" element={<FinanceCaseStudy />} />
             <Route path="/resources/healthcare-roi-calculator" element={<HealthcareROICalculator />} />
             <Route path="/resources/roi-calculator" element={<ROICalculator />} />
-            <Route path="/resources/interactive-roi-calculator" element={<InteractiveROICalculator />} />
+            
             <Route path="/products/surroundai" element={<SurroundAI />} />
             <Route path="/products/data-coffee" element={<DataCoffee />} />
             <Route path="/products/seismic" element={<Seismic />} />
