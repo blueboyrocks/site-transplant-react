@@ -3,7 +3,10 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, Phone, Calendar, MessageSquare, ArrowRight } from 'lucide-react'
-import { Button } from '../components/ui/button'
+import { GradientButton } from '../components/ui/gradient-button'
+import { EnhancedCard } from '../components/ui/enhanced-card'
+import { AnimatedBackground } from '../components/ui/animated-background'
+import { FloatingElements } from '../components/ui/floating-elements'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
@@ -60,17 +63,19 @@ const Contact = () => {
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
-      <section className="section-padding bg-gradient-to-br from-black via-gray-900 to-black">
-        <div className="container mx-auto">
+      <section className="section-padding relative overflow-hidden">
+        <AnimatedBackground variant="gradient" theme="healthcare" className="absolute inset-0" />
+        <FloatingElements count={6} variant="circles" theme="healthcare" className="absolute inset-0" />
+        <div className="container mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            <h1 className="text-hero mb-6">
               <span className="text-white">Get in </span>
-              <span className="gradient-text">Touch</span>
+              <span className="gradient-text-healthcare">Touch</span>
             </h1>
             <p className="text-xl text-gray-300 mb-8 leading-relaxed">
               Ready to transform your business with AI? Our experts are here to help you get started.
@@ -114,26 +119,35 @@ const Contact = () => {
 
           <div className="grid lg:grid-cols-3 gap-8 mb-16">
             {contactOptions.map((option, index) => (
-              <motion.div
+              <EnhancedCard
                 key={index}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-                viewport={{ once: true }}
-                className="bg-gray-800/50 border border-gray-700 rounded-2xl p-8 text-center hover:border-purple-500/30 transition-all duration-300"
+                variant="glass"
+                hoverable={true}
+                className="text-center p-8"
               >
-                <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <option.icon className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-4">{option.title}</h3>
-                <p className="text-gray-300 mb-6">{option.description}</p>
-                <a href={option.href}>
-                  <Button className="btn-secondary w-full">
-                    {option.action}
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </a>
-              </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: index * 0.2 }}
+                  viewport={{ once: true }}
+                >
+                  <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 ${
+                    index === 0 ? 'bg-gradient-healthcare' : 
+                    index === 1 ? 'bg-gradient-datacoffee' : 
+                    'bg-gradient-surroundai'
+                  }`}>
+                    <option.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-card-title text-white mb-4">{option.title}</h3>
+                  <p className="text-gray-300 mb-6">{option.description}</p>
+                  <a href={option.href}>
+                    <GradientButton variant={index === 0 ? 'healthcare' : index === 1 ? 'datacoffee' : 'surroundai'} className="w-full">
+                      {option.action}
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </GradientButton>
+                  </a>
+                </motion.div>
+              </EnhancedCard>
             ))}
           </div>
         </div>
@@ -225,14 +239,16 @@ const Contact = () => {
                   {errors.message && <p className="text-red-400 text-sm mt-1">{errors.message.message}</p>}
                 </div>
 
-                <Button 
+                <GradientButton 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="btn-primary w-full text-lg py-4"
+                  variant="healthcare"
+                  size="lg"
+                  className="w-full"
                 >
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                   <MessageSquare className="w-5 h-5 ml-2" />
-                </Button>
+                </GradientButton>
               </form>
             </motion.div>
 

@@ -4,7 +4,10 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Search, Filter, Download, ExternalLink, Clock, Users, TrendingUp } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { Button } from '../components/ui/button'
+import { GradientButton } from '../components/ui/gradient-button'
+import { EnhancedCard } from '../components/ui/enhanced-card'
+import { AnimatedBackground } from '../components/ui/animated-background'
+import { FloatingElements } from '../components/ui/floating-elements'
 
 const Resources = () => {
   const [activeFilter, setActiveFilter] = useState('all')
@@ -159,19 +162,22 @@ const Resources = () => {
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <AnimatedBackground variant="geometric" theme="retail" className="absolute inset-0" />
+        <FloatingElements count={12} variant="squares" theme="retail" className="absolute inset-0" />
+        
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
-          <div className="relative w-full h-full bg-gradient-to-br from-black via-gray-900 to-black">
+          <div className="relative w-full h-full">
             <img
               src="https://www.libraryjournal.com/binaries/content/gallery/Jlibrary/2024/january/enis/ljx240101webenis1.jpg"
               alt="AI Resources Library"
-              className="absolute inset-0 w-full h-full object-cover opacity-50"
+              className="absolute inset-0 w-full h-full object-cover opacity-30"
               onError={(e) => {
                 console.log('Image failed to load:', e.currentTarget.src);
                 e.currentTarget.style.display = 'none';
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/60" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/80" />
           </div>
         </div>
 
@@ -182,9 +188,9 @@ const Resources = () => {
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            <h1 className="text-hero mb-6">
               <span className="text-white">AI Knowledge </span>
-              <span className="gradient-text">Resource Center</span>
+              <span className="gradient-text-retail">Resource Center</span>
             </h1>
             <p className="text-xl text-gray-300 mb-8 leading-relaxed">
               Explore our comprehensive library of case studies, whitepapers, tools, and guides to accelerate your AI journey. 
@@ -234,10 +240,10 @@ const Resources = () => {
                   <p className="text-gray-300 mb-4 leading-relaxed">{resource.description}</p>
                   
                   <Link to={resource.href}>
-                    <Button className="btn-secondary w-full group">
+                    <GradientButton variant="retail" className="w-full group">
                       Access Resource
                       <ExternalLink className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                    </Button>
+                    </GradientButton>
                   </Link>
                 </div>
               </motion.div>
@@ -344,11 +350,11 @@ const Resources = () => {
                       <p className="text-gray-300 text-sm mb-4 leading-relaxed">{resource.description}</p>
                       
                       <Link to={resource.href}>
-                        <Button className="btn-secondary text-sm group">
+                        <GradientButton variant="secondary" size="sm" className="group">
                           {getTypeIcon(resource.type)}
                           Download
                           <ExternalLink className="w-3 h-3 ml-2 group-hover:translate-x-1 transition-transform" />
-                        </Button>
+                        </GradientButton>
                       </Link>
                     </div>
                   </div>
@@ -374,14 +380,14 @@ const Resources = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/contact?type=consultation">
-                <Button className="btn-primary text-lg px-8 py-4">
+                <GradientButton variant="retail" size="lg">
                   Schedule Expert Consultation
-                </Button>
+                </GradientButton>
               </Link>
               <Link to="/resources/roi-calculator">
-                <Button className="btn-secondary text-lg px-8 py-4">
+                <GradientButton variant="secondary" size="lg">
                   Calculate Your ROI
-                </Button>
+                </GradientButton>
               </Link>
             </div>
           </motion.div>

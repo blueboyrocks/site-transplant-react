@@ -3,7 +3,10 @@
 import { motion } from 'framer-motion'
 import { Shield, TrendingUp, Clock, Users, ArrowRight, CheckCircle } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { Button } from '../../components/ui/button'
+import { GradientButton } from '../../components/ui/gradient-button'
+import { EnhancedCard } from '../../components/ui/enhanced-card'
+import { AnimatedBackground } from '../../components/ui/animated-background'
+import { FloatingElements } from '../../components/ui/floating-elements'
 import AnimatedCounter from '../../components/AnimatedCounter'
 
 const SurroundAI = () => {
@@ -42,16 +45,18 @@ const SurroundAI = () => {
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
-      <section className="section-padding bg-gradient-to-br from-black via-gray-900 to-black">
-        <div className="container mx-auto">
+      <section className="section-padding relative overflow-hidden theme-surroundai">
+        <AnimatedBackground variant="mesh" theme="surroundai" className="absolute inset-0" />
+        <FloatingElements count={10} variant="mixed" theme="surroundai" className="absolute inset-0" />
+        <div className="container mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              <span className="gradient-text">SurroundAI</span>
+            <h1 className="text-hero mb-6">
+              <span className="gradient-text-surroundai">SurroundAI</span>
             </h1>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
               Cut Customer Support Costs by 60% with AI-Powered Automation
@@ -62,38 +67,38 @@ const SurroundAI = () => {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Link to="/contact?type=demo">
-                <Button className="btn-primary text-lg px-8 py-4">
+                <GradientButton variant="surroundai" size="lg">
                   Schedule Free Demo
                   <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
+                </GradientButton>
               </Link>
               <Link to="/resources/interactive-roi-calculator">
-                <Button className="btn-secondary text-lg px-8 py-4">
+                <GradientButton variant="secondary" size="lg">
                   Calculate Your ROI
-                </Button>
+                </GradientButton>
               </Link>
             </div>
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
-              <div className="text-center">
-                <div className="text-4xl font-bold gradient-text mb-2">
+              <EnhancedCard variant="glass" className="text-center p-4">
+                <div className="text-4xl font-bold gradient-text-surroundai mb-2">
                   <AnimatedCounter value={75} suffix="%" />
                 </div>
                 <div className="text-gray-400">Faster Responses</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold gradient-text mb-2">
+              </EnhancedCard>
+              <EnhancedCard variant="glass" className="text-center p-4">
+                <div className="text-4xl font-bold gradient-text-surroundai mb-2">
                   <AnimatedCounter value={60} suffix="%" />
                 </div>
                 <div className="text-gray-400">Cost Reduction</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold gradient-text mb-2">
+              </EnhancedCard>
+              <EnhancedCard variant="glass" className="text-center p-4">
+                <div className="text-4xl font-bold gradient-text-surroundai mb-2">
                   <AnimatedCounter value={30} suffix="%" />
                 </div>
                 <div className="text-gray-400">Higher Satisfaction</div>
-              </div>
+              </EnhancedCard>
             </div>
           </motion.div>
         </div>
@@ -204,15 +209,15 @@ const SurroundAI = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/contact?type=demo">
-                <Button className="btn-primary text-lg px-8 py-4">
+                <GradientButton variant="surroundai" size="lg">
                   Get Started Today
                   <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
+                </GradientButton>
               </Link>
               <Link to="/contact">
-                <Button className="btn-secondary text-lg px-8 py-4">
+                <GradientButton variant="secondary" size="lg">
                   Speak with Expert
-                </Button>
+                </GradientButton>
               </Link>
             </div>
           </motion.div>

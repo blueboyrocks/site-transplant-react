@@ -3,7 +3,10 @@
 import { motion } from 'framer-motion'
 import { Users, Target, Shield, Zap, Heart, Trophy, ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { Button } from '../components/ui/button'
+import { GradientButton } from '../components/ui/gradient-button'
+import { EnhancedCard } from '../components/ui/enhanced-card'
+import { AnimatedBackground } from '../components/ui/animated-background'
+import { FloatingElements } from '../components/ui/floating-elements'
 import AnimatedCounter from '../components/AnimatedCounter'
 
 const About = () => {
@@ -80,19 +83,22 @@ const About = () => {
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <AnimatedBackground variant="mesh" theme="primary" className="absolute inset-0" />
+        <FloatingElements count={8} variant="mixed" theme="primary" className="absolute inset-0" />
+        
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
-          <div className="relative w-full h-full bg-gradient-to-br from-black via-gray-900 to-black">
+          <div className="relative w-full h-full">
             <img
               src="https://img.freepik.com/premium-photo/teamwork-laptop-team-working-project-together-with-research-modern-corporate-office-diversity-technology-business-people-collaboration-company-strategy-planning-workplace_590464-101822.jpg?w=2000"
               alt="LeapGen.AI Team"
-              className="absolute inset-0 w-full h-full object-cover opacity-50"
+              className="absolute inset-0 w-full h-full object-cover opacity-30"
               onError={(e) => {
                 console.log('Image failed to load:', e.currentTarget.src);
                 e.currentTarget.style.display = 'none';
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/60" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/80" />
           </div>
         </div>
 
@@ -103,9 +109,9 @@ const About = () => {
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            <h1 className="text-hero mb-6">
               <span className="text-white">Pioneering AI Solutions for </span>
-              <span className="gradient-text">Tomorrow's Challenges</span>
+              <span className="gradient-text-animated">Tomorrow's Challenges</span>
             </h1>
             <p className="text-xl text-gray-300 mb-8 leading-relaxed">
               At LeapGen.AI, we believe artificial intelligence should enhance human potential, not replace it. 
@@ -114,28 +120,28 @@ const About = () => {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Link to="/contact">
-                <Button className="btn-primary text-lg px-8 py-4">
+                <GradientButton variant="animated" size="lg">
                   Join Our Mission
                   <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
+                </GradientButton>
               </Link>
               <a href="#team">
-                <Button className="btn-secondary text-lg px-8 py-4">
+                <GradientButton variant="secondary" size="lg">
                   Meet Our Team
-                </Button>
+                </GradientButton>
               </a>
             </div>
 
             {/* Stats Grid */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
               {stats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="text-4xl font-bold gradient-text mb-2">
+                <EnhancedCard key={index} variant="glass" className="text-center p-6">
+                  <div className="text-4xl font-bold gradient-text-animated mb-2">
                     <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                   </div>
                   <div className="text-white font-medium mb-1">{stat.label}</div>
                   <div className="text-gray-400 text-sm">{stat.description}</div>
-                </div>
+                </EnhancedCard>
               ))}
             </div>
           </motion.div>
@@ -143,8 +149,9 @@ const About = () => {
       </section>
 
       {/* Mission Section */}
-      <section className="section-padding bg-gray-900">
-        <div className="container mx-auto">
+      <section className="section-padding relative">
+        <AnimatedBackground variant="particles" theme="primary" className="absolute inset-0" />
+        <div className="container mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -338,15 +345,15 @@ const About = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/contact">
-                <Button className="btn-primary text-lg px-8 py-4">
+                <GradientButton variant="primary" size="lg">
                   Get Started Today
                   <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
+                </GradientButton>
               </Link>
               <Link to="/careers">
-                <Button className="btn-secondary text-lg px-8 py-4">
+                <GradientButton variant="secondary" size="lg">
                   View Open Positions
-                </Button>
+                </GradientButton>
               </Link>
             </div>
           </motion.div>
