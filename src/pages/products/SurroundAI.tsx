@@ -67,7 +67,7 @@ const SurroundAI = () => {
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
-              <Link to="/resources/roi-calculator">
+              <Link to="/resources/interactive-roi-calculator">
                 <Button className="btn-secondary text-lg px-8 py-4">
                   Calculate Your ROI
                 </Button>
