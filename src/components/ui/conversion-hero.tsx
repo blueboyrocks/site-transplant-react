@@ -85,9 +85,20 @@ const ConversionHero: React.FC<ConversionHeroProps> = ({
         statistic: "60% faster reporting",
         benefit: "Automated compliance",
         compliance: "FedRAMP ready"
+      },
+      enterprise: {
+        statistic: "40% cost reduction",
+        benefit: "Enterprise-grade automation",
+        compliance: "SOC 2 certified"
       }
     };
-    return industry ? content[industry as keyof typeof content] : content.finance;
+    
+    // Always return a valid content object, defaulting to enterprise if industry not found
+    const selectedContent = industry && content[industry as keyof typeof content] 
+      ? content[industry as keyof typeof content] 
+      : content.enterprise;
+    
+    return selectedContent;
   };
 
   const headline = getHeadlineByVariant();
