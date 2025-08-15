@@ -38,6 +38,7 @@ const Contact = () => {
     }
     
     console.log('Sending webhook payload:', webhookPayload)
+    console.log('Webhook URL:', CONTACT_INFO.webhookUrl)
     
     try {
       // Send to webhook
@@ -46,15 +47,20 @@ const Contact = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        mode: 'no-cors', // Handle CORS
         body: JSON.stringify(webhookPayload),
       })
       
-      // Since we're using no-cors, we won't get a proper response status
-      // The request is sent but we can't read the response
-      console.log('Webhook request sent successfully')
-      toast.success('Thank you! We\'ll be in touch within 24 hours.')
-      reset()
+      console.log('Response status:', response.status)
+      console.log('Response ok:', response.ok)
+      
+      if (response.ok) {
+        console.log('Webhook sent successfully')
+        toast.success('Thank you! We\'ll be in touch within 24 hours.')
+        reset()
+      } else {
+        console.error('Webhook failed with status:', response.status)
+        toast.error('Something went wrong. Please try again.')
+      }
     } catch (error) {
       console.error('Webhook error:', error)
       toast.error('Something went wrong. Please try again.')
