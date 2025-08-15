@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
+import { GradientButton } from '@/components/ui/gradient-button';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { FloatingElements } from '@/components/ui/floating-elements';
 import { Link } from 'react-router-dom';
 import { 
   Building2, 
@@ -111,9 +113,11 @@ const Enterprise = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+    <div className="min-h-screen relative overflow-hidden">
+      <AnimatedBackground variant="geometric" theme="finance" className="absolute inset-0 opacity-20" />
+      <FloatingElements count={8} variant="mixed" theme="finance" className="absolute inset-0 opacity-15" />
       {/* Hero Section */}
-      <section className="pt-32 pb-16 px-4">
+      <section className="pt-32 pb-16 px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -125,7 +129,7 @@ const Enterprise = () => {
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
                 <Building2 className="w-8 h-8 text-primary" />
               </div>
-              <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+              <h1 className="text-hero gradient-text-finance">
                 Enterprise & Fortune 500
               </h1>
             </div>
@@ -133,12 +137,12 @@ const Enterprise = () => {
               Break down data silos and accelerate decision-making across your organization with unified business intelligence and real-time analytics.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="text-lg px-8">
+              <GradientButton variant="finance" size="lg" asChild>
                 <Link to="/contact?type=demo&industry=enterprise">Request Demo</Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="text-lg px-8">
+              </GradientButton>
+              <GradientButton variant="secondary" size="lg" asChild>
                 <Link to="/contact?type=consultation">Schedule Consultation</Link>
-              </Button>
+              </GradientButton>
             </div>
           </motion.div>
         </div>
@@ -241,11 +245,11 @@ const Enterprise = () => {
                 </ul>
               </div>
               
-              <Button asChild className="w-full group-hover:bg-primary/90 transition-colors">
+              <GradientButton variant="surroundai" asChild className="w-full">
                 <Link to="/use-cases/enterprise/surround-ai" className="flex items-center justify-center gap-2">
                   Learn More <ArrowRight className="w-4 h-4" />
                 </Link>
-              </Button>
+              </GradientButton>
             </motion.div>
 
             <motion.div
@@ -279,11 +283,11 @@ const Enterprise = () => {
                 </ul>
               </div>
               
-              <Button asChild className="w-full group-hover:bg-primary/90 transition-colors">
+              <GradientButton variant="datacoffee" asChild className="w-full">
                 <Link to="/use-cases/enterprise/data-coffee" className="flex items-center justify-center gap-2">
                   Learn More <ArrowRight className="w-4 h-4" />
                 </Link>
-              </Button>
+              </GradientButton>
             </motion.div>
 
             <motion.div
@@ -317,11 +321,11 @@ const Enterprise = () => {
                 </ul>
               </div>
               
-              <Button asChild className="w-full group-hover:bg-primary/90 transition-colors">
+              <GradientButton variant="finance" asChild className="w-full">
                 <Link to="/use-cases/enterprise/complete-solution" className="flex items-center justify-center gap-2">
                   Learn More <ArrowRight className="w-4 h-4" />
                 </Link>
-              </Button>
+              </GradientButton>
             </motion.div>
           </div>
         </div>
@@ -403,14 +407,14 @@ const Enterprise = () => {
             Join Fortune 500 companies using AI to break down silos and accelerate growth.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8">
+            <GradientButton variant="finance" size="lg" asChild>
               <Link to="/contact?type=demo&industry=enterprise" className="flex items-center gap-2">
                 Schedule Demo <ArrowRight className="w-4 h-4" />
               </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8">
+            </GradientButton>
+            <GradientButton variant="secondary" size="lg" asChild>
               <Link to="/resources/case-studies?industry=enterprise">View Case Studies</Link>
-            </Button>
+            </GradientButton>
           </div>
         </motion.div>
       </section>

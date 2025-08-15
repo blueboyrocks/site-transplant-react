@@ -1,7 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { GradientButton } from '@/components/ui/gradient-button';
+import { EnhancedCard } from '@/components/ui/enhanced-card';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { FloatingElements } from '@/components/ui/floating-elements';
 import { Link } from 'react-router-dom';
 import { 
   Building2, 
@@ -104,9 +106,11 @@ const HealthcareSalesTransformation = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+    <div className="min-h-screen relative overflow-hidden">
+      <AnimatedBackground variant="geometric" theme="surroundai" className="absolute inset-0 opacity-20" />
+      <FloatingElements count={12} variant="circles" theme="surroundai" className="absolute inset-0 opacity-30" />
       {/* Hero Section */}
-      <section className="pt-32 pb-16 px-4">
+      <section className="pt-32 pb-16 px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-12"
@@ -123,7 +127,7 @@ const HealthcareSalesTransformation = () => {
               </span>
             </div>
             
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+            <h1 className="text-hero mb-6 gradient-text-surroundai">
               Healthcare Sales Transformation
             </h1>
             
@@ -139,7 +143,7 @@ const HealthcareSalesTransformation = () => {
       </section>
 
       {/* Results Section */}
-      <section className="py-16 px-4 bg-muted/30">
+      <section className="py-16 px-4 bg-background/80 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-12"
@@ -157,7 +161,7 @@ const HealthcareSalesTransformation = () => {
             {results.map((result, index) => (
               <motion.div
                 key={index}
-                className="text-center bg-card rounded-xl p-6 border border-border"
+                className="text-center bg-card/90 backdrop-blur-sm rounded-xl p-6 border border-border/50 shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 + index * 0.1 }}
@@ -204,8 +208,8 @@ const HealthcareSalesTransformation = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
             >
-              <Card>
-                <CardContent className="p-6">
+              <EnhancedCard variant="glass">
+                <div className="p-6">
                   <h3 className="text-xl font-semibold mb-6">Impact on Business</h3>
                   <div className="space-y-4">
                     {businessImpact.map((impact, index) => (
@@ -215,15 +219,15 @@ const HealthcareSalesTransformation = () => {
                       </div>
                     ))}
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </EnhancedCard>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Solution Section */}
-      <section className="py-16 px-4 bg-muted/30">
+      <section className="py-16 px-4 bg-background/60 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-12"
@@ -244,7 +248,7 @@ const HealthcareSalesTransformation = () => {
             {solutionFeatures.map((feature, index) => (
               <motion.div
                 key={index}
-                className="bg-card rounded-xl p-6 border border-border"
+                className="bg-card/90 backdrop-blur-sm rounded-xl p-6 border border-border/50 shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.2 + index * 0.1 }}
@@ -279,7 +283,7 @@ const HealthcareSalesTransformation = () => {
             {implementationSteps.map((step, index) => (
               <motion.div
                 key={index}
-                className="bg-card rounded-xl p-6 border border-border"
+                className="bg-card/90 backdrop-blur-sm rounded-xl p-6 border border-border/50 shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.8 + index * 0.1 }}
@@ -318,21 +322,21 @@ const HealthcareSalesTransformation = () => {
             See how SurroundAI can deliver similar results for your organization with AI-powered sales automation and real-time insights.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8">
+            <GradientButton variant="surroundai" size="lg" asChild>
               <Link to="/contact?type=demo&product=surroundai" className="flex items-center gap-2">
                 Schedule SurroundAI Demo <ArrowRight className="w-4 h-4" />
               </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8">
+            </GradientButton>
+            <GradientButton variant="secondary" size="lg" asChild>
               <Link to="/resources/surroundai-roi-calculator">Calculate Your ROI</Link>
-            </Button>
+            </GradientButton>
           </div>
           <div className="mt-6 text-center">
-            <Button asChild variant="ghost">
+            <GradientButton variant="secondary" asChild>
               <Link to="/customer-success" className="flex items-center gap-2 mx-auto">
                 ← Back to Customer Success Stories
               </Link>
-            </Button>
+            </GradientButton>
           </div>
         </motion.div>
       </section>

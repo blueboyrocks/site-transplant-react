@@ -1,7 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { GradientButton } from '@/components/ui/gradient-button';
+import { EnhancedCard } from '@/components/ui/enhanced-card';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { FloatingElements } from '@/components/ui/floating-elements';
 import { Link } from 'react-router-dom';
 import { 
   Stethoscope, 
@@ -145,9 +147,11 @@ const MedicalDocumentationRevolution = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+    <div className="min-h-screen relative overflow-hidden">
+      <AnimatedBackground variant="mesh" theme="seismic" className="absolute inset-0 opacity-25" />
+      <FloatingElements count={10} variant="hexagons" theme="seismic" className="absolute inset-0 opacity-20" />
       {/* Hero Section */}
-      <section className="pt-32 pb-16 px-4">
+      <section className="pt-32 pb-16 px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-12"
@@ -164,7 +168,7 @@ const MedicalDocumentationRevolution = () => {
               </span>
             </div>
             
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+            <h1 className="text-hero mb-6 gradient-text-seismic">
               Medical Documentation Revolution
             </h1>
             
@@ -245,8 +249,8 @@ const MedicalDocumentationRevolution = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
             >
-              <Card>
-                <CardContent className="p-6">
+              <EnhancedCard variant="glass">
+                <div className="p-6">
                   <h3 className="text-xl font-semibold mb-6">The Administrative Burden</h3>
                   <div className="text-center mb-6">
                     <div className="text-4xl font-bold text-destructive mb-2">30-40%</div>
@@ -260,8 +264,8 @@ const MedicalDocumentationRevolution = () => {
                       </div>
                     ))}
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </EnhancedCard>
             </motion.div>
           </div>
         </div>
@@ -396,21 +400,21 @@ const MedicalDocumentationRevolution = () => {
             See how Seismic AI can eliminate documentation burden and help your physicians focus on what matters most - patient care.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8">
+            <GradientButton variant="seismic" size="lg" asChild>
               <Link to="/contact?type=demo&product=seismic" className="flex items-center gap-2">
                 Schedule Seismic Demo <ArrowRight className="w-4 h-4" />
               </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8">
+            </GradientButton>
+            <GradientButton variant="secondary" size="lg" asChild>
               <Link to="/products/seismic">Learn More About Seismic</Link>
-            </Button>
+            </GradientButton>
           </div>
           <div className="mt-6 text-center">
-            <Button asChild variant="ghost">
+            <GradientButton variant="secondary" asChild>
               <Link to="/customer-success" className="flex items-center gap-2 mx-auto">
                 ← Back to Customer Success Stories
               </Link>
-            </Button>
+            </GradientButton>
           </div>
         </motion.div>
       </section>
