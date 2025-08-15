@@ -60,11 +60,6 @@ const Seismic = () => {
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <img
-              src="https://live.staticflickr.com/65535/50722535078_be9a617405_b.jpg"
-              alt="Seismic Clinical Documentation"
-              className="w-full max-w-2xl mx-auto rounded-2xl mb-8"
-            />
             <h1 className="text-hero mb-6">
               <span className="gradient-text-seismic">Seismic</span>
             </h1>
