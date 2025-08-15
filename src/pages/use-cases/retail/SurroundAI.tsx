@@ -1,6 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
+import { GradientButton } from '@/components/ui/gradient-button';
+import { EnhancedCard } from '@/components/ui/enhanced-card';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { FloatingElements } from '@/components/ui/floating-elements';
 import { Link } from 'react-router-dom';
 import { 
   ShoppingCart, 
@@ -78,7 +81,9 @@ const SurroundAIRetail = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+    <div className="min-h-screen relative overflow-hidden">
+      <AnimatedBackground variant="mesh" theme="retail" className="absolute inset-0 opacity-20" />
+      <FloatingElements count={6} variant="mixed" theme="retail" className="absolute inset-0 opacity-15" />
       {/* Breadcrumb */}
       <section className="pt-32 pb-8 px-4">
         <div className="max-w-7xl mx-auto">
@@ -109,7 +114,7 @@ const SurroundAIRetail = () => {
                 <span className="text-lg font-medium text-primary">Surround AI for Retail</span>
               </div>
               
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+              <h1 className="text-hero gradient-text-retail">
                 Transform Retail with Hyper-Personalization
               </h1>
               
@@ -118,12 +123,12 @@ const SurroundAIRetail = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button asChild size="lg" className="text-lg px-8">
+                <GradientButton variant="retail" size="lg" asChild>
                   <Link to="/contact?product=surround-ai&industry=retail">Request Demo</Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="text-lg px-8">
+                </GradientButton>
+                <GradientButton variant="secondary" size="lg" asChild>
                   <Link to="/resources/surroundai-roi-calculator">Calculate ROI</Link>
-                </Button>
+                </GradientButton>
               </div>
             </motion.div>
             
@@ -166,12 +171,12 @@ const SurroundAIRetail = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             {challenges.map((challenge, index) => (
-              <div key={index} className="bg-card rounded-lg p-6 border border-border">
+              <EnhancedCard key={index} variant="default" className="p-6 h-full">
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-destructive rounded-full mt-2 flex-shrink-0" />
                   <p className="text-muted-foreground">{challenge}</p>
                 </div>
-              </div>
+              </EnhancedCard>
             ))}
           </motion.div>
 
@@ -337,14 +342,14 @@ const SurroundAIRetail = () => {
             See how Surround AI can help you deliver hyper-personalized experiences that drive revenue growth and customer loyalty.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8">
+            <GradientButton variant="retail" size="lg" asChild>
               <Link to="/contact?product=surround-ai&industry=retail" className="flex items-center gap-2">
                 Schedule Retail Demo <ArrowRight className="w-4 h-4" />
               </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8">
+            </GradientButton>
+            <GradientButton variant="secondary" size="lg" asChild>
               <Link to="/use-cases/retail">Back to Retail</Link>
-            </Button>
+            </GradientButton>
           </div>
         </motion.div>
       </section>

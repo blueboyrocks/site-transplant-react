@@ -1,6 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
+import { GradientButton } from '@/components/ui/gradient-button';
+import { EnhancedCard } from '@/components/ui/enhanced-card';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { FloatingElements } from '@/components/ui/floating-elements';
 import { Link } from 'react-router-dom';
 import { 
   GraduationCap, 
@@ -78,7 +81,9 @@ const DataCoffeeSLED = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+    <div className="min-h-screen relative overflow-hidden">
+      <AnimatedBackground variant="mesh" theme="datacoffee" className="absolute inset-0 opacity-20" />
+      <FloatingElements count={6} variant="mixed" theme="datacoffee" className="absolute inset-0 opacity-15" />
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-7xl mx-auto">
@@ -93,7 +98,7 @@ const DataCoffeeSLED = () => {
                 <span className="text-lg font-medium text-primary">Data Coffee for SLED</span>
               </div>
               
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+              <h1 className="text-hero gradient-text-datacoffee">
                 Unify Government Data for Better Public Service
               </h1>
               
@@ -102,12 +107,12 @@ const DataCoffeeSLED = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button asChild size="lg" className="text-lg px-8">
+                <GradientButton variant="datacoffee" size="lg" asChild>
                   <Link to="/contact?product=data-coffee&industry=sled">See SLED Demo</Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="text-lg px-8">
+                </GradientButton>
+                <GradientButton variant="secondary" size="lg" asChild>
                   <Link to="/resources/roi-calculator">Calculate Efficiency Gains</Link>
-                </Button>
+                </GradientButton>
               </div>
             </motion.div>
             
@@ -150,12 +155,12 @@ const DataCoffeeSLED = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             {challenges.map((challenge, index) => (
-              <div key={index} className="bg-card rounded-lg p-6 border border-border">
+              <EnhancedCard key={index} variant="default" className="p-6 h-full">
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-destructive rounded-full mt-2 flex-shrink-0" />
                   <p className="text-muted-foreground">{challenge}</p>
                 </div>
-              </div>
+              </EnhancedCard>
             ))}
           </motion.div>
 
@@ -321,14 +326,14 @@ const DataCoffeeSLED = () => {
             See how Data Coffee can unify your government data and improve service delivery while maintaining security and compliance.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8">
+            <GradientButton variant="datacoffee" size="lg" asChild>
               <Link to="/contact?product=data-coffee&industry=sled" className="flex items-center gap-2">
                 Schedule SLED Demo <ArrowRight className="w-4 h-4" />
               </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8">
+            </GradientButton>
+            <GradientButton variant="secondary" size="lg" asChild>
               <Link to="/use-cases/sled">Back to SLED</Link>
-            </Button>
+            </GradientButton>
           </div>
         </motion.div>
       </section>
