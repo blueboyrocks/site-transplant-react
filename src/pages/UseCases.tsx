@@ -187,7 +187,7 @@ const UseCases = () => {
       </section>
 
       {/* Industries Section */}
-      <section className="py-16 px-4">
+      <section className="py-16 px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -201,11 +201,11 @@ const UseCases = () => {
             </p>
           </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-2 gap-8 relative z-10">
             {industries.map((industry, index) => (
               <motion.div
                 key={index}
-                className="bg-card rounded-xl p-8 border border-border hover:border-primary/30 transition-all duration-300 group"
+                className="bg-card rounded-xl p-8 border border-border hover:border-primary/30 transition-all duration-300 group relative z-10"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.8 + index * 0.1 }}
@@ -269,7 +269,7 @@ const UseCases = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-4">
+      <section className="py-16 px-4 relative z-10">
         <motion.div
           className="max-w-4xl mx-auto text-center bg-gradient-to-r from-primary/10 to-primary/5 rounded-2xl p-12"
           initial={{ opacity: 0, y: 20 }}
