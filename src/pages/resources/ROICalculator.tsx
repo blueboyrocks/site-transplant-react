@@ -175,74 +175,6 @@ const ROICalculator = () => {
         </div>
       </section>
 
-      {/* Benefits Overview */}
-      <section className="py-16 px-4 bg-muted/30">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <h2 className="text-4xl font-bold mb-4">AI Benefits Across Industries</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Discover how AI can transform your business operations
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-4 gap-8">
-            {benefits.map((benefit, index) => (
-              <motion.div
-                key={index}
-                className="text-center bg-card rounded-xl p-6 border border-border"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 + index * 0.1 }}
-              >
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <benefit.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">{benefit.title}</h3>
-                <p className="text-sm text-muted-foreground">{benefit.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Industry Overview */}
-      <section className="py-16 px-4">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-          >
-            <h2 className="text-4xl font-bold mb-4">Average ROI by Industry</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              See typical returns across different sectors
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {industries.map((industry, index) => (
-              <motion.div
-                key={index}
-                className="bg-card rounded-xl p-6 border border-border text-center"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.0 + index * 0.1 }}
-              >
-                <h3 className="text-lg font-semibold mb-2">{industry.label}</h3>
-                <div className="text-3xl font-bold text-primary mb-2">{industry.avgROI}</div>
-                <p className="text-sm text-muted-foreground">Average ROI in first year</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ROI Calculator */}
       <section className="py-16 px-4 bg-muted/30">
         <div className="max-w-6xl mx-auto">
@@ -469,6 +401,74 @@ const ROICalculator = () => {
                 </Card>
               )}
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Overview */}
+      <section className="py-16 px-4 bg-muted/30">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <h2 className="text-4xl font-bold mb-4">AI Benefits Across Industries</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Discover how AI can transform your business operations
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-4 gap-8">
+            {benefits.map((benefit, index) => (
+              <motion.div
+                key={index}
+                className="text-center bg-card rounded-xl p-6 border border-border"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 + index * 0.1 }}
+              >
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                  <benefit.icon className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2">{benefit.title}</h3>
+                <p className="text-sm text-muted-foreground">{benefit.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Industry Overview */}
+      <section className="py-16 px-4">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
+            <h2 className="text-4xl font-bold mb-4">Average ROI by Industry</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              See typical returns across different sectors
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {industries.map((industry, index) => (
+              <motion.div
+                key={index}
+                className="bg-card rounded-xl p-6 border border-border text-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.0 + index * 0.1 }}
+              >
+                <h3 className="text-lg font-semibold mb-2">{industry.label}</h3>
+                <div className="text-3xl font-bold text-primary mb-2">{industry.avgROI}</div>
+                <p className="text-sm text-muted-foreground">Average ROI in first year</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
