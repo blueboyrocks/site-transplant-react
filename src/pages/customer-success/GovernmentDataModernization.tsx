@@ -145,9 +145,9 @@ const GovernmentDataModernization = () => {
   ];
 
   return (
-    <div className="min-h-screen relative overflow-hidden theme-datacoffee">
-      <AnimatedBackground variant="particles" theme="datacoffee" className="absolute inset-0" />
-      <FloatingElements count={10} variant="hexagons" theme="datacoffee" className="absolute inset-0" />
+    <div className="min-h-screen relative overflow-hidden">
+      <AnimatedBackground variant="mesh" theme="government" className="absolute inset-0 opacity-30" />
+      <FloatingElements count={8} variant="circles" theme="government" className="absolute inset-0 opacity-20" />
       
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-4 relative z-10">
@@ -183,7 +183,7 @@ const GovernmentDataModernization = () => {
       </section>
 
       {/* Results Section */}
-      <section className="py-16 px-4 bg-muted/30">
+      <section className="py-16 px-4 bg-background/80 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-12"
@@ -201,7 +201,7 @@ const GovernmentDataModernization = () => {
             {results.map((result, index) => (
               <motion.div
                 key={index}
-                className="text-center bg-card rounded-xl p-6 border border-border"
+                className="text-center bg-card/90 backdrop-blur-sm rounded-xl p-6 border border-border/50 shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 + index * 0.1 }}
@@ -267,7 +267,7 @@ const GovernmentDataModernization = () => {
       </section>
 
       {/* Solution Section */}
-      <section className="py-16 px-4 bg-muted/30">
+      <section className="py-16 px-4 bg-background/60 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-12"
@@ -288,7 +288,7 @@ const GovernmentDataModernization = () => {
             {solutionFeatures.map((feature, index) => (
               <motion.div
                 key={index}
-                className="bg-card rounded-xl p-6 border border-border"
+                className="bg-card/90 backdrop-blur-sm rounded-xl p-6 border border-border/50 shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.2 + index * 0.1 }}
@@ -307,7 +307,7 @@ const GovernmentDataModernization = () => {
             {technicalFeatures.map((tech, index) => (
               <motion.div
                 key={index}
-                className="bg-card rounded-xl p-6 border border-border"
+                className="bg-card/90 backdrop-blur-sm rounded-xl p-6 border border-border/50 shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.6 + index * 0.1 }}
@@ -346,7 +346,7 @@ const GovernmentDataModernization = () => {
             {outcomes.map((outcome, index) => (
               <motion.div
                 key={index}
-                className="bg-card rounded-xl p-6 border border-border"
+                className="bg-card/90 backdrop-blur-sm rounded-xl p-6 border border-border/50 shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 2.2 + index * 0.1 }}
