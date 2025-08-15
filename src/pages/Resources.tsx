@@ -158,19 +158,27 @@ const Resources = () => {
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
-      <section className="section-padding bg-gradient-to-br from-black via-gray-900 to-black">
-        <div className="container mx-auto">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0 z-0">
+          <div className="relative w-full h-full">
+            <img
+              src="https://www.libraryjournal.com/binaries/content/gallery/Jlibrary/2024/january/enis/ljx240101webenis1.jpg"
+              alt="AI Resources Library"
+              className="w-full h-full object-cover opacity-25"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/90" />
+            <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900/80 to-black" />
+          </div>
+        </div>
+
+        <div className="relative z-10 container mx-auto px-4 py-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <img
-              src="https://www.libraryjournal.com/binaries/content/gallery/Jlibrary/2024/january/enis/ljx240101webenis1.jpg"
-              alt="AI Resources Library"
-              className="w-full max-w-2xl mx-auto rounded-2xl mb-8"
-            />
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
               <span className="text-white">AI Knowledge </span>
               <span className="gradient-text">Resource Center</span>

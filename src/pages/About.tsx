@@ -79,19 +79,27 @@ const About = () => {
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
-      <section className="section-padding bg-gradient-to-br from-black via-gray-900 to-black">
-        <div className="container mx-auto">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0 z-0">
+          <div className="relative w-full h-full">
+            <img
+              src="https://img.freepik.com/premium-photo/teamwork-laptop-team-working-project-together-with-research-modern-corporate-office-diversity-technology-business-people-collaboration-company-strategy-planning-workplace_590464-101822.jpg?w=2000"
+              alt="LeapGen.AI Team"
+              className="w-full h-full object-cover opacity-30"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/90" />
+            <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900/80 to-black" />
+          </div>
+        </div>
+
+        <div className="relative z-10 container mx-auto px-4 py-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <img
-              src="https://img.freepik.com/premium-photo/teamwork-laptop-team-working-project-together-with-research-modern-corporate-office-diversity-technology-business-people-collaboration-company-strategy-planning-workplace_590464-101822.jpg?w=2000"
-              alt="LeapGen.AI Team"
-              className="w-full max-w-2xl mx-auto rounded-2xl mb-8"
-            />
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
               <span className="text-white">Pioneering AI Solutions for </span>
               <span className="gradient-text">Tomorrow's Challenges</span>
