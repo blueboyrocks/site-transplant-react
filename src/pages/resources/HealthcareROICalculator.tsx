@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { GradientButton } from '@/components/ui/gradient-button';
+import { EnhancedCard } from '@/components/ui/enhanced-card';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { FloatingElements } from '@/components/ui/floating-elements';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -139,7 +141,9 @@ const HealthcareROICalculator = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+    <div className="min-h-screen relative overflow-hidden">
+      <AnimatedBackground variant="mesh" theme="healthcare" className="absolute inset-0 opacity-20" />
+      <FloatingElements count={6} variant="mixed" theme="healthcare" className="absolute inset-0 opacity-15" />
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-7xl mx-auto">
@@ -151,7 +155,7 @@ const HealthcareROICalculator = () => {
           >
             <div className="flex items-center justify-center gap-3 mb-6">
               <Calculator className="w-8 h-8 text-primary" />
-              <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+              <h1 className="text-hero gradient-text-healthcare">
                 Healthcare ROI Calculator
               </h1>
             </div>
@@ -181,16 +185,17 @@ const HealthcareROICalculator = () => {
             {benefits.map((benefit, index) => (
               <motion.div
                 key={index}
-                className="text-center bg-card rounded-xl p-6 border border-border"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 + index * 0.1 }}
               >
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <benefit.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">{benefit.title}</h3>
-                <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                <EnhancedCard variant="default" className="text-center p-6 h-full">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                    <benefit.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">{benefit.title}</h3>
+                  <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                </EnhancedCard>
               </motion.div>
             ))}
           </div>
@@ -219,11 +224,11 @@ const HealthcareROICalculator = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 1.0 }}
             >
-              <Card>
-                <CardHeader>
-                  <CardTitle>Organization Details</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
+              <EnhancedCard variant="default" className="overflow-hidden">
+                <div className="p-6 pb-4">
+                  <h3 className="text-xl font-bold mb-4">Organization Details</h3>
+                </div>
+                <div className="px-6 pb-6 space-y-6">
                   <div>
                     <Label htmlFor="organizationType">Organization Type</Label>
                     <Select onValueChange={(value) => handleInputChange('organizationType', value)}>
@@ -308,12 +313,12 @@ const HealthcareROICalculator = () => {
                     />
                   </div>
 
-                  <Button onClick={calculateROI} className="w-full" size="lg">
+                  <GradientButton variant="healthcare" size="lg" className="w-full" onClick={calculateROI}>
                     <Calculator className="w-4 h-4 mr-2" />
                     Calculate ROI
-                  </Button>
-                </CardContent>
-              </Card>
+                  </GradientButton>
+                </div>
+              </EnhancedCard>
             </motion.div>
 
             {/* Results */}
@@ -323,11 +328,11 @@ const HealthcareROICalculator = () => {
               transition={{ duration: 0.8, delay: 1.2 }}
             >
               {results ? (
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Your ROI Projection</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
+                <EnhancedCard variant="default" className="overflow-hidden">
+                  <div className="p-6 pb-4">
+                    <h3 className="text-xl font-bold mb-4">Your ROI Projection</h3>
+                  </div>
+                  <div className="px-6 pb-6 space-y-6">
                     <div className="grid grid-cols-2 gap-4">
                       <div className="text-center p-4 bg-primary/5 rounded-lg">
                         <div className="text-2xl font-bold text-primary">
@@ -368,23 +373,23 @@ const HealthcareROICalculator = () => {
                       </div>
                     </div>
 
-                    <Button asChild className="w-full" size="lg">
+                    <GradientButton variant="healthcare" size="lg" className="w-full" asChild>
                       <Link to="/contact?type=demo&industry=healthcare">
                         Schedule Strategy Call
                       </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
+                    </GradientButton>
+                  </div>
+                </EnhancedCard>
               ) : (
-                <Card>
-                  <CardContent className="text-center py-12">
+                <EnhancedCard variant="default" className="overflow-hidden">
+                  <div className="text-center py-12 px-6">
                     <Calculator className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
                     <h3 className="text-xl font-semibold mb-2">Ready to Calculate?</h3>
                     <p className="text-muted-foreground">
                       Fill out the form on the left to see your personalized ROI projections
                     </p>
-                  </CardContent>
-                </Card>
+                  </div>
+                </EnhancedCard>
               )}
             </motion.div>
           </div>
@@ -410,24 +415,25 @@ const HealthcareROICalculator = () => {
             {useCases.map((useCase, index) => (
               <motion.div
                 key={index}
-                className="bg-card rounded-xl p-6 border border-border"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.8 + index * 0.1 }}
               >
-                <h3 className="text-xl font-semibold mb-4">{useCase.title}</h3>
-                <ul className="space-y-2 mb-4">
-                  {useCase.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-2">
-                      <CheckCircle className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
-                      <span className="text-sm text-muted-foreground">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
-                  <TrendingUp className="w-3 h-3" />
-                  {useCase.savings}
-                </div>
+                <EnhancedCard variant="default" className="p-6 h-full">
+                  <h3 className="text-xl font-semibold mb-4">{useCase.title}</h3>
+                  <ul className="space-y-2 mb-4">
+                    {useCase.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                        <span className="text-sm text-muted-foreground">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                    <TrendingUp className="w-3 h-3" />
+                    {useCase.savings}
+                  </div>
+                </EnhancedCard>
               </motion.div>
             ))}
           </div>
@@ -447,14 +453,14 @@ const HealthcareROICalculator = () => {
             Get a detailed implementation plan tailored to your organization's needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8">
+            <GradientButton variant="healthcare" size="lg" asChild>
               <Link to="/contact?type=demo&industry=healthcare" className="flex items-center gap-2">
                 Schedule Consultation <ArrowRight className="w-4 h-4" />
               </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8">
+            </GradientButton>
+            <GradientButton variant="secondary" size="lg" asChild>
               <Link to="/use-cases/healthcare">Explore Healthcare Solutions</Link>
-            </Button>
+            </GradientButton>
           </div>
         </motion.div>
       </section>

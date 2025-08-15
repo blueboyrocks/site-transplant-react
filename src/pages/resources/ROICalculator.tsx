@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { GradientButton } from '@/components/ui/gradient-button';
+import { EnhancedCard } from '@/components/ui/enhanced-card';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { FloatingElements } from '@/components/ui/floating-elements';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
@@ -160,7 +162,9 @@ const ROICalculator = () => {
         keywords="ROI calculator, AI ROI, return on investment, AI savings calculator, business automation ROI, artificial intelligence investment"
         url="https://leapgen.ai/resources/roi-calculator"
       />
-      <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+      <div className="min-h-screen relative overflow-hidden">
+        <AnimatedBackground variant="mesh" theme="primary" className="absolute inset-0 opacity-20" />
+        <FloatingElements count={6} variant="mixed" theme="primary" className="absolute inset-0 opacity-15" />
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-7xl mx-auto">
@@ -172,7 +176,7 @@ const ROICalculator = () => {
           >
             <div className="flex items-center justify-center gap-3 mb-6">
               <Calculator className="w-8 h-8 text-primary" />
-              <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+              <h1 className="text-hero gradient-text-primary">
                 AI ROI Calculator
               </h1>
             </div>
@@ -205,11 +209,11 @@ const ROICalculator = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 1.8 }}
             >
-              <Card>
-                <CardHeader>
-                  <CardTitle>Organization Details</CardTitle>
-                </CardHeader>
-                 <CardContent className="space-y-6">
+              <EnhancedCard variant="default" className="overflow-hidden">
+                <div className="p-6 pb-4">
+                  <h3 className="text-xl font-bold mb-4">Organization Details</h3>
+                </div>
+                 <div className="px-6 pb-6 space-y-6">
                    <div>
                      <Label htmlFor="industry">Industry</Label>
                      <Select onValueChange={setIndustry}>
@@ -329,9 +333,9 @@ const ROICalculator = () => {
                        <span>0</span>
                        <span>100</span>
                      </div>
-                   </div>
-                </CardContent>
-              </Card>
+                    </div>
+                </div>
+              </EnhancedCard>
             </motion.div>
 
             {/* Results */}
@@ -341,72 +345,72 @@ const ROICalculator = () => {
               transition={{ duration: 0.8, delay: 2.0 }}
             >
               {results ? (
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Your ROI Projection</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                     <div className="grid grid-cols-2 gap-4">
-                       <div className="text-center p-4 bg-primary/5 rounded-lg">
-                         <div className="text-2xl font-bold text-primary">
-                           $<AnimatedCounter value={Math.round(results.netAnnualSavings)} />
-                         </div>
-                         <div className="text-sm text-muted-foreground">Net Annual Savings</div>
+                <EnhancedCard variant="default" className="overflow-hidden">
+                  <div className="p-6 pb-4">
+                    <h3 className="text-xl font-bold mb-4">Your ROI Projection</h3>
+                  </div>
+                  <div className="px-6 pb-6 space-y-6">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="text-center p-4 bg-primary/5 rounded-lg">
+                          <div className="text-2xl font-bold text-primary">
+                            $<AnimatedCounter value={Math.round(results.netAnnualSavings)} />
+                          </div>
+                          <div className="text-sm text-muted-foreground">Net Annual Savings</div>
+                        </div>
+                        <div className="text-center p-4 bg-primary/5 rounded-lg">
+                          <div className="text-2xl font-bold text-primary">
+                            <AnimatedCounter value={Math.round(results.roiPercentage)} suffix="%" />
+                          </div>
+                          <div className="text-sm text-muted-foreground">ROI Percentage</div>
+                        </div>
+                      </div>
+
+                     <div className="space-y-4">
+                       <div className="flex justify-between">
+                         <span>Automation Savings:</span>
+                         <span className="font-semibold">${results.automationSavings.toLocaleString()}/month</span>
                        </div>
-                       <div className="text-center p-4 bg-primary/5 rounded-lg">
-                         <div className="text-2xl font-bold text-primary">
-                           <AnimatedCounter value={Math.round(results.roiPercentage)} suffix="%" />
+                       <div className="flex justify-between">
+                         <span>Error Reduction Savings:</span>
+                         <span className="font-semibold">${results.errorSavings.toLocaleString()}/month</span>
+                       </div>
+                       <div className="flex justify-between">
+                         <span>Productivity Boost:</span>
+                         <span className="font-semibold">${results.productivityBoost.toLocaleString()}/month</span>
+                       </div>
+                       <div className="border-t pt-4">
+                         <div className="flex justify-between font-semibold">
+                           <span>Total Monthly Savings:</span>
+                           <span>${results.totalMonthlySavings.toLocaleString()}</span>
                          </div>
-                         <div className="text-sm text-muted-foreground">ROI Percentage</div>
+                       </div>
+                       <div className="flex justify-between">
+                         <span>Efficiency Gain:</span>
+                         <span className="font-semibold">{results.efficiencyGain.toFixed(1)}%</span>
+                       </div>
+                       <div className="flex justify-between">
+                         <span>Payback Period:</span>
+                         <span className="font-semibold">{results.paybackMonths.toFixed(1)} months</span>
                        </div>
                      </div>
 
-                    <div className="space-y-4">
-                      <div className="flex justify-between">
-                        <span>Automation Savings:</span>
-                        <span className="font-semibold">${results.automationSavings.toLocaleString()}/month</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Error Reduction Savings:</span>
-                        <span className="font-semibold">${results.errorSavings.toLocaleString()}/month</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Productivity Boost:</span>
-                        <span className="font-semibold">${results.productivityBoost.toLocaleString()}/month</span>
-                      </div>
-                      <div className="border-t pt-4">
-                        <div className="flex justify-between font-semibold">
-                          <span>Total Monthly Savings:</span>
-                          <span>${results.totalMonthlySavings.toLocaleString()}</span>
-                        </div>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Efficiency Gain:</span>
-                        <span className="font-semibold">{results.efficiencyGain.toFixed(1)}%</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Payback Period:</span>
-                        <span className="font-semibold">{results.paybackMonths.toFixed(1)} months</span>
-                      </div>
-                    </div>
-
-                    <Button asChild className="w-full" size="lg">
-                      <Link to="/contact?type=demo">
-                        Schedule Implementation Call
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
+                     <GradientButton variant="primary" size="lg" className="w-full" asChild>
+                       <Link to="/contact?type=demo">
+                         Schedule Implementation Call
+                       </Link>
+                     </GradientButton>
+                  </div>
+                </EnhancedCard>
               ) : (
-                <Card>
-                  <CardContent className="text-center py-12">
+                <EnhancedCard variant="default" className="overflow-hidden">
+                  <div className="text-center py-12 px-6">
                     <Calculator className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
                     <h3 className="text-xl font-semibold mb-2">Ready to Calculate?</h3>
                     <p className="text-muted-foreground">
                       Fill out the form on the left to see your personalized ROI projections
                     </p>
-                  </CardContent>
-                </Card>
+                  </div>
+                </EnhancedCard>
               )}
             </motion.div>
           </div>
@@ -432,16 +436,17 @@ const ROICalculator = () => {
             {benefits.map((benefit, index) => (
               <motion.div
                 key={index}
-                className="text-center bg-card rounded-xl p-6 border border-border"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 + index * 0.1 }}
               >
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <benefit.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">{benefit.title}</h3>
-                <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                <EnhancedCard variant="default" className="text-center p-6 h-full">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                    <benefit.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">{benefit.title}</h3>
+                  <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                </EnhancedCard>
               </motion.div>
             ))}
           </div>
@@ -467,14 +472,15 @@ const ROICalculator = () => {
             {industries.map((industry, index) => (
               <motion.div
                 key={index}
-                className="bg-card rounded-xl p-6 border border-border text-center"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.0 + index * 0.1 }}
               >
-                <h3 className="text-lg font-semibold mb-2">{industry.label}</h3>
-                <div className="text-3xl font-bold text-primary mb-2">{industry.avgROI}</div>
-                <p className="text-sm text-muted-foreground">Average ROI in first year</p>
+                <EnhancedCard variant="default" className="text-center p-6 h-full">
+                  <h3 className="text-lg font-semibold mb-2">{industry.label}</h3>
+                  <div className="text-3xl font-bold text-primary mb-2">{industry.avgROI}</div>
+                  <p className="text-sm text-muted-foreground">Average ROI in first year</p>
+                </EnhancedCard>
               </motion.div>
             ))}
           </div>
@@ -500,22 +506,23 @@ const ROICalculator = () => {
             {useCases.map((useCase, index) => (
               <motion.div
                 key={index}
-                className="bg-card rounded-xl p-6 border border-border"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 2.4 + index * 0.1 }}
               >
-                <h3 className="text-xl font-semibold mb-3">{useCase.title}</h3>
-                <p className="text-muted-foreground mb-4">{useCase.description}</p>
-                <div className="flex items-center justify-between">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
-                    <TrendingUp className="w-3 h-3" />
-                    {useCase.savings}
+                <EnhancedCard variant="default" className="p-6 h-full">
+                  <h3 className="text-xl font-semibold mb-3">{useCase.title}</h3>
+                  <p className="text-muted-foreground mb-4">{useCase.description}</p>
+                  <div className="flex items-center justify-between">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                      <TrendingUp className="w-3 h-3" />
+                      {useCase.savings}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      {useCase.industries.join(', ')}
+                    </div>
                   </div>
-                  <div className="text-sm text-muted-foreground">
-                    {useCase.industries.join(', ')}
-                  </div>
-                </div>
+                </EnhancedCard>
               </motion.div>
             ))}
           </div>
@@ -535,14 +542,14 @@ const ROICalculator = () => {
             Get a detailed implementation plan tailored to your organization's needs and goals.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8">
+            <GradientButton variant="primary" size="lg" asChild>
               <Link to="/contact?type=demo" className="flex items-center gap-2">
                 Schedule Strategy Session <ArrowRight className="w-4 h-4" />
               </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8">
+            </GradientButton>
+            <GradientButton variant="secondary" size="lg" asChild>
               <Link to="/use-cases">Explore Use Cases</Link>
-            </Button>
+            </GradientButton>
           </div>
         </motion.div>
       </section>
