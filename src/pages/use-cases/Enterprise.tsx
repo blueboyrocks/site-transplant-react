@@ -213,9 +213,9 @@ const Enterprise = () => {
             </p>
           </motion.div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-3 gap-8 relative z-10">
             <motion.div
-              className="bg-card rounded-xl p-8 border border-border hover:border-primary/30 transition-all duration-300 group"
+              className="bg-card rounded-xl p-8 border border-border hover:border-primary/30 transition-all duration-300 group relative z-10"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.2 }}
@@ -253,7 +253,7 @@ const Enterprise = () => {
             </motion.div>
 
             <motion.div
-              className="bg-card rounded-xl p-8 border border-border hover:border-primary/30 transition-all duration-300 group"
+              className="bg-card rounded-xl p-8 border border-border hover:border-primary/30 transition-all duration-300 group relative z-10"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.3 }}
@@ -291,7 +291,7 @@ const Enterprise = () => {
             </motion.div>
 
             <motion.div
-              className="bg-card rounded-xl p-8 border border-border hover:border-primary/30 transition-all duration-300 group"
+              className="bg-card rounded-xl p-8 border border-border hover:border-primary/30 transition-all duration-300 group relative z-10"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.4 }}

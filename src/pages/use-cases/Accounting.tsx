@@ -195,11 +195,11 @@ const Accounting = () => {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 relative z-10">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
-                className="bg-card rounded-xl p-8 border border-border"
+                className="bg-card rounded-xl p-8 border border-border relative z-10"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.2 + index * 0.1 }}
