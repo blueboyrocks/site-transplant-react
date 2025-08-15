@@ -41,16 +41,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Industries */}
-          <div>
-            <h4 className="font-semibold text-white mb-4">Industries</h4>
-            <ul className="space-y-2">
-              <li><Link to="/industries/healthcare" className="text-gray-400 hover:text-white transition-colors">Healthcare</Link></li>
-              <li><Link to="/industries/financial-services" className="text-gray-400 hover:text-white transition-colors">Financial Services</Link></li>
-              <li><Link to="/industries/manufacturing" className="text-gray-400 hover:text-white transition-colors">Manufacturing</Link></li>
-              <li><Link to="/industries/retail" className="text-gray-400 hover:text-white transition-colors">Retail</Link></li>
-            </ul>
-          </div>
 
           {/* Contact */}
           <div>

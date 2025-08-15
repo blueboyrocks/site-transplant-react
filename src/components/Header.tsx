@@ -26,12 +26,6 @@ const Header = () => {
     { name: 'Seismic', href: '/products/seismic', description: 'Clinical documentation with AI' },
   ]
 
-  const industries = [
-    { name: 'Healthcare', href: '/industries/healthcare' },
-    { name: 'Financial Services', href: '/industries/financial-services' },
-    { name: 'Manufacturing', href: '/industries/manufacturing' },
-    { name: 'Retail', href: '/industries/retail' },
-  ]
 
   const useCases = [
     {
@@ -182,40 +176,6 @@ const Header = () => {
               </AnimatePresence>
             </div>
 
-            {/* Industries Dropdown */}
-            <div 
-              className="relative"
-              onMouseEnter={() => setActiveDropdown('industries')}
-              onMouseLeave={() => setActiveDropdown(null)}
-            >
-              <button className="flex items-center space-x-1 text-white hover:text-purple-400 transition-colors">
-                <span>Industries</span>
-                <ChevronDown className="w-4 h-4" />
-              </button>
-              <AnimatePresence>
-                {activeDropdown === 'industries' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    className="absolute top-full left-0 mt-2 w-64 bg-gray-900 border border-gray-700 rounded-lg shadow-xl z-50"
-                  >
-                    <div className="p-4 space-y-2">
-                      {industries.map((industry) => (
-                        <Link
-                          key={industry.name}
-                          to={industry.href}
-                          className="block p-2 hover:bg-gray-800 rounded-lg transition-colors text-white"
-                          onClick={closeMenu}
-                        >
-                          {industry.name}
-                        </Link>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
 
             <Link to="/about" className="text-white hover:text-purple-400 transition-colors">
               About Us
@@ -284,19 +244,6 @@ const Header = () => {
                   ))}
                 </div>
 
-                <div className="space-y-2">
-                  <div className="font-semibold text-gray-300">Industries</div>
-                  {industries.map((industry) => (
-                    <Link
-                      key={industry.name}
-                      to={industry.href}
-                      className="block pl-4 py-2 text-white hover:text-purple-400 transition-colors"
-                      onClick={closeMenu}
-                    >
-                      {industry.name}
-                    </Link>
-                  ))}
-                </div>
 
                 <Link
                   to="/about"

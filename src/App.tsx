@@ -12,7 +12,7 @@ import Contact from "./pages/Contact";
 import SurroundAI from "./pages/products/SurroundAI";
 import DataCoffee from "./pages/products/DataCoffee";
 import Seismic from "./pages/products/Seismic";
-import Healthcare from "./pages/industries/Healthcare";
+
 import UseCases from "./pages/UseCases";
 import Finance from "./pages/use-cases/Finance";
 import HealthcareUseCase from "./pages/use-cases/HealthcareUseCase";
@@ -105,7 +105,7 @@ const App = () => (
             <Route path="/products/surroundai" element={<SurroundAI />} />
             <Route path="/products/data-coffee" element={<DataCoffee />} />
             <Route path="/products/seismic" element={<Seismic />} />
-            <Route path="/industries/healthcare" element={<Healthcare />} />
+            
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
