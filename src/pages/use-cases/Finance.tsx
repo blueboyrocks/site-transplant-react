@@ -23,7 +23,7 @@ const Finance = () => {
         "20% increase in customer retention", 
         "75% better risk modeling"
       ],
-      href: "/products/surroundai",
+      href: "/use-cases/finance/surround-ai",
       icon: TrendingUp
     },
     {
@@ -34,7 +34,7 @@ const Finance = () => {
         "95% compliance accuracy",
         "Complete data leakage elimination"
       ],
-      href: "/products/data-coffee",
+      href: "/use-cases/finance/data-coffee",
       icon: Shield
     },
     {
@@ -45,7 +45,7 @@ const Finance = () => {
         "60% faster fraud detection",
         "95% regulatory compliance"
       ],
-      href: "/contact?type=demo&industry=finance",
+      href: "/use-cases/finance/complete-solution",
       icon: Zap
     }
   ];
