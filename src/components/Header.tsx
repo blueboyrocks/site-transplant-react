@@ -34,6 +34,18 @@ const Header = () => {
   ]
 
   const useCases = [
+    {
+      name: 'Customer Success Stories',
+      href: '/customer-success',
+      description: 'Real results from our clients',
+      isSpecial: true
+    },
+    {
+      name: 'View All Use Cases',
+      href: '/use-cases',
+      description: 'Explore AI solutions by industry',
+      isSpecial: true
+    },
     { 
       name: 'Finance & Banking', 
       href: '/use-cases/finance', 
@@ -55,26 +67,6 @@ const Header = () => {
       ]
     },
     { 
-      name: 'Retail & E-commerce', 
-      href: '/use-cases/retail', 
-      description: 'Customer experience personalization',
-      subItems: [
-        { name: 'Surround AI', href: '/use-cases/retail/surround-ai' },
-        { name: 'Data Coffee', href: '/use-cases/retail/data-coffee' },
-        { name: 'Complete Solution', href: '/use-cases/retail/complete-solution' }
-      ]
-    },
-    { 
-      name: 'Accounting & Audit', 
-      href: '/use-cases/accounting', 
-      description: 'Automated compliance and risk assessment',
-      subItems: [
-        { name: 'Surround AI', href: '/use-cases/accounting/surround-ai' },
-        { name: 'Data Coffee', href: '/use-cases/accounting/data-coffee' },
-        { name: 'Complete Solution', href: '/use-cases/accounting/complete-solution' }
-      ]
-    },
-    { 
       name: 'Government & Education', 
       href: '/use-cases/sled', 
       description: 'Data-driven public service optimization',
@@ -85,9 +77,29 @@ const Header = () => {
       ]
     },
     { 
+      name: 'E-commerce & Retail', 
+      href: '/use-cases/retail', 
+      description: 'Personalized customer experiences',
+      subItems: [
+        { name: 'Surround AI', href: '/use-cases/retail/surround-ai' },
+        { name: 'Data Coffee', href: '/use-cases/retail/data-coffee' },
+        { name: 'Complete Solution', href: '/use-cases/retail/complete-solution' }
+      ]
+    },
+    { 
+      name: 'Accounting & Audit', 
+      href: '/use-cases/accounting', 
+      description: 'Automated financial analysis',
+      subItems: [
+        { name: 'Surround AI', href: '/use-cases/accounting/surround-ai' },
+        { name: 'Data Coffee', href: '/use-cases/accounting/data-coffee' },
+        { name: 'Complete Solution', href: '/use-cases/accounting/complete-solution' }
+      ]
+    },
+    { 
       name: 'Enterprise', 
       href: '/use-cases/enterprise', 
-      description: 'Large-scale organizational intelligence',
+      description: 'Enterprise-wide intelligence systems',
       subItems: [
         { name: 'Surround AI', href: '/use-cases/enterprise/surround-ai' },
         { name: 'Data Coffee', href: '/use-cases/enterprise/data-coffee' },
@@ -97,7 +109,7 @@ const Header = () => {
     { 
       name: 'Small & Medium Business', 
       href: '/use-cases/small-medium-business', 
-      description: 'Scalable AI solutions for growing businesses',
+      description: 'Enterprise-level insights for SMBs',
       subItems: [
         { name: 'Surround AI', href: '/use-cases/smb/surround-ai' },
         { name: 'Data Coffee', href: '/use-cases/smb/data-coffee' },
@@ -178,19 +190,23 @@ const Header = () => {
                     exit={{ opacity: 0, y: 10 }}
                     className="absolute top-full left-0 mt-2 w-96 bg-gray-900 border border-gray-700 rounded-lg shadow-xl z-50 max-h-96 overflow-y-auto"
                   >
-                    <div className="p-4 space-y-4">
-                      {useCases.map((useCase) => (
-                        <div key={useCase.name} className="space-y-2">
+                    <div className="p-4 space-y-2">
+                      {useCases.map((useCase, index) => (
+                        <div key={useCase.name}>
                           <Link
                             to={useCase.href}
-                            className="block p-3 hover:bg-gray-800 rounded-lg transition-colors"
+                            className={`block p-3 rounded-lg transition-colors ${
+                              useCase.isSpecial 
+                                ? 'hover:bg-gray-800 border-b border-gray-700 pb-3 mb-2' 
+                                : 'hover:bg-gray-800'
+                            }`}
                             onClick={closeMenu}
                           >
                             <div className="font-semibold text-white">{useCase.name}</div>
                             <div className="text-sm text-gray-400">{useCase.description}</div>
                           </Link>
                           {useCase.subItems && (
-                            <div className="ml-4 space-y-1">
+                            <div className="ml-4 space-y-1 mb-2">
                               {useCase.subItems.map((subItem) => (
                                 <Link
                                   key={subItem.name}
@@ -202,6 +218,10 @@ const Header = () => {
                                 </Link>
                               ))}
                             </div>
+                          )}
+                          {/* Add separator after special items */}
+                          {useCase.isSpecial && index === 1 && (
+                            <div className="border-b border-gray-700 my-2"></div>
                           )}
                         </div>
                       ))}
