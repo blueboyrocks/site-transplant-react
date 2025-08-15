@@ -24,6 +24,9 @@ const Index = () => {
         description="Boost productivity by 40%, reduce errors by 75%, and unlock powerful insights with LeapGen.AI's enterprise-grade AI solutions. Trusted by 500+ organizations worldwide."
         keywords="AI solutions, artificial intelligence, enterprise AI, business automation, productivity, SurroundAI, Data Coffee, healthcare AI, finance AI"
         url="https://leapgen.ai"
+        breadcrumbs={[
+          { name: 'Home', url: '/' }
+        ]}
       />
       <div className="min-h-screen">
         {/* Use the improved HeroSection instead of A/B testing for now */}

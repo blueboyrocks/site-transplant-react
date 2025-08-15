@@ -7,6 +7,7 @@ interface SEOProps {
   image?: string
   url?: string
   type?: 'website' | 'article'
+  breadcrumbs?: Array<{ name: string; url: string }>
 }
 
 const SEO = ({ 

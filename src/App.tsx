@@ -62,7 +62,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-        <Header />
+          <Header />
         <main className="min-h-screen">
           <Routes>
             <Route path="/" element={<Index />} />
