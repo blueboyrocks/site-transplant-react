@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="bg-gray-900 border-t border-gray-800">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
@@ -42,17 +42,33 @@ const Footer = () => {
           </div>
 
 
+          {/* Quick Links */}
+          <div>
+            <h4 className="font-semibold text-white mb-4">Quick Links</h4>
+            <ul className="space-y-2">
+              <li><Link to="/resources" className="text-gray-400 hover:text-white transition-colors">Resources</Link></li>
+              <li><Link to="/resources/roi-calculator" className="text-gray-400 hover:text-white transition-colors">ROI Calculator</Link></li>
+              <li><Link to="/customer-success" className="text-gray-400 hover:text-white transition-colors">Customer Success</Link></li>
+              <li><Link to="/about" className="text-gray-400 hover:text-white transition-colors">About Us</Link></li>
+              <li><Link to="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</Link></li>
+            </ul>
+          </div>
+
           {/* Contact */}
           <div>
             <h4 className="font-semibold text-white mb-4">Contact</h4>
             <ul className="space-y-3">
               <li className="flex items-center space-x-2 text-gray-400">
                 <Mail className="w-4 h-4" />
-                <span>contact@leapgen.ai</span>
+                <a href="mailto:contact@leapgen.ai" className="hover:text-white transition-colors">
+                  contact@leapgen.ai
+                </a>
               </li>
               <li className="flex items-center space-x-2 text-gray-400">
                 <Phone className="w-4 h-4" />
-                <span>+1 (555) 123-4567</span>
+                <a href="tel:+15551234567" className="hover:text-white transition-colors">
+                  +1 (555) 123-4567
+                </a>
               </li>
               <li className="flex items-center space-x-2 text-gray-400">
                 <MapPin className="w-4 h-4" />

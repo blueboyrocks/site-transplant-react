@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Slider } from '@/components/ui/slider';
 import AnimatedCounter from '@/components/AnimatedCounter';
 import { Link } from 'react-router-dom';
+import SEO from '@/components/SEO';
 import { 
   Calculator, 
   TrendingUp, 
@@ -152,7 +153,14 @@ const ROICalculator = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+    <>
+      <SEO 
+        title="ROI Calculator - Calculate Your AI Investment Returns"
+        description="Calculate the ROI of implementing AI solutions with our comprehensive calculator. Estimate savings, costs, and payback period based on your industry and business metrics."
+        keywords="ROI calculator, AI ROI, return on investment, AI savings calculator, business automation ROI, artificial intelligence investment"
+        url="https://leapgen.ai/resources/roi-calculator"
+      />
+      <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-7xl mx-auto">
@@ -538,7 +546,8 @@ const ROICalculator = () => {
           </div>
         </motion.div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 
