@@ -52,21 +52,27 @@ const DataCoffee = () => {
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
-      <section className="section-padding relative overflow-hidden theme-datacoffee">
-        <AnimatedBackground variant="particles" theme="datacoffee" className="absolute inset-0" />
-        <FloatingElements count={8} variant="hexagons" theme="datacoffee" className="absolute inset-0" />
-        <div className="container mx-auto relative z-10">
+      <section className="section-padding relative overflow-hidden theme-datacoffee min-h-[80vh]">
+        {/* Background Image */}
+        <img
+          src="https://static.vecteezy.com/system/resources/previews/011/006/295/original/data-protection-concept-data-security-and-privacy-and-internet-security-flat-illustration-vector.jpg"
+          alt="DataCoffee Data Governance Platform"
+          className="absolute inset-0 w-full h-full object-cover object-center z-0"
+          loading="eager"
+          fetchPriority="high"
+        />
+        {/* Dark gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90 z-10" />
+        
+        <AnimatedBackground variant="particles" theme="datacoffee" className="absolute inset-0 z-20" />
+        <FloatingElements count={8} variant="hexagons" theme="datacoffee" className="absolute inset-0 z-20" />
+        <div className="container mx-auto relative z-30">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <img
-              src="https://static.vecteezy.com/system/resources/previews/011/006/295/original/data-protection-concept-data-security-and-privacy-and-internet-security-flat-illustration-vector.jpg"
-              alt="DataCoffee Data Governance Platform"
-              className="w-full max-w-2xl mx-auto rounded-2xl mb-8"
-            />
             <h1 className="text-hero mb-6">
               <span className="gradient-text-datacoffee">DataCoffee</span>
             </h1>
