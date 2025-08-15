@@ -86,14 +86,13 @@ const About = () => {
             <img
               src="https://img.freepik.com/premium-photo/teamwork-laptop-team-working-project-together-with-research-modern-corporate-office-diversity-technology-business-people-collaboration-company-strategy-planning-workplace_590464-101822.jpg?w=2000"
               alt="LeapGen.AI Team"
-              className="absolute inset-0 w-full h-full object-cover opacity-30"
+              className="absolute inset-0 w-full h-full object-cover opacity-50"
               onError={(e) => {
                 console.log('Image failed to load:', e.currentTarget.src);
                 e.currentTarget.style.display = 'none';
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/90" />
-            <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900/80 to-black" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/60" />
           </div>
         </div>
 
