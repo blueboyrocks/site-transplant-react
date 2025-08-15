@@ -1,7 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { GradientButton } from '@/components/ui/gradient-button';
+import { EnhancedCard } from '@/components/ui/enhanced-card';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { FloatingElements } from '@/components/ui/floating-elements';
 import { Link } from 'react-router-dom';
 import { 
   TrendingUp, 
@@ -91,9 +93,12 @@ const CustomerSuccess = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+    <div className="min-h-screen relative overflow-hidden">
+      <AnimatedBackground variant="mesh" theme="government" className="absolute inset-0" />
+      <FloatingElements count={8} variant="mixed" theme="government" className="absolute inset-0" />
+      
       {/* Hero Section */}
-      <section className="pt-32 pb-16 px-4">
+      <section className="pt-32 pb-16 px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -101,7 +106,7 @@ const CustomerSuccess = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+            <h1 className="text-hero mb-6 gradient-text-government">
               Customer Success Stories
             </h1>
             <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
@@ -111,17 +116,21 @@ const CustomerSuccess = () => {
             {/* Stats */}
             <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
               {stats.map((stat, index) => (
-                <motion.div
+                <EnhancedCard
                   key={index}
-                  className="text-center"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 + index * 0.1 }}
+                  variant="glass"
+                  className="text-center p-6"
                 >
-                  <div className="text-4xl font-bold text-primary mb-2">{stat.value}</div>
-                  <div className="text-lg font-semibold mb-1">{stat.label}</div>
-                  <div className="text-sm text-muted-foreground">{stat.description}</div>
-                </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2 + index * 0.1 }}
+                  >
+                    <div className="text-4xl font-bold gradient-text-government mb-2">{stat.value}</div>
+                    <div className="text-lg font-semibold mb-1">{stat.label}</div>
+                    <div className="text-sm text-muted-foreground">{stat.description}</div>
+                  </motion.div>
+                </EnhancedCard>
               ))}
             </div>
           </motion.div>
@@ -139,67 +148,73 @@ const CustomerSuccess = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 + index * 0.2 }}
               >
-                <Card className="overflow-hidden">
-                  <CardContent className="p-0">
-                    <div className={`bg-gradient-to-r ${story.gradient} p-8`}>
-                      <div className="flex flex-col lg:flex-row gap-8">
-                        {/* Left Column - Story Info */}
-                        <div className="lg:w-2/3">
-                          <div className="flex items-center gap-3 mb-4">
-                            <span className="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-medium">
-                              {story.product}
-                            </span>
-                            <span className="px-3 py-1 bg-muted/80 text-muted-foreground rounded-full text-sm">
-                              {story.size}
-                            </span>
-                          </div>
-                          
-                          <h2 className="text-3xl font-bold mb-4">{story.title}</h2>
-                          <p className="text-lg text-muted-foreground mb-6">{story.description}</p>
-                          
-                          <div className="text-sm text-muted-foreground mb-6">
-                            <span className="font-medium">{story.company}</span> • {story.industry}
-                          </div>
-
-                          {/* Results Grid */}
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                            {story.results.map((result, idx) => (
-                              <div key={idx} className="text-center">
-                                <div className="text-2xl font-bold text-primary mb-1">{result.metric}</div>
-                                <div className="text-sm text-muted-foreground">{result.label}</div>
-                              </div>
-                            ))}
-                          </div>
-
-                          {/* Challenge & Solution */}
-                          <div className="space-y-4 mb-6">
-                            <div>
-                              <h4 className="font-semibold mb-2 flex items-center gap-2">
-                                <Target className="w-4 h-4" />
-                                Challenge
-                              </h4>
-                              <p className="text-muted-foreground text-sm">{story.challenge}</p>
-                            </div>
-                            <div>
-                              <h4 className="font-semibold mb-2 flex items-center gap-2">
-                                <CheckCircle className="w-4 h-4" />
-                                Solution
-                              </h4>
-                              <p className="text-muted-foreground text-sm">{story.solution}</p>
-                            </div>
-                          </div>
-
-                          <Button asChild className="group">
-                            <Link to={story.link} className="flex items-center gap-2">
-                              Read Full Case Study 
-                              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                            </Link>
-                          </Button>
+                <EnhancedCard
+                  variant="gradient"
+                  theme={story.product === 'SurroundAI' ? 'surroundai' : story.product === 'DataCoffee' ? 'datacoffee' : 'seismic'}
+                  className="overflow-hidden"
+                >
+                  <div className="p-8">
+                    <div className="flex flex-col lg:flex-row gap-8">
+                      {/* Left Column - Story Info */}
+                      <div className="lg:w-2/3">
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className="px-3 py-1 bg-white/20 text-white rounded-full text-sm font-medium">
+                            {story.product}
+                          </span>
+                          <span className="px-3 py-1 bg-white/10 text-white/80 rounded-full text-sm">
+                            {story.size}
+                          </span>
                         </div>
+                        
+                        <h2 className="text-section-header text-white mb-4">{story.title}</h2>
+                        <p className="text-lg text-white/80 mb-6">{story.description}</p>
+                        
+                        <div className="text-sm text-white/70 mb-6">
+                          <span className="font-medium">{story.company}</span> • {story.industry}
+                        </div>
+
+                        {/* Results Grid */}
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                          {story.results.map((result, idx) => (
+                            <div key={idx} className="text-center">
+                              <div className="text-2xl font-bold text-white mb-1">{result.metric}</div>
+                              <div className="text-sm text-white/70">{result.label}</div>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Challenge & Solution */}
+                        <div className="space-y-4 mb-6">
+                          <div>
+                            <h4 className="font-semibold mb-2 flex items-center gap-2 text-white">
+                              <Target className="w-4 h-4" />
+                              Challenge
+                            </h4>
+                            <p className="text-white/80 text-sm">{story.challenge}</p>
+                          </div>
+                          <div>
+                            <h4 className="font-semibold mb-2 flex items-center gap-2 text-white">
+                              <CheckCircle className="w-4 h-4" />
+                              Solution
+                            </h4>
+                            <p className="text-white/80 text-sm">{story.solution}</p>
+                          </div>
+                        </div>
+
+                        <GradientButton 
+                          variant="secondary" 
+                          asChild 
+                          className="group bg-white/20 hover:bg-white/30 text-white border-white/30"
+                        >
+                          <Link to={story.link} className="flex items-center gap-2">
+                            Read Full Case Study 
+                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                          </Link>
+                        </GradientButton>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </EnhancedCard>
               </motion.div>
             ))}
           </div>
@@ -219,14 +234,14 @@ const CustomerSuccess = () => {
             See how LeapGen.AI can transform your organization with measurable results and proven ROI.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8">
+            <GradientButton variant="government" size="lg" asChild>
               <Link to="/contact?type=demo" className="flex items-center gap-2">
                 Schedule Your Demo <ArrowRight className="w-4 h-4" />
               </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8">
+            </GradientButton>
+            <GradientButton variant="secondary" size="lg" asChild>
               <Link to="/resources/roi-calculator">Calculate Your ROI</Link>
-            </Button>
+            </GradientButton>
           </div>
         </motion.div>
       </section>

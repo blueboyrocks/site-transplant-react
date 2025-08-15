@@ -1,6 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
+import { GradientButton } from '@/components/ui/gradient-button';
+import { EnhancedCard } from '@/components/ui/enhanced-card';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { FloatingElements } from '@/components/ui/floating-elements';
 import { Link } from 'react-router-dom';
 import { TrendingUp, Shield, Clock, ArrowRight, Building2, HeartHandshake, GraduationCap, ShoppingCart, Calculator, Users } from 'lucide-react';
 
@@ -129,16 +132,19 @@ const UseCases = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+    <div className="min-h-screen relative overflow-hidden">
+      <AnimatedBackground variant="geometric" theme="finance" className="absolute inset-0" />
+      <FloatingElements count={12} variant="squares" theme="finance" className="absolute inset-0" />
+      
       {/* Hero Section */}
-      <section className="pt-32 pb-16 px-4">
+      <section className="pt-32 pb-16 px-4 relative z-10">
         <div className="max-w-7xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+            <h1 className="text-hero mb-6 gradient-text-finance">
               AI Solutions for Every Industry
             </h1>
             <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
@@ -170,12 +176,12 @@ const UseCases = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <Button asChild size="lg" className="text-lg px-8">
+            <GradientButton variant="finance" size="lg" asChild>
               <Link to="/contact?type=consultation">Schedule Consultation</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8">
+            </GradientButton>
+            <GradientButton variant="secondary" size="lg" asChild>
               <Link to="/resources/roi-calculator">Calculate Your ROI</Link>
-            </Button>
+            </GradientButton>
           </motion.div>
         </div>
       </section>
@@ -241,11 +247,11 @@ const UseCases = () => {
                       </div>
                     </div>
                     
-                    <Button asChild className="group-hover:bg-primary/90 transition-colors">
+                    <GradientButton variant="finance" asChild className="group-hover:bg-primary/90 transition-colors">
                       <Link to={industry.href} className="flex items-center gap-2">
                         Explore Solutions <ArrowRight className="w-4 h-4" />
                       </Link>
-                    </Button>
+                    </GradientButton>
                   </div>
                   
                   <div className="hidden lg:block">
@@ -275,12 +281,12 @@ const UseCases = () => {
             Schedule a consultation to see how our AI solutions can address your specific industry challenges and drive measurable results.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8">
+            <GradientButton variant="finance" size="lg" asChild>
               <Link to="/contact?type=consultation">Schedule Free Consultation</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8">
+            </GradientButton>
+            <GradientButton variant="secondary" size="lg" asChild>
               <Link to="/contact?type=demo">Request Demo</Link>
-            </Button>
+            </GradientButton>
           </div>
         </motion.div>
       </section>

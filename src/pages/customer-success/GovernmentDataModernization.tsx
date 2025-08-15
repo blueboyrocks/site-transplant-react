@@ -1,7 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { GradientButton } from '@/components/ui/gradient-button';
+import { EnhancedCard } from '@/components/ui/enhanced-card';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { FloatingElements } from '@/components/ui/floating-elements';
 import { Link } from 'react-router-dom';
 import { 
   Building2, 
@@ -143,9 +145,12 @@ const GovernmentDataModernization = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+    <div className="min-h-screen relative overflow-hidden theme-datacoffee">
+      <AnimatedBackground variant="particles" theme="datacoffee" className="absolute inset-0" />
+      <FloatingElements count={10} variant="hexagons" theme="datacoffee" className="absolute inset-0" />
+      
       {/* Hero Section */}
-      <section className="pt-32 pb-16 px-4">
+      <section className="pt-32 pb-16 px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-12"
@@ -162,7 +167,7 @@ const GovernmentDataModernization = () => {
               </span>
             </div>
             
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+            <h1 className="text-hero mb-6 gradient-text-datacoffee">
               Government Data Modernization
             </h1>
             
@@ -243,8 +248,8 @@ const GovernmentDataModernization = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
             >
-              <Card>
-                <CardContent className="p-6">
+              <EnhancedCard variant="glass">
+                <div className="p-6">
                   <h3 className="text-xl font-semibold mb-6">Critical Requirements</h3>
                   <div className="space-y-4">
                     {requirements.map((req, index) => (
@@ -254,8 +259,8 @@ const GovernmentDataModernization = () => {
                       </div>
                     ))}
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </EnhancedCard>
             </motion.div>
           </div>
         </div>
@@ -374,21 +379,21 @@ const GovernmentDataModernization = () => {
             See how DataCoffee can deliver secure, compliant, and efficient data processing for your organization with enterprise-grade AI solutions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8">
+            <GradientButton variant="datacoffee" size="lg" asChild>
               <Link to="/contact?type=demo&product=datacoffee" className="flex items-center gap-2">
                 Schedule DataCoffee Demo <ArrowRight className="w-4 h-4" />
               </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8">
+            </GradientButton>
+            <GradientButton variant="secondary" size="lg" asChild>
               <Link to="/resources/datacoffee-roi-calculator">Calculate Your ROI</Link>
-            </Button>
+            </GradientButton>
           </div>
           <div className="mt-6 text-center">
-            <Button asChild variant="ghost">
+            <GradientButton variant="secondary" asChild>
               <Link to="/customer-success" className="flex items-center gap-2 mx-auto">
                 ← Back to Customer Success Stories
               </Link>
-            </Button>
+            </GradientButton>
           </div>
         </motion.div>
       </section>
