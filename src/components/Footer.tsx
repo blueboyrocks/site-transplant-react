@@ -71,9 +71,18 @@ const Footer = () => {
                   {CONTACT_INFO.phoneFormatted}
                 </a>
               </li>
-              <li className="flex items-center space-x-2 text-gray-400">
-                <MapPin className="w-4 h-4" />
-                <span>{CONTACT_INFO.address.city}, {CONTACT_INFO.address.state}</span>
+              <li className="flex items-start space-x-2 text-gray-400">
+                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                <address className="not-italic">
+                  <a 
+                    href={CONTACT_INFO.googleMapsUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="hover:text-white transition-colors"
+                  >
+                    {CONTACT_INFO.addressFormatted}
+                  </a>
+                </address>
               </li>
             </ul>
           </div>

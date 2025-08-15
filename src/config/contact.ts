@@ -7,10 +7,12 @@ export const CONTACT_INFO = {
     street: '44790 Maynard Square Suite 350',
     city: 'Ashburn',
     state: 'Virginia',
+    stateAbbrev: 'VA',
     zipCode: '20147',
     country: 'United States'
   },
-  addressFormatted: '44790 Maynard Square Suite 350, Ashburn, Virginia 20147',
+  addressFormatted: '44790 Maynard Square Suite 350, Ashburn, VA 20147',
+  googleMapsUrl: 'https://maps.google.com/?q=44790+Maynard+Square+Suite+350,+Ashburn,+VA+20147',
   socialMedia: {
     linkedin: 'https://www.linkedin.com/company/leap-gen-solutions/',
     twitter: 'https://x.com/LeapgenAi',

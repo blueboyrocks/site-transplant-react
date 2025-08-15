@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Phone, Calendar, MessageSquare, ArrowRight } from 'lucide-react'
+import { Mail, Phone, Calendar, MessageSquare, ArrowRight, MapPin } from 'lucide-react'
 import { GradientButton } from '../components/ui/gradient-button'
 import { EnhancedCard } from '../components/ui/enhanced-card'
 import { AnimatedBackground } from '../components/ui/animated-background'
@@ -277,6 +277,23 @@ const Contact = () => {
                   <div>
                     <div className="text-white font-medium">Phone</div>
                     <div className="text-gray-300">{CONTACT_INFO.phoneFormatted}</div>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-4">
+                  <MapPin className="w-6 h-6 text-purple-400 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <div className="text-white font-medium">Address</div>
+                    <address className="text-gray-300 not-italic">
+                      <a 
+                        href={CONTACT_INFO.googleMapsUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="hover:text-white transition-colors"
+                      >
+                        {CONTACT_INFO.addressFormatted}
+                      </a>
+                    </address>
                   </div>
                 </div>
                 
