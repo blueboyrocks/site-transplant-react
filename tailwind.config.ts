@@ -61,7 +61,73 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Enhanced Color System
+				emerald: {
+					deep: 'hsl(var(--emerald-deep))',
+					bright: 'hsl(var(--emerald-bright))'
+				},
+				coral: {
+					warm: 'hsl(var(--coral-warm))'
+				},
+				cyan: {
+					electric: 'hsl(var(--cyan-electric))'
+				},
+				amber: {
+					rich: 'hsl(var(--amber-rich))'
+				},
+				gold: {
+					premium: 'hsl(var(--gold-premium))'
+				},
+				orange: {
+					vibrant: 'hsl(var(--orange-vibrant))'
+				},
+				// Product Colors
+				surroundai: {
+					primary: 'hsl(var(--surroundai-primary))',
+					secondary: 'hsl(var(--surroundai-secondary))'
+				},
+				datacoffee: {
+					primary: 'hsl(var(--datacoffee-primary))',
+					secondary: 'hsl(var(--datacoffee-secondary))'
+				},
+				seismic: {
+					primary: 'hsl(var(--seismic-primary))',
+					secondary: 'hsl(var(--seismic-secondary))'
+				},
+				// Industry Colors
+				finance: {
+					primary: 'hsl(var(--finance-primary))',
+					secondary: 'hsl(var(--finance-secondary))'
+				},
+				healthcare: {
+					primary: 'hsl(var(--healthcare-primary))',
+					secondary: 'hsl(var(--healthcare-secondary))'
+				},
+				government: {
+					primary: 'hsl(var(--government-primary))',
+					secondary: 'hsl(var(--government-secondary))'
+				},
+				retail: {
+					primary: 'hsl(var(--retail-primary))',
+					secondary: 'hsl(var(--retail-secondary))'
 				}
+			},
+			backgroundImage: {
+				'gradient-primary': 'var(--gradient-primary)',
+				'gradient-hero': 'var(--gradient-hero)',
+				'gradient-surroundai': 'var(--gradient-surroundai)',
+				'gradient-datacoffee': 'var(--gradient-datacoffee)',
+				'gradient-seismic': 'var(--gradient-seismic)',
+				'gradient-finance': 'var(--gradient-finance)',
+				'gradient-healthcare': 'var(--gradient-healthcare)',
+				'gradient-government': 'var(--gradient-government)',
+				'gradient-retail': 'var(--gradient-retail)',
+				'gradient-mesh': 'var(--gradient-mesh)',
+				'gradient-animated': 'var(--gradient-animated)',
+				'gradient-card-subtle': 'var(--gradient-card-subtle)',
+				'gradient-glass': 'var(--gradient-glass)',
+				'gradient-border': 'var(--gradient-border)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

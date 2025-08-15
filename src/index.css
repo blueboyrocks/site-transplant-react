@@ -52,9 +52,63 @@ All colors MUST be HSL.
     --warning-yellow: 43 96% 56%;
     --error-red: 0 84% 60%;
 
-    /* Gradients */
+    /* Enhanced Color Palette */
+    --emerald-deep: 142 76% 25%;
+    --emerald-bright: 142 76% 36%;
+    --coral-warm: 14 100% 62%;
+    --cyan-electric: 191 100% 50%;
+    --amber-rich: 45 100% 50%;
+    --gold-premium: 51 100% 50%;
+    --orange-vibrant: 24 100% 50%;
+
+    /* Product-Specific Colors */
+    --surroundai-primary: 306 47% 36%;
+    --surroundai-secondary: 191 100% 50%;
+    --datacoffee-primary: 210 47% 36%;
+    --datacoffee-secondary: 142 76% 36%;
+    --seismic-primary: 306 47% 36%;
+    --seismic-secondary: 14 100% 62%;
+
+    /* Industry Colors */
+    --finance-primary: 210 47% 36%;
+    --finance-secondary: 51 100% 50%;
+    --healthcare-primary: 191 100% 50%;
+    --healthcare-secondary: 142 76% 36%;
+    --government-primary: 306 47% 36%;
+    --government-secondary: 210 47% 36%;
+    --retail-primary: 14 100% 62%;
+    --retail-secondary: 306 47% 36%;
+
+    /* Base Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--accent-purple)), hsl(var(--accent-blue)));
     --gradient-hero: linear-gradient(135deg, hsl(var(--primary-black)), hsl(var(--dark-gray)));
+    
+    /* Enhanced Gradient System */
+    --gradient-surroundai: linear-gradient(135deg, hsl(var(--surroundai-primary)), hsl(var(--surroundai-secondary)));
+    --gradient-datacoffee: linear-gradient(135deg, hsl(var(--datacoffee-primary)), hsl(var(--datacoffee-secondary)));
+    --gradient-seismic: linear-gradient(135deg, hsl(var(--seismic-primary)), hsl(var(--seismic-secondary)));
+    
+    /* Industry Gradients */
+    --gradient-finance: linear-gradient(135deg, hsl(var(--finance-primary)), hsl(var(--finance-secondary)));
+    --gradient-healthcare: linear-gradient(135deg, hsl(var(--healthcare-primary)), hsl(var(--healthcare-secondary)));
+    --gradient-government: linear-gradient(135deg, hsl(var(--government-primary)), hsl(var(--government-secondary)));
+    --gradient-retail: linear-gradient(135deg, hsl(var(--retail-primary)), hsl(var(--retail-secondary)));
+    
+    /* Dynamic Backgrounds */
+    --gradient-mesh: radial-gradient(ellipse 80% 80% at 50% -20%, hsl(var(--accent-purple) / 0.3), transparent),
+                     radial-gradient(ellipse 80% 80% at 80% 40%, hsl(var(--cyan-electric) / 0.2), transparent),
+                     radial-gradient(ellipse 80% 80% at 20% 80%, hsl(var(--emerald-bright) / 0.2), transparent);
+    
+    --gradient-animated: linear-gradient(-45deg, 
+                        hsl(var(--accent-purple)), 
+                        hsl(var(--accent-blue)), 
+                        hsl(var(--cyan-electric)), 
+                        hsl(var(--emerald-bright)));
+    
+    /* Card & Component Gradients */
+    --gradient-card-subtle: linear-gradient(145deg, hsl(var(--dark-gray)), hsl(var(--medium-gray) / 0.5));
+    --gradient-glass: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    --gradient-border: linear-gradient(90deg, hsl(var(--accent-purple) / 0.5), hsl(var(--accent-blue) / 0.5));
     
     /* Animation Variables */
     --animation-fast: 0.2s ease-out;
@@ -149,7 +203,7 @@ All colors MUST be HSL.
     background-clip: text;
   }
 
-  /* Button styles */
+  /* Enhanced Button Styles */
   .btn-primary {
     background: var(--gradient-primary);
     @apply text-white border-none py-3 px-6 rounded-lg font-semibold transition-all duration-300 cursor-pointer;
@@ -158,6 +212,9 @@ All colors MUST be HSL.
   .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(176, 76, 140, 0.3);
+    background: var(--gradient-animated);
+    background-size: 400% 400%;
+    animation: gradientShift 3s ease infinite;
   }
 
   .btn-secondary {
@@ -173,17 +230,71 @@ All colors MUST be HSL.
     transform: translateY(-2px);
   }
 
-  /* Card styles */
+  /* Product-Specific Button Variants */
+  .btn-surroundai {
+    background: var(--gradient-surroundai);
+    @apply text-white border-none py-3 px-6 rounded-lg font-semibold transition-all duration-300 cursor-pointer;
+  }
+
+  .btn-datacoffee {
+    background: var(--gradient-datacoffee);
+    @apply text-white border-none py-3 px-6 rounded-lg font-semibold transition-all duration-300 cursor-pointer;
+  }
+
+  .btn-seismic {
+    background: var(--gradient-seismic);
+    @apply text-white border-none py-3 px-6 rounded-lg font-semibold transition-all duration-300 cursor-pointer;
+  }
+
+  /* Enhanced Card Styles */
   .card {
-    background: hsl(var(--dark-gray));
+    background: var(--gradient-card-subtle);
     border: 1px solid rgba(156, 163, 175, 0.1);
-    @apply rounded-xl p-8 transition-all duration-300;
+    @apply rounded-xl p-8 transition-all duration-300 relative overflow-hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-glass);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
   }
 
   .card:hover {
     transform: translateY(-4px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     border-color: rgba(176, 76, 140, 0.3);
+  }
+
+  .card:hover::before {
+    opacity: 1;
+  }
+
+  /* Industry-Specific Card Variants */
+  .card-finance {
+    background: var(--gradient-card-subtle);
+    border: 1px solid hsl(var(--finance-primary) / 0.2);
+  }
+
+  .card-healthcare {
+    background: var(--gradient-card-subtle);
+    border: 1px solid hsl(var(--healthcare-primary) / 0.2);
+  }
+
+  .card-government {
+    background: var(--gradient-card-subtle);
+    border: 1px solid hsl(var(--government-primary) / 0.2);
+  }
+
+  .card-retail {
+    background: var(--gradient-card-subtle);
+    border: 1px solid hsl(var(--retail-primary) / 0.2);
   }
 
   /* Form styles */
@@ -252,6 +363,113 @@ All colors MUST be HSL.
 
   .animate-count-up {
     animation: countUp 0.3s ease-out;
+  }
+
+  /* Enhanced Animation System */
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  @keyframes gradientPulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes floatingElements {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-20px) rotate(5deg);
+    }
+  }
+
+  /* Gradient Animation Classes */
+  .animate-gradient {
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite;
+  }
+
+  .animate-gradient-pulse {
+    animation: gradientPulse 3s ease-in-out infinite;
+  }
+
+  .animate-float {
+    animation: floatingElements 6s ease-in-out infinite;
+  }
+
+  /* Background Mesh Utilities */
+  .bg-mesh {
+    background: var(--gradient-mesh);
+  }
+
+  .bg-animated-gradient {
+    background: var(--gradient-animated);
+    background-size: 400% 400%;
+  }
+
+  /* Glass Morphism Utilities */
+  .glass {
+    background: var(--gradient-glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Product Theme Classes */
+  .theme-surroundai {
+    --local-primary: var(--surroundai-primary);
+    --local-secondary: var(--surroundai-secondary);
+    --local-gradient: var(--gradient-surroundai);
+  }
+
+  .theme-datacoffee {
+    --local-primary: var(--datacoffee-primary);
+    --local-secondary: var(--datacoffee-secondary);
+    --local-gradient: var(--gradient-datacoffee);
+  }
+
+  .theme-seismic {
+    --local-primary: var(--seismic-primary);
+    --local-secondary: var(--seismic-secondary);
+    --local-gradient: var(--gradient-seismic);
+  }
+
+  /* Industry Theme Classes */
+  .theme-finance {
+    --local-primary: var(--finance-primary);
+    --local-secondary: var(--finance-secondary);
+    --local-gradient: var(--gradient-finance);
+  }
+
+  .theme-healthcare {
+    --local-primary: var(--healthcare-primary);
+    --local-secondary: var(--healthcare-secondary);
+    --local-gradient: var(--gradient-healthcare);
+  }
+
+  .theme-government {
+    --local-primary: var(--government-primary);
+    --local-secondary: var(--government-secondary);
+    --local-gradient: var(--gradient-government);
+  }
+
+  .theme-retail {
+    --local-primary: var(--retail-primary);
+    --local-secondary: var(--retail-secondary);
+    --local-gradient: var(--gradient-retail);
   }
 
   /* Loading states */
