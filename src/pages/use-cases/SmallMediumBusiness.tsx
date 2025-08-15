@@ -254,7 +254,7 @@ const SmallMediumBusiness = () => {
               </div>
               
               <GradientButton variant="surroundai" asChild className="w-full">
-                <Link to="/use-cases/smb/surround-ai" className="flex items-center justify-center gap-2">
+                <Link to="/use-cases/smb/SurroundAI" className="flex items-center justify-center gap-2">
                   Learn More <ArrowRight className="w-4 h-4" />
                 </Link>
               </GradientButton>
@@ -292,7 +292,7 @@ const SmallMediumBusiness = () => {
               </div>
               
               <GradientButton variant="datacoffee" asChild className="w-full">
-                <Link to="/use-cases/smb/data-coffee" className="flex items-center justify-center gap-2">
+                <Link to="/use-cases/smb/DataCoffee" className="flex items-center justify-center gap-2">
                   Learn More <ArrowRight className="w-4 h-4" />
                 </Link>
               </GradientButton>
@@ -330,7 +330,7 @@ const SmallMediumBusiness = () => {
               </div>
               
               <GradientButton variant="primary" asChild className="w-full">
-                <Link to="/use-cases/smb/complete-solution" className="flex items-center justify-center gap-2">
+                <Link to="/use-cases/smb/CompleteSolution" className="flex items-center justify-center gap-2">
                   Learn More <ArrowRight className="w-4 h-4" />
                 </Link>
               </GradientButton>

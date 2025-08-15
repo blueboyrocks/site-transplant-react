@@ -180,7 +180,7 @@ const Accounting = () => {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* AI Solutions Section */}
       <section className="py-16 px-4 bg-muted/30">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -189,7 +189,140 @@ const Accounting = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.0 }}
           >
-            <h2 className="text-4xl font-bold mb-4">AI-Powered Audit Solutions</h2>
+            <h2 className="text-4xl font-bold mb-4">AI Solutions for Accounting & Audit</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Choose the right AI solution for your accounting firm's specific needs
+            </p>
+          </motion.div>
+
+          <div className="grid lg:grid-cols-3 gap-8 relative z-10">
+            <motion.div
+              className="bg-card rounded-xl p-8 border border-border hover:border-primary/30 transition-all duration-300 group relative z-10"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.2 }}
+            >
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+                <TrendingUp className="w-8 h-8 text-primary" />
+              </div>
+              
+              <h3 className="text-2xl font-bold mb-4">SurroundAI for Accounting</h3>
+              <p className="text-muted-foreground mb-6">AI-powered client advisory services and predictive analytics</p>
+              
+              <div className="mb-8">
+                <h4 className="font-semibold mb-4 text-primary">Key Benefits:</h4>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">50% faster tax planning</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">30% advisory revenue growth</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">Real-time client insights</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <GradientButton variant="surroundai" asChild className="w-full">
+                <Link to="/use-cases/accounting/surround-ai" className="flex items-center justify-center gap-2">
+                  Learn More <ArrowRight className="w-4 h-4" />
+                </Link>
+              </GradientButton>
+            </motion.div>
+
+            <motion.div
+              className="bg-card rounded-xl p-8 border border-border hover:border-primary/30 transition-all duration-300 group relative z-10"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.3 }}
+            >
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+                <Database className="w-8 h-8 text-primary" />
+              </div>
+              
+              <h3 className="text-2xl font-bold mb-4">Data Coffee for Accounting</h3>
+              <p className="text-muted-foreground mb-6">Automated data preparation and audit trail management</p>
+              
+              <div className="mb-8">
+                <h4 className="font-semibold mb-4 text-primary">Key Benefits:</h4>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">85% faster data preparation</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">95% data accuracy improvement</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">Automated audit trails</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <GradientButton variant="datacoffee" asChild className="w-full">
+                <Link to="/use-cases/accounting/data-coffee" className="flex items-center justify-center gap-2">
+                  Learn More <ArrowRight className="w-4 h-4" />
+                </Link>
+              </GradientButton>
+            </motion.div>
+
+            <motion.div
+              className="bg-card rounded-xl p-8 border border-border hover:border-primary/30 transition-all duration-300 group relative z-10"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.4 }}
+            >
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+                <Zap className="w-8 h-8 text-primary" />
+              </div>
+              
+              <h3 className="text-2xl font-bold mb-4">Complete Accounting Solution</h3>
+              <p className="text-muted-foreground mb-6">End-to-end AI platform for modern accounting firms</p>
+              
+              <div className="mb-8">
+                <h4 className="font-semibold mb-4 text-primary">Key Benefits:</h4>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">Integrated AI workflow</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">60% efficiency improvement</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">Complete digital transformation</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <GradientButton variant="primary" asChild className="w-full">
+                <Link to="/use-cases/accounting/complete-solution" className="flex items-center justify-center gap-2">
+                  Learn More <ArrowRight className="w-4 h-4" />
+                </Link>
+              </GradientButton>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-16 px-4">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.6 }}
+          >
+            <h2 className="text-4xl font-bold mb-4">AI-Powered Audit Features</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Transform your audit practice with intelligent automation and advanced analytics
             </p>
@@ -202,7 +335,7 @@ const Accounting = () => {
                 className="bg-card rounded-xl p-8 border border-border relative z-10"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.2 + index * 0.1 }}
+                transition={{ duration: 0.8, delay: 1.8 + index * 0.1 }}
               >
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                   <feature.icon className="w-6 h-6 text-primary" />
