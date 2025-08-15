@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { GradientButton } from '@/components/ui/gradient-button';
+import { EnhancedCard } from '@/components/ui/enhanced-card';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { FloatingElements } from '@/components/ui/floating-elements';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Link } from 'react-router-dom';
@@ -118,7 +120,9 @@ const FinanceCaseStudy = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+    <div className="min-h-screen relative overflow-hidden">
+      <AnimatedBackground variant="mesh" theme="finance" className="absolute inset-0 opacity-20" />
+      <FloatingElements count={6} variant="mixed" theme="finance" className="absolute inset-0 opacity-15" />
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-7xl mx-auto">
@@ -130,7 +134,7 @@ const FinanceCaseStudy = () => {
           >
             <div className="flex items-center justify-center gap-3 mb-6">
               <DollarSign className="w-8 h-8 text-primary" />
-              <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+              <h1 className="text-hero gradient-text-finance">
                 Finance Case Study
               </h1>
             </div>
@@ -160,14 +164,15 @@ const FinanceCaseStudy = () => {
             {caseStudyHighlights.map((highlight, index) => (
               <motion.div
                 key={index}
-                className="text-center bg-card rounded-xl p-6 border border-border"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 + index * 0.1 }}
               >
-                <div className="text-3xl font-bold text-primary mb-2">{highlight.metric}</div>
-                <div className="text-lg font-semibold mb-2">{highlight.label}</div>
-                <div className="text-sm text-muted-foreground">{highlight.description}</div>
+                <EnhancedCard variant="default" className="text-center p-6 h-full">
+                  <div className="text-3xl font-bold text-primary mb-2">{highlight.metric}</div>
+                  <div className="text-lg font-semibold mb-2">{highlight.label}</div>
+                  <div className="text-sm text-muted-foreground">{highlight.description}</div>
+                </EnhancedCard>
               </motion.div>
             ))}
           </div>
@@ -193,17 +198,18 @@ const FinanceCaseStudy = () => {
             {keyInsights.map((insight, index) => (
               <motion.div
                 key={index}
-                className="bg-card rounded-xl p-6 border border-border"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.0 + index * 0.1 }}
               >
-                <h3 className="text-xl font-semibold mb-3">{insight.title}</h3>
-                <p className="text-muted-foreground mb-4">{insight.description}</p>
-                <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
-                  <TrendingUp className="w-3 h-3" />
-                  {insight.impact}
-                </div>
+                <EnhancedCard variant="default" className="p-6 h-full">
+                  <h3 className="text-xl font-semibold mb-3">{insight.title}</h3>
+                  <p className="text-muted-foreground mb-4">{insight.description}</p>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                    <TrendingUp className="w-3 h-3" />
+                    {insight.impact}
+                  </div>
+                </EnhancedCard>
               </motion.div>
             ))}
           </div>
@@ -229,26 +235,27 @@ const FinanceCaseStudy = () => {
             {implementation.map((phase, index) => (
               <motion.div
                 key={index}
-                className="bg-card rounded-xl p-6 border border-border"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.6 + index * 0.1 }}
               >
-                <div className="text-center mb-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-primary font-bold">{index + 1}</span>
+                <EnhancedCard variant="default" className="p-6 h-full">
+                  <div className="text-center mb-4">
+                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <span className="text-primary font-bold">{index + 1}</span>
+                    </div>
+                    <h3 className="text-lg font-semibold mb-1">{phase.phase}</h3>
+                    <span className="text-sm text-primary font-medium">{phase.duration}</span>
                   </div>
-                  <h3 className="text-lg font-semibold mb-1">{phase.phase}</h3>
-                  <span className="text-sm text-primary font-medium">{phase.duration}</span>
-                </div>
-                <ul className="space-y-2">
-                  {phase.activities.map((activity, idx) => (
-                    <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
-                      <CheckCircle className="w-3 h-3 text-primary mt-1 flex-shrink-0" />
-                      {activity}
-                    </li>
-                  ))}
-                </ul>
+                  <ul className="space-y-2">
+                    {phase.activities.map((activity, idx) => (
+                      <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                        <CheckCircle className="w-3 h-3 text-primary mt-1 flex-shrink-0" />
+                        {activity}
+                      </li>
+                    ))}
+                  </ul>
+                </EnhancedCard>
               </motion.div>
             ))}
           </div>
@@ -263,14 +270,14 @@ const FinanceCaseStudy = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 2.0 }}
           >
-            <Card>
-              <CardHeader className="text-center">
-                <CardTitle className="text-3xl font-bold mb-4">Download the Complete Case Study</CardTitle>
+            <EnhancedCard variant="default" className="overflow-hidden">
+              <div className="text-center p-6 pb-4">
+                <h3 className="text-3xl font-bold mb-4">Download the Complete Case Study</h3>
                 <p className="text-muted-foreground">
                   Get the full 40-page detailed analysis including technical specifications, ROI calculations, and implementation best practices.
                 </p>
-              </CardHeader>
-              <CardContent>
+              </div>
+              <div className="p-6 pt-0">
                 <div className="grid md:grid-cols-2 gap-8">
                   <div>
                     <h3 className="text-xl font-semibold mb-4">What's Included:</h3>
@@ -336,14 +343,14 @@ const FinanceCaseStudy = () => {
                         placeholder="Your job title"
                       />
                     </div>
-                    <Button className="w-full" size="lg">
+                    <GradientButton variant="finance" size="lg" className="w-full">
                       <Download className="w-4 h-4 mr-2" />
                       Download Case Study (PDF)
-                    </Button>
+                    </GradientButton>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </EnhancedCard>
           </motion.div>
         </div>
       </section>
@@ -361,14 +368,14 @@ const FinanceCaseStudy = () => {
             Discover how AI can deliver similar results for your financial institution.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8">
+            <GradientButton variant="finance" size="lg" asChild>
               <Link to="/contact?type=demo&industry=finance" className="flex items-center gap-2">
                 Schedule Strategy Session <ArrowRight className="w-4 h-4" />
               </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8">
+            </GradientButton>
+            <GradientButton variant="secondary" size="lg" asChild>
               <Link to="/use-cases/finance">Explore Finance Solutions</Link>
-            </Button>
+            </GradientButton>
           </div>
         </motion.div>
       </section>

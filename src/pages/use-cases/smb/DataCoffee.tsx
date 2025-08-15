@@ -1,6 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
+import { GradientButton } from '@/components/ui/gradient-button';
+import { EnhancedCard } from '@/components/ui/enhanced-card';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { FloatingElements } from '@/components/ui/floating-elements';
 import { Link } from 'react-router-dom';
 import { 
   Building, 
@@ -78,7 +81,9 @@ const DataCoffeeSMB = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+    <div className="min-h-screen relative overflow-hidden">
+      <AnimatedBackground variant="mesh" theme="datacoffee" className="absolute inset-0 opacity-20" />
+      <FloatingElements count={6} variant="mixed" theme="datacoffee" className="absolute inset-0 opacity-15" />
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-7xl mx-auto">
@@ -93,7 +98,7 @@ const DataCoffeeSMB = () => {
                 <span className="text-lg font-medium text-primary">Data Coffee for SMB</span>
               </div>
               
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+              <h1 className="text-hero gradient-text-datacoffee">
                 Unify Your Business Data in 15 Minutes
               </h1>
               
@@ -102,12 +107,12 @@ const DataCoffeeSMB = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button asChild size="lg" className="text-lg px-8">
+                <GradientButton variant="datacoffee" size="lg" asChild>
                   <Link to="/contact?product=data-coffee&industry=smb">Start Free Trial</Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="text-lg px-8">
+                </GradientButton>
+                <GradientButton variant="secondary" size="lg" asChild>
                   <Link to="/resources/roi-calculator">Calculate Time Savings</Link>
-                </Button>
+                </GradientButton>
               </div>
             </motion.div>
             
@@ -150,12 +155,12 @@ const DataCoffeeSMB = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             {challenges.map((challenge, index) => (
-              <div key={index} className="bg-card rounded-lg p-6 border border-border">
+              <EnhancedCard key={index} variant="default" className="p-6 h-full">
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-destructive rounded-full mt-2 flex-shrink-0" />
                   <p className="text-muted-foreground">{challenge}</p>
                 </div>
-              </div>
+              </EnhancedCard>
             ))}
           </motion.div>
 
@@ -203,16 +208,17 @@ const DataCoffeeSMB = () => {
             {features.map((feature, index) => (
               <motion.div
                 key={index}
-                className="bg-card rounded-xl p-8 border border-border"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.2 + index * 0.1 }}
               >
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                  <feature.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
+                <EnhancedCard variant="default" className="p-8 h-full">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <feature.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+                  <p className="text-muted-foreground">{feature.description}</p>
+                </EnhancedCard>
               </motion.div>
             ))}
           </div>
@@ -324,14 +330,14 @@ const DataCoffeeSMB = () => {
             Start your free trial today and see how Data Coffee can save you hours every week while giving you better insights into your business.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8">
+            <GradientButton variant="datacoffee" size="lg" asChild>
               <Link to="/contact?product=data-coffee&industry=smb" className="flex items-center gap-2">
                 Start Free Trial <ArrowRight className="w-4 h-4" />
               </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8">
+            </GradientButton>
+            <GradientButton variant="secondary" size="lg" asChild>
               <Link to="/use-cases/small-medium-business">Back to SMB</Link>
-            </Button>
+            </GradientButton>
           </div>
         </motion.div>
       </section>

@@ -1,6 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
+import { GradientButton } from '@/components/ui/gradient-button';
+import { EnhancedCard } from '@/components/ui/enhanced-card';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { FloatingElements } from '@/components/ui/floating-elements';
 import { Link } from 'react-router-dom';
 import { 
   Building, 
@@ -104,7 +107,9 @@ const CompleteSolutionSMB = () => {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/50 to-primary/5">
+    <div className="min-h-screen relative overflow-hidden">
+      <AnimatedBackground variant="mesh" theme="primary" className="absolute inset-0 opacity-20" />
+      <FloatingElements count={8} variant="mixed" theme="primary" className="absolute inset-0 opacity-15" />
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-7xl mx-auto">
@@ -119,7 +124,7 @@ const CompleteSolutionSMB = () => {
               <span className="text-2xl font-medium text-primary">Complete SMB Intelligence Solution</span>
             </div>
             
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+            <h1 className="text-hero gradient-text-primary">
               Everything Your Small Business Needs to Compete and Win
             </h1>
             
@@ -128,12 +133,12 @@ const CompleteSolutionSMB = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="text-lg px-8">
+              <GradientButton variant="primary" size="lg" asChild>
                 <Link to="/contact?solution=complete&industry=smb">Start Free Trial</Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="text-lg px-8">
+              </GradientButton>
+              <GradientButton variant="secondary" size="lg" asChild>
                 <Link to="/resources/roi-calculator">Calculate Your ROI</Link>
-              </Button>
+              </GradientButton>
             </div>
           </motion.div>
         </div>
@@ -158,16 +163,17 @@ const CompleteSolutionSMB = () => {
             {benefits.map((benefit, index) => (
               <motion.div
                 key={index}
-                className="bg-card rounded-xl p-8 border border-border"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 + index * 0.1 }}
               >
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                  <benefit.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">{benefit.title}</h3>
-                <p className="text-muted-foreground">{benefit.description}</p>
+                <EnhancedCard variant="default" className="p-8 h-full">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <benefit.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">{benefit.title}</h3>
+                  <p className="text-muted-foreground">{benefit.description}</p>
+                </EnhancedCard>
               </motion.div>
             ))}
           </div>
@@ -306,16 +312,16 @@ const CompleteSolutionSMB = () => {
           <p className="text-xl text-muted-foreground mb-8">
             Join thousands of small businesses using our complete intelligence platform to compete with larger companies and accelerate growth.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8">
-              <Link to="/contact?solution=complete&industry=smb" className="flex items-center gap-2">
-                Start Free Trial <ArrowRight className="w-4 h-4" />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8">
-              <Link to="/use-cases/small-medium-business">Back to SMB</Link>
-            </Button>
-          </div>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <GradientButton variant="primary" size="lg" asChild>
+                <Link to="/contact?solution=complete&industry=smb" className="flex items-center gap-2">
+                  Start Free Trial <ArrowRight className="w-4 h-4" />
+                </Link>
+              </GradientButton>
+              <GradientButton variant="secondary" size="lg" asChild>
+                <Link to="/use-cases/small-medium-business">Back to SMB</Link>
+              </GradientButton>
+            </div>
         </motion.div>
       </section>
     </div>
