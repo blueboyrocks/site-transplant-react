@@ -393,16 +393,23 @@ const MedicalDocumentationRevolution = () => {
         >
           <h2 className="text-3xl font-bold mb-4">Ready to Revolutionize Your Clinical Documentation?</h2>
           <p className="text-xl text-muted-foreground mb-8">
-            Discover how Seismic AI can eliminate documentation burden and enhance patient care in your practice.
+            See how Seismic AI can eliminate documentation burden and help your physicians focus on what matters most - patient care.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="text-lg px-8">
               <Link to="/contact?type=demo&product=seismic" className="flex items-center gap-2">
-                Request Seismic Demo <ArrowRight className="w-4 h-4" />
+                Schedule Seismic Demo <ArrowRight className="w-4 h-4" />
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="text-lg px-8">
-              <Link to="/customer-success">View More Success Stories</Link>
+              <Link to="/products/seismic">Learn More About Seismic</Link>
+            </Button>
+          </div>
+          <div className="mt-6 text-center">
+            <Button asChild variant="ghost">
+              <Link to="/customer-success" className="flex items-center gap-2 mx-auto">
+                ← Back to Customer Success Stories
+              </Link>
             </Button>
           </div>
         </motion.div>

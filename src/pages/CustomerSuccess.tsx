@@ -214,18 +214,18 @@ const CustomerSuccess = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
-          <h2 className="text-3xl font-bold mb-4">Ready to Write Your Success Story?</h2>
+          <h2 className="text-3xl font-bold mb-4">Ready to Join Our Success Stories?</h2>
           <p className="text-xl text-muted-foreground mb-8">
-            Join these industry leaders and transform your organization with AI-powered solutions.
+            See how LeapGen.AI can transform your organization with measurable results and proven ROI.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="text-lg px-8">
               <Link to="/contact?type=demo" className="flex items-center gap-2">
-                Request Demo <ArrowRight className="w-4 h-4" />
+                Schedule Your Demo <ArrowRight className="w-4 h-4" />
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="text-lg px-8">
-              <Link to="/contact?type=consultation">Schedule Consultation</Link>
+              <Link to="/resources/roi-calculator">Calculate Your ROI</Link>
             </Button>
           </div>
         </motion.div>

@@ -369,18 +369,25 @@ const GovernmentDataModernization = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 2.6 }}
         >
-          <h2 className="text-3xl font-bold mb-4">Ready to Modernize Your Government Operations?</h2>
+          <h2 className="text-3xl font-bold mb-4">Ready to Modernize Your Data Operations?</h2>
           <p className="text-xl text-muted-foreground mb-8">
-            Discover how DataCoffee can transform your data processing while maintaining the highest security standards.
+            See how DataCoffee can deliver secure, compliant, and efficient data processing for your organization with enterprise-grade AI solutions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="text-lg px-8">
               <Link to="/contact?type=demo&product=datacoffee" className="flex items-center gap-2">
-                Request DataCoffee Demo <ArrowRight className="w-4 h-4" />
+                Schedule DataCoffee Demo <ArrowRight className="w-4 h-4" />
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="text-lg px-8">
-              <Link to="/customer-success">View More Success Stories</Link>
+              <Link to="/resources/datacoffee-roi-calculator">Calculate Your ROI</Link>
+            </Button>
+          </div>
+          <div className="mt-6 text-center">
+            <Button asChild variant="ghost">
+              <Link to="/customer-success" className="flex items-center gap-2 mx-auto">
+                ← Back to Customer Success Stories
+              </Link>
             </Button>
           </div>
         </motion.div>

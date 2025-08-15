@@ -315,16 +315,23 @@ const HealthcareSalesTransformation = () => {
         >
           <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Sales Operations?</h2>
           <p className="text-xl text-muted-foreground mb-8">
-            Discover how SurroundAI can revolutionize your sales process with AI-powered automation.
+            See how SurroundAI can deliver similar results for your organization with AI-powered sales automation and real-time insights.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="text-lg px-8">
               <Link to="/contact?type=demo&product=surroundai" className="flex items-center gap-2">
-                Request SurroundAI Demo <ArrowRight className="w-4 h-4" />
+                Schedule SurroundAI Demo <ArrowRight className="w-4 h-4" />
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="text-lg px-8">
-              <Link to="/customer-success">View More Success Stories</Link>
+              <Link to="/resources/surroundai-roi-calculator">Calculate Your ROI</Link>
+            </Button>
+          </div>
+          <div className="mt-6 text-center">
+            <Button asChild variant="ghost">
+              <Link to="/customer-success" className="flex items-center gap-2 mx-auto">
+                ← Back to Customer Success Stories
+              </Link>
             </Button>
           </div>
         </motion.div>
