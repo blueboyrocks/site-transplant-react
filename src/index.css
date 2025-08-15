@@ -195,11 +195,11 @@ All colors MUST be HSL.
 
   /* Enhanced Typography Classes */
   .text-hero {
-    @apply font-display text-hero font-bold tracking-tight;
+    @apply font-display text-6xl font-bold tracking-tight;
   }
 
   .text-display {
-    @apply font-display text-display font-bold tracking-tight;
+    @apply font-display text-4xl font-bold tracking-tight;
   }
 
   .text-section-header {
@@ -258,6 +258,34 @@ All colors MUST be HSL.
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: gradientShift 8s ease infinite;
+  }
+
+  .gradient-text-finance {
+    background: var(--gradient-finance);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-healthcare {
+    background: var(--gradient-healthcare);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-government {
+    background: var(--gradient-government);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-retail {
+    background: var(--gradient-retail);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   /* Enhanced Button Styles */
