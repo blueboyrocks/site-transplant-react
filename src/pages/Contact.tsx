@@ -13,7 +13,7 @@ import { z } from 'zod'
 import { toast } from 'sonner'
 import { CONTACT_INFO } from '@/config/contact'
 
-const MAKE_WEBHOOK_FALLBACK = 'https://hook.us2.make.com/esonrv674fe7exxmtxrjy9unqx8ifut5'
+
 
 const contactFormSchema = z.object({
   name: z.string().transform(v => v.trim()).pipe(z.string().min(1, 'Name is required')),
@@ -26,6 +26,37 @@ const contactFormSchema = z.object({
 })
 
 type ContactForm = z.infer<typeof contactFormSchema>
+
+// Small util to detect and cache the correct API base at runtime
+const fetchWithTimeout = async (input: RequestInfo | URL, init: RequestInit = {}, timeoutMs = 2500) => {
+  const controller = new AbortController()
+  const id = setTimeout(() => controller.abort(), timeoutMs)
+  try {
+    const res = await fetch(input, { ...init, signal: controller.signal })
+    return res
+  } finally {
+    clearTimeout(id)
+  }
+}
+
+const getApiBase = async (): Promise<string> => {
+  try {
+    const cached = sessionStorage.getItem('apiBase')
+    if (cached) return cached
+  } catch {}
+
+  const candidates = ['/api', '/.netlify/functions']
+  for (const base of candidates) {
+    try {
+      const res = await fetchWithTimeout(`${base}/health`, { method: 'GET' }, 2000)
+      if (res.ok) {
+        try { sessionStorage.setItem('apiBase', base) } catch {}
+        return base
+      }
+    } catch {}
+  }
+  return '/api'
+}
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -59,23 +90,23 @@ const Contact = () => {
       const controller = new AbortController()
       const timeoutId = setTimeout(() => controller.abort(), 15000) // 15 second timeout
       
-      let response: Response
+      let response: Response | undefined
       let result: any = null
       
-      // Try primary webhook endpoint first
+      const apiBase = await getApiBase()
+      const primaryUrl = `${apiBase}/contact-webhook`
+      const secondaryBase = apiBase === '/api' ? '/.netlify/functions' : '/api'
+      const secondaryUrl = `${secondaryBase}/contact-webhook`
+      
+      // Try primary detected endpoint first
       try {
-        response = await fetch('/api/contact-webhook', {
+        response = await fetch(primaryUrl, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(webhookPayload),
           signal: controller.signal,
         })
         
-        console.log('Primary webhook response status:', response.status)
-        
-        // Check if response is JSON before parsing
         const contentType = response.headers.get('content-type')
         if (response.ok && contentType?.includes('application/json')) {
           result = await response.json()
@@ -83,59 +114,24 @@ const Contact = () => {
           throw new Error(`Primary webhook failed: ${response.status}`)
         }
       } catch (primaryError) {
-        console.warn('Primary webhook failed, trying Netlify fallback:', primaryError)
+        console.warn('Primary webhook failed, trying secondary base:', primaryError)
         
-        // Fallback to Netlify function
-        try {
-          response = await fetch('/.netlify/functions/contact-webhook', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(webhookPayload),
-            signal: controller.signal,
-          })
-          
-          console.log('Fallback webhook response status:', response.status)
-          
-          const contentType = response.headers.get('content-type')
-          if (response.ok && contentType?.includes('application/json')) {
-            result = await response.json()
-          } else if (!response.ok) {
-            throw new Error(`Netlify fallback failed: ${response.status}`)
-          }
-        } catch (netlifyError) {
-          console.warn('Netlify fallback failed, trying direct Make webhook:', netlifyError)
-          
-          // Final fallback: direct to Make.com (used in preview where functions are unavailable)
-          try {
-            response = await fetch(MAKE_WEBHOOK_FALLBACK, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(webhookPayload),
-              signal: controller.signal,
-            })
-            console.log('Direct Make webhook status:', response.status)
-            // Make may not return JSON; treat any 2xx as success
-            if (response.ok) {
-              try {
-                const ct = response.headers.get('content-type')
-                if (ct?.includes('application/json')) {
-                  result = await response.json()
-                }
-              } catch {}
-            } else {
-              throw new Error(`Direct Make webhook failed: ${response.status}`)
-            }
-          } catch (makeError) {
-            console.error('All webhook attempts failed:', makeError)
-            throw makeError
-          }
+        // Fallback to the alternate base
+        response = await fetch(secondaryUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(webhookPayload),
+          signal: controller.signal,
+        })
+        
+        const contentType2 = response.headers.get('content-type')
+        if (response.ok && contentType2?.includes('application/json')) {
+          result = await response.json()
+        } else if (!response.ok) {
+          throw new Error(`Secondary webhook failed: ${response.status}`)
         }
       }
-      
+
       clearTimeout(timeoutId)
       
       if (response.ok) {

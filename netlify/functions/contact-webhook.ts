@@ -3,15 +3,19 @@ import { randomUUID } from 'crypto'
 
 const FALLBACK_MAKE_WEBHOOK_URL = 'https://hook.us2.make.com/esonrv674fe7exxmtxrjy9unqx8ifut5'
 
+const commonHeaders: Record<string, string> = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+}
+
 export const handler: Handler = async (event) => {
   // Handle CORS preflight
   if (event.httpMethod === 'OPTIONS') {
     return {
       statusCode: 200,
       headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
+        ...commonHeaders,
       },
       body: '',
     }
@@ -22,22 +26,26 @@ export const handler: Handler = async (event) => {
     return {
       statusCode: 405,
       headers: {
-        'Access-Control-Allow-Origin': '*',
+        ...commonHeaders,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ error: 'Method not allowed' }),
     }
   }
 
+  // Generate a request id early so we can include it in all responses
+  const requestId = (typeof randomUUID === 'function' ? randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`)
+
   try {
     // Prefer env var, fallback to provided webhook URL
     const makeWebhookUrl = (process.env.MAKE_WEBHOOK_URL && process.env.MAKE_WEBHOOK_URL.trim()) || FALLBACK_MAKE_WEBHOOK_URL
 
-    // Parse the incoming request body
-    const body = JSON.parse(event.body || '{}')
+    // Parse the incoming request body (handle base64-encoded bodies)
+    const rawBody = event.body || '{}'
+    const decodedBody = event.isBase64Encoded ? Buffer.from(rawBody, 'base64').toString('utf8') : rawBody
+    const body = JSON.parse(decodedBody)
 
     // Add server-side metadata
-    const requestId = (typeof randomUUID === 'function' ? randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`)
     const webhookPayload = {
       ...body,
       serverTimestamp: new Date().toISOString(),
@@ -56,14 +64,14 @@ export const handler: Handler = async (event) => {
     })
 
     if (!response.ok) {
-      console.error('Make.com webhook failed:', response.status, response.statusText)
+      console.error('Make.com webhook failed:', response.status, response.statusText, { requestId })
       return {
         statusCode: 500,
         headers: {
-          'Access-Control-Allow-Origin': '*',
+          ...commonHeaders,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ error: 'Webhook submission failed' }),
+        body: JSON.stringify({ error: 'Webhook submission failed', requestId }),
       }
     }
 
@@ -71,7 +79,7 @@ export const handler: Handler = async (event) => {
     return {
       statusCode: 200,
       headers: {
-        'Access-Control-Allow-Origin': '*',
+        ...commonHeaders,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -81,14 +89,14 @@ export const handler: Handler = async (event) => {
       }),
     }
   } catch (error) {
-    console.error('Webhook proxy error:', error)
+    console.error('Webhook proxy error:', error, { requestId })
     return {
       statusCode: 500,
       headers: {
-        'Access-Control-Allow-Origin': '*',
+        ...commonHeaders,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ error: 'Internal server error' }),
+      body: JSON.stringify({ error: 'Internal server error', requestId }),
     }
   }
 }
