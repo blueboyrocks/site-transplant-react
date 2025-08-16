@@ -353,11 +353,11 @@ const Contact = () => {
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">Interest</label>
                   <select {...register('type')} className="form-input">
-                    <option value="demo">Product Demo</option>
-                    <option value="consultation">Expert Consultation</option>
-                    <option value="pricing">Pricing Information</option>
-                    <option value="partnership">Partnership Inquiry</option>
+                    <option value="surroundai">Surround AI</option>
+                    <option value="datacoffee">Data Coffee</option>
+                    <option value="seismic">Seismic</option>
                     <option value="support">Technical Support</option>
+                    <option value="other">Other</option>
                   </select>
                 </div>
 
