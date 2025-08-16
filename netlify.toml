@@ -1,6 +1,7 @@
 [build]
   publish = "dist"
   command = "npm run build"
+  functions = "netlify/functions"
 
 [build.environment]
   NODE_VERSION = "18"
@@ -8,6 +9,11 @@
 [[redirects]]
   from = "/api/contact-webhook"
   to = "/.netlify/functions/contact-webhook"
+  status = 200
+
+[[redirects]]
+  from = "/api/health"
+  to = "/.netlify/functions/health"
   status = 200
 
 [[redirects]]

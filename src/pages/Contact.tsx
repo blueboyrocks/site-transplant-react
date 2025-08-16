@@ -14,11 +14,11 @@ import { toast } from 'sonner'
 import { CONTACT_INFO } from '@/config/contact'
 
 const contactFormSchema = z.object({
-  name: z.string().min(1, 'Name is required').transform(s => s.trim()),
-  email: z.string().min(1, 'Email is required').email('Invalid email address').transform(s => s.trim().toLowerCase()),
-  company: z.string().optional().transform(s => s?.trim() || ''),
-  phone: z.string().optional().transform(s => s?.trim() || ''),
-  message: z.string().min(1, 'Message is required').transform(s => s.trim()),
+  name: z.string().transform(v => v.trim()).pipe(z.string().min(1, 'Name is required')),
+  email: z.string().transform(v => v.trim()).pipe(z.string().min(1, 'Email is required').email('Invalid email address').transform(s => s.toLowerCase())),
+  company: z.string().transform(v => v.trim()).optional(),
+  phone: z.string().transform(v => v.trim()).optional(),
+  message: z.string().transform(v => v.trim()).pipe(z.string().min(1, 'Message is required')),
   type: z.string().default('demo'),
   honeypot: z.string().max(0, 'Bot detected').optional(),
 })
@@ -55,34 +55,65 @@ const Contact = () => {
     try {
       // Create AbortController for timeout
       const controller = new AbortController()
-      const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
+      const timeoutId = setTimeout(() => controller.abort(), 15000) // 15 second timeout
       
-      // Send to serverless proxy
-      const response = await fetch('/api/contact-webhook', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(webhookPayload),
-        signal: controller.signal,
-      })
+      let response: Response
+      let result: any = null
+      
+      // Try primary webhook endpoint first
+      try {
+        response = await fetch('/api/contact-webhook', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(webhookPayload),
+          signal: controller.signal,
+        })
+        
+        console.log('Primary webhook response status:', response.status)
+        
+        // Check if response is JSON before parsing
+        const contentType = response.headers.get('content-type')
+        if (response.ok && contentType?.includes('application/json')) {
+          result = await response.json()
+        } else if (!response.ok) {
+          throw new Error(`Primary webhook failed: ${response.status}`)
+        }
+      } catch (primaryError) {
+        console.warn('Primary webhook failed, trying fallback:', primaryError)
+        
+        // Fallback to Netlify function
+        response = await fetch('/.netlify/functions/contact-webhook', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(webhookPayload),
+          signal: controller.signal,
+        })
+        
+        console.log('Fallback webhook response status:', response.status)
+        
+        const contentType = response.headers.get('content-type')
+        if (response.ok && contentType?.includes('application/json')) {
+          result = await response.json()
+        }
+      }
       
       clearTimeout(timeoutId)
       
-      console.log('Response status:', response.status)
-      console.log('Response ok:', response.ok)
-      
-      if (response.ok) {
-        const result = await response.json()
+      if (response.ok && result) {
         console.log('Webhook sent successfully:', result)
-        toast.success('Thank you! We\'ll be in touch within 24 hours.')
+        const requestId = result.requestId ? ` (ID: ${result.requestId})` : ''
+        toast.success(`Thank you! We'll be in touch within 24 hours.${requestId}`)
         reset()
-        // Reset form duration timer
         formOpenedAtRef.current = Date.now()
       } else {
-        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }))
+        const errorData = result || { error: 'Unknown error' }
         console.error('Webhook failed with status:', response.status, errorData)
-        toast.error('Something went wrong. Please try again or contact us directly.')
+        const requestId = errorData.requestId ? ` (ID: ${errorData.requestId})` : ''
+        toast.error(`Something went wrong. Please try again or contact us directly.${requestId}`)
       }
     } catch (error) {
       if (error instanceof Error && error.name === 'AbortError') {
