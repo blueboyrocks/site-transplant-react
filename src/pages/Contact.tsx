@@ -40,21 +40,43 @@ const fetchWithTimeout = async (input: RequestInfo | URL, init: RequestInit = {}
 }
 
 const getApiBase = async (): Promise<string> => {
+  const CACHE_KEY = 'apiBase:v2'
+  const TTL_MS = 6 * 60 * 60 * 1000 // 6 hours
+
   try {
-    const cached = sessionStorage.getItem('apiBase')
-    if (cached) return cached
+    const cachedRaw = sessionStorage.getItem(CACHE_KEY)
+    if (cachedRaw) {
+      const cached = JSON.parse(cachedRaw) as { base: string; ts: number }
+      if (cached?.base && Date.now() - cached.ts < TTL_MS) {
+        return cached.base
+      }
+    }
   } catch {}
 
   const candidates = ['/api', '/.netlify/functions']
+
+  // Prefer probing the actual endpoint with OPTIONS so we know it exists
   for (const base of candidates) {
     try {
-      const res = await fetchWithTimeout(`${base}/health`, { method: 'GET' }, 2000)
+      const res = await fetchWithTimeout(`${base}/contact-webhook`, { method: 'OPTIONS' }, 2500)
       if (res.ok) {
-        try { sessionStorage.setItem('apiBase', base) } catch {}
+        try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({ base, ts: Date.now() })) } catch {}
         return base
       }
     } catch {}
   }
+
+  // Fallback to health check in case OPTIONS is blocked by some proxy
+  for (const base of candidates) {
+    try {
+      const res = await fetchWithTimeout(`${base}/health`, { method: 'GET' }, 2000)
+      if (res.ok) {
+        try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({ base, ts: Date.now() })) } catch {}
+        return base
+      }
+    } catch {}
+  }
+
   return '/api'
 }
 
