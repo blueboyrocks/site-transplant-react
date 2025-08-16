@@ -9,7 +9,8 @@ import Footer from "./components/Footer";
 import ScrollManager from "./components/ScrollManager";
 import Index from "./pages/Index";
 import About from "./pages/About";
-import Resources from "./pages/Resources";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import Contact from "./pages/Contact";
 import SurroundAI from "./pages/products/SurroundAI";
 import DataCoffee from "./pages/products/DataCoffee";
@@ -69,7 +70,9 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<About />} />
-            <Route path="/resources" element={<Resources />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/resources" element={<Blog />} /> {/* Redirect old resources to blog */}
             <Route path="/contact" element={<Contact />} />
             <Route path="/use-cases" element={<UseCases />} />
             <Route path="/use-cases/finance" element={<Finance />} />
