@@ -13,6 +13,8 @@ import { z } from 'zod'
 import { toast } from 'sonner'
 import { CONTACT_INFO } from '@/config/contact'
 
+const MAKE_WEBHOOK_FALLBACK = 'https://hook.us2.make.com/esonrv674fe7exxmtxrjy9unqx8ifut5'
+
 const contactFormSchema = z.object({
   name: z.string().transform(v => v.trim()).pipe(z.string().min(1, 'Name is required')),
   email: z.string().transform(v => v.trim()).pipe(z.string().min(1, 'Email is required').email('Invalid email address').transform(s => s.toLowerCase())),
@@ -81,38 +83,68 @@ const Contact = () => {
           throw new Error(`Primary webhook failed: ${response.status}`)
         }
       } catch (primaryError) {
-        console.warn('Primary webhook failed, trying fallback:', primaryError)
+        console.warn('Primary webhook failed, trying Netlify fallback:', primaryError)
         
         // Fallback to Netlify function
-        response = await fetch('/.netlify/functions/contact-webhook', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(webhookPayload),
-          signal: controller.signal,
-        })
-        
-        console.log('Fallback webhook response status:', response.status)
-        
-        const contentType = response.headers.get('content-type')
-        if (response.ok && contentType?.includes('application/json')) {
-          result = await response.json()
+        try {
+          response = await fetch('/.netlify/functions/contact-webhook', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(webhookPayload),
+            signal: controller.signal,
+          })
+          
+          console.log('Fallback webhook response status:', response.status)
+          
+          const contentType = response.headers.get('content-type')
+          if (response.ok && contentType?.includes('application/json')) {
+            result = await response.json()
+          } else if (!response.ok) {
+            throw new Error(`Netlify fallback failed: ${response.status}`)
+          }
+        } catch (netlifyError) {
+          console.warn('Netlify fallback failed, trying direct Make webhook:', netlifyError)
+          
+          // Final fallback: direct to Make.com (used in preview where functions are unavailable)
+          try {
+            response = await fetch(MAKE_WEBHOOK_FALLBACK, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(webhookPayload),
+              signal: controller.signal,
+            })
+            console.log('Direct Make webhook status:', response.status)
+            // Make may not return JSON; treat any 2xx as success
+            if (response.ok) {
+              try {
+                const ct = response.headers.get('content-type')
+                if (ct?.includes('application/json')) {
+                  result = await response.json()
+                }
+              } catch {}
+            } else {
+              throw new Error(`Direct Make webhook failed: ${response.status}`)
+            }
+          } catch (makeError) {
+            console.error('All webhook attempts failed:', makeError)
+            throw makeError
+          }
         }
       }
       
       clearTimeout(timeoutId)
       
-      if (response.ok && result) {
-        console.log('Webhook sent successfully:', result)
-        const requestId = result.requestId ? ` (ID: ${result.requestId})` : ''
+      if (response.ok) {
+        const requestId = result?.requestId ? ` (ID: ${result.requestId})` : ''
         toast.success(`Thank you! We'll be in touch within 24 hours.${requestId}`)
         reset()
         formOpenedAtRef.current = Date.now()
       } else {
-        const errorData = result || { error: 'Unknown error' }
-        console.error('Webhook failed with status:', response.status, errorData)
-        const requestId = errorData.requestId ? ` (ID: ${errorData.requestId})` : ''
+        const requestId = result?.requestId ? ` (ID: ${result.requestId})` : ''
         toast.error(`Something went wrong. Please try again or contact us directly.${requestId}`)
       }
     } catch (error) {
