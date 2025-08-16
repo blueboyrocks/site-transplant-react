@@ -52,8 +52,8 @@ export default async function handler(req: Request): Promise<Response> {
   }
 
   try {
-    // Prefer env var, fallback to provided webhook URL
-    const makeWebhookUrl = (process.env.MAKE_WEBHOOK_URL && process.env.MAKE_WEBHOOK_URL.trim()) || FALLBACK_MAKE_WEBHOOK_URL
+    // Use the correct webhook URL directly to bypass incorrect env var
+    const makeWebhookUrl = 'https://hook.us2.make.com/esonrv674fe7exxmtxrjy9unqx8ifut5'
 
     // Parse the incoming request body
     const body = await req.json().catch(() => ({}))
