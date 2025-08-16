@@ -31,6 +31,7 @@ type ContactForm = z.infer<typeof contactFormSchema>
 const MAKE_WEBHOOK_URL = 'https://hook.us2.make.com/esonrv674fe7exxmtxrjy9unqx8ifut5'
 
 const Contact = () => {
+  console.log('Contact component is rendering') // Debug log
   const [isSubmitting, setIsSubmitting] = useState(false)
   const formOpenedAtRef = useRef<number>(Date.now())
   
@@ -130,6 +131,8 @@ const Contact = () => {
     }
   ]
 
+  console.log('About to return JSX') // Debug log
+  
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
