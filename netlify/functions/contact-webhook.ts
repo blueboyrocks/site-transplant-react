@@ -1,4 +1,5 @@
 import type { Handler } from '@netlify/functions'
+import { randomUUID } from 'crypto'
 
 const FALLBACK_MAKE_WEBHOOK_URL = 'https://hook.us2.make.com/esonrv674fe7exxmtxrjy9unqx8ifut5'
 
@@ -36,7 +37,7 @@ export const handler: Handler = async (event) => {
     const body = JSON.parse(event.body || '{}')
 
     // Add server-side metadata
-    const requestId = crypto.randomUUID()
+    const requestId = (typeof randomUUID === 'function' ? randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`)
     const webhookPayload = {
       ...body,
       serverTimestamp: new Date().toISOString(),
