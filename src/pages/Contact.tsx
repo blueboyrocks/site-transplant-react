@@ -27,72 +27,8 @@ const contactFormSchema = z.object({
 
 type ContactForm = z.infer<typeof contactFormSchema>
 
-// Small util to detect and cache the correct API base at runtime
-const fetchWithTimeout = async (input: RequestInfo | URL, init: RequestInit = {}, timeoutMs = 2500) => {
-  const controller = new AbortController()
-  const id = setTimeout(() => controller.abort(), timeoutMs)
-  try {
-    const res = await fetch(input, { ...init, signal: controller.signal })
-    return res
-  } finally {
-    clearTimeout(id)
-  }
-}
-
-const getApiBase = async (): Promise<string> => {
-  const CACHE_KEY = 'apiBase:v3'
-  const TTL_MS = 6 * 60 * 60 * 1000 // 6 hours
-
-  try {
-    const cachedRaw = sessionStorage.getItem(CACHE_KEY)
-    if (cachedRaw) {
-      const cached = JSON.parse(cachedRaw) as { base: string; ts: number }
-      if (cached?.base && Date.now() - cached.ts < TTL_MS) {
-        console.log(`🔄 Using cached API base: ${cached.base}`)
-        return cached.base
-      }
-    }
-  } catch {}
-
-  const candidates = ['/api', '/.netlify/functions']
-
-  // Try ping endpoint to confirm webhook is working
-  for (const base of candidates) {
-    try {
-      const res = await fetchWithTimeout(`${base}/contact-webhook?ping=1`, { method: 'GET' }, 2500)
-      if (res.ok) {
-        const data = await res.json()
-        if (data.ok) {
-          try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({ base, ts: Date.now() })) } catch {}
-          console.log(`✅ Found working API base: ${base}`)
-          return base
-        }
-      }
-    } catch {}
-  }
-
-  // Fallback to health endpoints
-  for (const base of candidates) {
-    try {
-      const res = await fetchWithTimeout(`${base}/health`, { method: 'GET' }, 2000)
-      if (res.ok) {
-        try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({ base, ts: Date.now() })) } catch {}
-        console.log(`⚠️ Using health check fallback: ${base}`)
-        return base
-      }
-    } catch {}
-  }
-
-  console.log(`🚨 No working endpoints found, defaulting to /api`)
-  return '/api'
-}
-
-const clearApiBaseCache = () => {
-  try {
-    sessionStorage.removeItem('apiBase:v3')
-    console.log('🔄 Cleared API base cache')
-  } catch {}
-}
+// Direct webhook URL - simplified approach for better reliability
+const MAKE_WEBHOOK_URL = 'https://hook.us2.make.com/esonrv674fe7exxmtxrjy9unqx8ifut5'
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -119,68 +55,50 @@ const Contact = () => {
       durationMs: formDurationMs,
     }
     
-    console.log('📡 Sending webhook payload:', webhookPayload)
+    console.log('📡 Sending webhook payload directly to Make.com:', webhookPayload)
     
     try {
-      const controller = new AbortController()
-      const timeoutId = setTimeout(() => controller.abort(), 15000)
-      
-      // Try primary endpoint: /api/contact-webhook
-      let response: Response
-      try {
-        console.log('📡 Trying primary: /api/contact-webhook')
-        response = await fetch('/api/contact-webhook', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(webhookPayload),
-          signal: controller.signal,
-        })
-        
-        console.log(`📡 Primary response: ${response.status}`)
-        
-        if (response.ok) {
-          const result = await response.json()
-          const requestId = result?.requestId ? ` (ID: ${result.requestId})` : ''
-          toast.success(`Thank you! We'll be in touch within 24 hours.${requestId}`)
-          reset()
-          formOpenedAtRef.current = Date.now()
-          clearTimeout(timeoutId)
-          setIsSubmitting(false)
-          return
-        } else if (response.status !== 404) {
-          throw new Error(`Primary webhook failed: ${response.status}`)
-        }
-      } catch (primaryError) {
-        console.warn('📡 Primary failed, trying Netlify fallback:', primaryError)
-      }
-      
-      // Fallback to Netlify: /.netlify/functions/contact-webhook
-      console.log('📡 Trying fallback: /.netlify/functions/contact-webhook')
-      response = await fetch('/.netlify/functions/contact-webhook', {
+      // Direct POST to Make.com webhook (primary method)
+      const response = await fetch(MAKE_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(webhookPayload),
-        signal: controller.signal,
       })
       
-      console.log(`📡 Fallback response: ${response.status}`)
-      clearTimeout(timeoutId)
+      console.log(`📡 Direct webhook response: ${response.status}`)
       
       if (response.ok) {
-        const result = await response.json()
-        const requestId = result?.requestId ? ` (ID: ${result.requestId})` : ''
-        toast.success(`Thank you! We'll be in touch within 24 hours.${requestId}`)
+        toast.success('Thank you! We\'ll be in touch within 24 hours.')
         reset()
         formOpenedAtRef.current = Date.now()
       } else {
-        throw new Error(`All webhook endpoints failed`)
+        throw new Error(`Webhook failed: ${response.status}`)
       }
       
     } catch (error) {
-      console.error('📡 Webhook error:', error)
-      if (error instanceof Error && error.name === 'AbortError') {
-        toast.error('Request timed out. Please try again or contact us directly.')
-      } else {
+      console.error('📡 Direct webhook error:', error)
+      
+      // Fallback: form-urlencoded to avoid CORS preflight issues
+      try {
+        console.log('📡 Trying form-urlencoded fallback')
+        const form = new URLSearchParams()
+        form.set('payload', JSON.stringify(webhookPayload))
+        
+        const fallbackResponse = await fetch(MAKE_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+          body: form.toString(),
+        })
+        
+        if (fallbackResponse.ok) {
+          toast.success('Thank you! We\'ll be in touch within 24 hours.')
+          reset()
+          formOpenedAtRef.current = Date.now()
+        } else {
+          throw new Error('Both webhook attempts failed')
+        }
+      } catch (fallbackError) {
+        console.error('📡 Fallback webhook error:', fallbackError)
         toast.error('Something went wrong. Please try again or contact us directly.')
       }
     }
