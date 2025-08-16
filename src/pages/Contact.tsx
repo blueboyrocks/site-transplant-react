@@ -40,7 +40,7 @@ const fetchWithTimeout = async (input: RequestInfo | URL, init: RequestInit = {}
 }
 
 const getApiBase = async (): Promise<string> => {
-  const CACHE_KEY = 'apiBase:v2'
+  const CACHE_KEY = 'apiBase:v3'
   const TTL_MS = 6 * 60 * 60 * 1000 // 6 hours
 
   try {
@@ -48,6 +48,7 @@ const getApiBase = async (): Promise<string> => {
     if (cachedRaw) {
       const cached = JSON.parse(cachedRaw) as { base: string; ts: number }
       if (cached?.base && Date.now() - cached.ts < TTL_MS) {
+        console.log(`🔄 Using cached API base: ${cached.base}`)
         return cached.base
       }
     }
@@ -55,29 +56,42 @@ const getApiBase = async (): Promise<string> => {
 
   const candidates = ['/api', '/.netlify/functions']
 
-  // Prefer probing the actual endpoint with OPTIONS so we know it exists
+  // Try ping endpoint to confirm webhook is working
   for (const base of candidates) {
     try {
-      const res = await fetchWithTimeout(`${base}/contact-webhook`, { method: 'OPTIONS' }, 2500)
+      const res = await fetchWithTimeout(`${base}/contact-webhook?ping=1`, { method: 'GET' }, 2500)
       if (res.ok) {
-        try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({ base, ts: Date.now() })) } catch {}
-        return base
+        const data = await res.json()
+        if (data.ok) {
+          try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({ base, ts: Date.now() })) } catch {}
+          console.log(`✅ Found working API base: ${base}`)
+          return base
+        }
       }
     } catch {}
   }
 
-  // Fallback to health check in case OPTIONS is blocked by some proxy
+  // Fallback to health endpoints
   for (const base of candidates) {
     try {
       const res = await fetchWithTimeout(`${base}/health`, { method: 'GET' }, 2000)
       if (res.ok) {
         try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({ base, ts: Date.now() })) } catch {}
+        console.log(`⚠️ Using health check fallback: ${base}`)
         return base
       }
     } catch {}
   }
 
+  console.log(`🚨 No working endpoints found, defaulting to /api`)
   return '/api'
+}
+
+const clearApiBaseCache = () => {
+  try {
+    sessionStorage.removeItem('apiBase:v3')
+    console.log('🔄 Cleared API base cache')
+  } catch {}
 }
 
 const Contact = () => {
@@ -129,10 +143,16 @@ const Contact = () => {
           signal: controller.signal,
         })
         
+        console.log(`📡 Contact form response: ${response.status} from ${apiBase}`)
+        
         const contentType = response.headers.get('content-type')
         if (response.ok && contentType?.includes('application/json')) {
           result = await response.json()
         } else if (!response.ok) {
+          // Clear cache on 404 to force re-detection next time
+          if (response.status === 404) {
+            clearApiBaseCache()
+          }
           throw new Error(`Primary webhook failed: ${response.status}`)
         }
       } catch (primaryError) {
@@ -146,9 +166,16 @@ const Contact = () => {
           signal: controller.signal,
         })
         
+        console.log(`📡 Secondary contact form response: ${response.status} from ${secondaryBase}`)
+        
         const contentType2 = response.headers.get('content-type')
         if (response.ok && contentType2?.includes('application/json')) {
           result = await response.json()
+          // Cache the working secondary base for next time
+          try { 
+            sessionStorage.setItem('apiBase:v3', JSON.stringify({ base: secondaryBase, ts: Date.now() }))
+            console.log(`✅ Updated cache to working base: ${secondaryBase}`)
+          } catch {}
         } else if (!response.ok) {
           throw new Error(`Secondary webhook failed: ${response.status}`)
         }

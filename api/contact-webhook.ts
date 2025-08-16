@@ -2,7 +2,7 @@ export const config = { runtime: 'edge' }
 
 const corsHeaders: Record<string, string> = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type',
 }
 
@@ -20,6 +20,26 @@ export default async function handler(req: Request): Promise<Response> {
     return new Response(null, {
       status: 200,
       headers: corsHeaders,
+    })
+  }
+
+  // Handle health ping
+  if (req.method === 'GET') {
+    const url = new URL(req.url)
+    const ping = url.searchParams.get('ping')
+    if (ping) {
+      return new Response(
+        JSON.stringify({
+          ok: true,
+          service: 'vercel-edge-contact-webhook',
+          timestamp: new Date().toISOString(),
+        }),
+        { status: 200, headers: jsonCorsHeaders }
+      )
+    }
+    return new Response(JSON.stringify({ error: 'Not found' }), {
+      status: 404,
+      headers: jsonCorsHeaders,
     })
   }
 

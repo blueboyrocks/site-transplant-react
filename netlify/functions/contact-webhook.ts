@@ -5,7 +5,7 @@ const FALLBACK_MAKE_WEBHOOK_URL = 'https://hook.us2.make.com/esonrv674fe7exxmtxr
 
 const commonHeaders: Record<string, string> = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type',
 }
 
@@ -18,6 +18,33 @@ export const handler: Handler = async (event) => {
         ...commonHeaders,
       },
       body: '',
+    }
+  }
+
+  // Handle health ping
+  if (event.httpMethod === 'GET') {
+    const ping = event.queryStringParameters?.ping
+    if (ping) {
+      return {
+        statusCode: 200,
+        headers: {
+          ...commonHeaders,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ok: true,
+          service: 'netlify-functions-contact-webhook',
+          timestamp: new Date().toISOString(),
+        }),
+      }
+    }
+    return {
+      statusCode: 404,
+      headers: {
+        ...commonHeaders,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ error: 'Not found' }),
     }
   }
 
