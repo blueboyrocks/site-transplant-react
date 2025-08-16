@@ -1,7 +1,7 @@
 import type { Handler } from '@netlify/functions'
 import { randomUUID } from 'crypto'
 
-const FALLBACK_MAKE_WEBHOOK_URL = 'https://hook.us2.make.com/esonrv674fe7exxmtxrjy9unqx8ifut5'
+const FALLBACK_MAKE_WEBHOOK_URL = 'https://hook.us2.make.com/hogciu8e02jbujm6hgu9wqeysfyb6k4y'
 
 const commonHeaders: Record<string, string> = {
   'Access-Control-Allow-Origin': '*',
