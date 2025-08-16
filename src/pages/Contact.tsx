@@ -119,88 +119,72 @@ const Contact = () => {
       durationMs: formDurationMs,
     }
     
-    console.log('Sending webhook payload:', webhookPayload)
+    console.log('📡 Sending webhook payload:', webhookPayload)
     
     try {
-      // Create AbortController for timeout
       const controller = new AbortController()
-      const timeoutId = setTimeout(() => controller.abort(), 15000) // 15 second timeout
+      const timeoutId = setTimeout(() => controller.abort(), 15000)
       
-      let response: Response | undefined
-      let result: any = null
-      
-      const apiBase = await getApiBase()
-      const primaryUrl = `${apiBase}/contact-webhook`
-      const secondaryBase = apiBase === '/api' ? '/.netlify/functions' : '/api'
-      const secondaryUrl = `${secondaryBase}/contact-webhook`
-      
-      // Try primary detected endpoint first
+      // Try primary endpoint: /api/contact-webhook
+      let response: Response
       try {
-        response = await fetch(primaryUrl, {
+        console.log('📡 Trying primary: /api/contact-webhook')
+        response = await fetch('/api/contact-webhook', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(webhookPayload),
           signal: controller.signal,
         })
         
-        console.log(`📡 Contact form response: ${response.status} from ${apiBase}`)
+        console.log(`📡 Primary response: ${response.status}`)
         
-        const contentType = response.headers.get('content-type')
-        if (response.ok && contentType?.includes('application/json')) {
-          result = await response.json()
-        } else if (!response.ok) {
-          // Clear cache on 404 to force re-detection next time
-          if (response.status === 404) {
-            clearApiBaseCache()
-          }
+        if (response.ok) {
+          const result = await response.json()
+          const requestId = result?.requestId ? ` (ID: ${result.requestId})` : ''
+          toast.success(`Thank you! We'll be in touch within 24 hours.${requestId}`)
+          reset()
+          formOpenedAtRef.current = Date.now()
+          clearTimeout(timeoutId)
+          setIsSubmitting(false)
+          return
+        } else if (response.status !== 404) {
           throw new Error(`Primary webhook failed: ${response.status}`)
         }
       } catch (primaryError) {
-        console.warn('Primary webhook failed, trying secondary base:', primaryError)
-        
-        // Fallback to the alternate base
-        response = await fetch(secondaryUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(webhookPayload),
-          signal: controller.signal,
-        })
-        
-        console.log(`📡 Secondary contact form response: ${response.status} from ${secondaryBase}`)
-        
-        const contentType2 = response.headers.get('content-type')
-        if (response.ok && contentType2?.includes('application/json')) {
-          result = await response.json()
-          // Cache the working secondary base for next time
-          try { 
-            sessionStorage.setItem('apiBase:v3', JSON.stringify({ base: secondaryBase, ts: Date.now() }))
-            console.log(`✅ Updated cache to working base: ${secondaryBase}`)
-          } catch {}
-        } else if (!response.ok) {
-          throw new Error(`Secondary webhook failed: ${response.status}`)
-        }
+        console.warn('📡 Primary failed, trying Netlify fallback:', primaryError)
       }
-
+      
+      // Fallback to Netlify: /.netlify/functions/contact-webhook
+      console.log('📡 Trying fallback: /.netlify/functions/contact-webhook')
+      response = await fetch('/.netlify/functions/contact-webhook', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(webhookPayload),
+        signal: controller.signal,
+      })
+      
+      console.log(`📡 Fallback response: ${response.status}`)
       clearTimeout(timeoutId)
       
       if (response.ok) {
+        const result = await response.json()
         const requestId = result?.requestId ? ` (ID: ${result.requestId})` : ''
         toast.success(`Thank you! We'll be in touch within 24 hours.${requestId}`)
         reset()
         formOpenedAtRef.current = Date.now()
       } else {
-        const requestId = result?.requestId ? ` (ID: ${result.requestId})` : ''
-        toast.error(`Something went wrong. Please try again or contact us directly.${requestId}`)
+        throw new Error(`All webhook endpoints failed`)
       }
+      
     } catch (error) {
+      console.error('📡 Webhook error:', error)
       if (error instanceof Error && error.name === 'AbortError') {
-        console.error('Webhook request timed out')
         toast.error('Request timed out. Please try again or contact us directly.')
       } else {
-        console.error('Webhook error:', error)
         toast.error('Something went wrong. Please try again or contact us directly.')
       }
     }
+    
     setIsSubmitting(false)
   }
 
